@@ -22,9 +22,6 @@ async function users(parent, args, ctx, info) {
     return await ctx.db.query.users({ where }, info)
 }
 
-
-
-
 module.exports = {
   users,
 }

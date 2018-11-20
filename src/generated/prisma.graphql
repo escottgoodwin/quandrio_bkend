@@ -1,0 +1,4583 @@
+# source: https://quandria-86dfa876be.herokuapp.com/quandria/dev
+# timestamp: Mon Nov 19 2018 18:26:51 GMT-0800 (Pacific Standard Time)
+
+type AggregateChallenge {
+  count: Int!
+}
+
+type AggregateCourse {
+  count: Int!
+}
+
+type AggregateInstitution {
+  count: Int!
+}
+
+type AggregatePanel {
+  count: Int!
+}
+
+type AggregateQuestion {
+  count: Int!
+}
+
+type AggregateQuestionChoice {
+  count: Int!
+}
+
+type AggregateSequence {
+  count: Int!
+}
+
+type AggregateTest {
+  count: Int!
+}
+
+type AggregateUser {
+  count: Int!
+}
+
+type BatchPayload {
+  """The number of nodes that have been affected by the Batch operation."""
+  count: Long!
+}
+
+type Challenge implements Node {
+  id: ID!
+  challenge: String
+  challenger: User!
+  challengeTime: DateTime
+  question: Question!
+}
+
+"""A connection to a list of items."""
+type ChallengeConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ChallengeEdge]!
+  aggregate: AggregateChallenge!
+}
+
+input ChallengeCreateInput {
+  challenge: String
+  challengeTime: DateTime
+  challenger: UserCreateOneWithoutChallengersInput!
+  question: QuestionCreateOneWithoutChallengesInput!
+}
+
+input ChallengeCreateManyWithoutChallengerInput {
+  create: [ChallengeCreateWithoutChallengerInput!]
+  connect: [ChallengeWhereUniqueInput!]
+}
+
+input ChallengeCreateManyWithoutQuestionInput {
+  create: [ChallengeCreateWithoutQuestionInput!]
+  connect: [ChallengeWhereUniqueInput!]
+}
+
+input ChallengeCreateWithoutChallengerInput {
+  challenge: String
+  challengeTime: DateTime
+  question: QuestionCreateOneWithoutChallengesInput!
+}
+
+input ChallengeCreateWithoutQuestionInput {
+  challenge: String
+  challengeTime: DateTime
+  challenger: UserCreateOneWithoutChallengersInput!
+}
+
+"""An edge in a connection."""
+type ChallengeEdge {
+  """The item at the end of the edge."""
+  node: Challenge!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ChallengeOrderByInput {
+  id_ASC
+  id_DESC
+  challenge_ASC
+  challenge_DESC
+  challengeTime_ASC
+  challengeTime_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ChallengePreviousValues {
+  id: ID!
+  challenge: String
+  challengeTime: DateTime
+}
+
+type ChallengeSubscriptionPayload {
+  mutation: MutationType!
+  node: Challenge
+  updatedFields: [String!]
+  previousValues: ChallengePreviousValues
+}
+
+input ChallengeSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ChallengeSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ChallengeSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ChallengeSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ChallengeWhereInput
+}
+
+input ChallengeUpdateInput {
+  challenge: String
+  challengeTime: DateTime
+  challenger: UserUpdateOneRequiredWithoutChallengersInput
+  question: QuestionUpdateOneRequiredWithoutChallengesInput
+}
+
+input ChallengeUpdateManyMutationInput {
+  challenge: String
+  challengeTime: DateTime
+}
+
+input ChallengeUpdateManyWithoutChallengerInput {
+  create: [ChallengeCreateWithoutChallengerInput!]
+  connect: [ChallengeWhereUniqueInput!]
+  disconnect: [ChallengeWhereUniqueInput!]
+  delete: [ChallengeWhereUniqueInput!]
+  update: [ChallengeUpdateWithWhereUniqueWithoutChallengerInput!]
+  upsert: [ChallengeUpsertWithWhereUniqueWithoutChallengerInput!]
+}
+
+input ChallengeUpdateManyWithoutQuestionInput {
+  create: [ChallengeCreateWithoutQuestionInput!]
+  connect: [ChallengeWhereUniqueInput!]
+  disconnect: [ChallengeWhereUniqueInput!]
+  delete: [ChallengeWhereUniqueInput!]
+  update: [ChallengeUpdateWithWhereUniqueWithoutQuestionInput!]
+  upsert: [ChallengeUpsertWithWhereUniqueWithoutQuestionInput!]
+}
+
+input ChallengeUpdateWithoutChallengerDataInput {
+  challenge: String
+  challengeTime: DateTime
+  question: QuestionUpdateOneRequiredWithoutChallengesInput
+}
+
+input ChallengeUpdateWithoutQuestionDataInput {
+  challenge: String
+  challengeTime: DateTime
+  challenger: UserUpdateOneRequiredWithoutChallengersInput
+}
+
+input ChallengeUpdateWithWhereUniqueWithoutChallengerInput {
+  where: ChallengeWhereUniqueInput!
+  data: ChallengeUpdateWithoutChallengerDataInput!
+}
+
+input ChallengeUpdateWithWhereUniqueWithoutQuestionInput {
+  where: ChallengeWhereUniqueInput!
+  data: ChallengeUpdateWithoutQuestionDataInput!
+}
+
+input ChallengeUpsertWithWhereUniqueWithoutChallengerInput {
+  where: ChallengeWhereUniqueInput!
+  update: ChallengeUpdateWithoutChallengerDataInput!
+  create: ChallengeCreateWithoutChallengerInput!
+}
+
+input ChallengeUpsertWithWhereUniqueWithoutQuestionInput {
+  where: ChallengeWhereUniqueInput!
+  update: ChallengeUpdateWithoutQuestionDataInput!
+  create: ChallengeCreateWithoutQuestionInput!
+}
+
+input ChallengeWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ChallengeWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ChallengeWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ChallengeWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  challenge: String
+
+  """All values that are not equal to given value."""
+  challenge_not: String
+
+  """All values that are contained in given list."""
+  challenge_in: [String!]
+
+  """All values that are not contained in given list."""
+  challenge_not_in: [String!]
+
+  """All values less than the given value."""
+  challenge_lt: String
+
+  """All values less than or equal the given value."""
+  challenge_lte: String
+
+  """All values greater than the given value."""
+  challenge_gt: String
+
+  """All values greater than or equal the given value."""
+  challenge_gte: String
+
+  """All values containing the given string."""
+  challenge_contains: String
+
+  """All values not containing the given string."""
+  challenge_not_contains: String
+
+  """All values starting with the given string."""
+  challenge_starts_with: String
+
+  """All values not starting with the given string."""
+  challenge_not_starts_with: String
+
+  """All values ending with the given string."""
+  challenge_ends_with: String
+
+  """All values not ending with the given string."""
+  challenge_not_ends_with: String
+  challengeTime: DateTime
+
+  """All values that are not equal to given value."""
+  challengeTime_not: DateTime
+
+  """All values that are contained in given list."""
+  challengeTime_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  challengeTime_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  challengeTime_lt: DateTime
+
+  """All values less than or equal the given value."""
+  challengeTime_lte: DateTime
+
+  """All values greater than the given value."""
+  challengeTime_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  challengeTime_gte: DateTime
+  challenger: UserWhereInput
+  question: QuestionWhereInput
+}
+
+input ChallengeWhereUniqueInput {
+  id: ID
+}
+
+type Course implements Node {
+  id: ID!
+  name: String!
+  courseNumber: String
+  time: String
+  institution: Institution!
+  teacher(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  students(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  tests(where: TestWhereInput, orderBy: TestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Test!]
+}
+
+"""A connection to a list of items."""
+type CourseConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CourseEdge]!
+  aggregate: AggregateCourse!
+}
+
+input CourseCreateInput {
+  name: String!
+  courseNumber: String
+  time: String
+  institution: InstitutionCreateOneWithoutCoursesInput!
+  teacher: UserCreateManyWithoutTeacherCoursesInput
+  students: UserCreateManyWithoutStudentCoursesInput
+  tests: TestCreateManyWithoutCourseInput
+}
+
+input CourseCreateManyWithoutInstitutionInput {
+  create: [CourseCreateWithoutInstitutionInput!]
+  connect: [CourseWhereUniqueInput!]
+}
+
+input CourseCreateManyWithoutStudentsInput {
+  create: [CourseCreateWithoutStudentsInput!]
+  connect: [CourseWhereUniqueInput!]
+}
+
+input CourseCreateManyWithoutTeacherInput {
+  create: [CourseCreateWithoutTeacherInput!]
+  connect: [CourseWhereUniqueInput!]
+}
+
+input CourseCreateOneWithoutTestsInput {
+  create: CourseCreateWithoutTestsInput
+  connect: CourseWhereUniqueInput
+}
+
+input CourseCreateWithoutInstitutionInput {
+  name: String!
+  courseNumber: String
+  time: String
+  teacher: UserCreateManyWithoutTeacherCoursesInput
+  students: UserCreateManyWithoutStudentCoursesInput
+  tests: TestCreateManyWithoutCourseInput
+}
+
+input CourseCreateWithoutStudentsInput {
+  name: String!
+  courseNumber: String
+  time: String
+  institution: InstitutionCreateOneWithoutCoursesInput!
+  teacher: UserCreateManyWithoutTeacherCoursesInput
+  tests: TestCreateManyWithoutCourseInput
+}
+
+input CourseCreateWithoutTeacherInput {
+  name: String!
+  courseNumber: String
+  time: String
+  institution: InstitutionCreateOneWithoutCoursesInput!
+  students: UserCreateManyWithoutStudentCoursesInput
+  tests: TestCreateManyWithoutCourseInput
+}
+
+input CourseCreateWithoutTestsInput {
+  name: String!
+  courseNumber: String
+  time: String
+  institution: InstitutionCreateOneWithoutCoursesInput!
+  teacher: UserCreateManyWithoutTeacherCoursesInput
+  students: UserCreateManyWithoutStudentCoursesInput
+}
+
+"""An edge in a connection."""
+type CourseEdge {
+  """The item at the end of the edge."""
+  node: Course!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum CourseOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  courseNumber_ASC
+  courseNumber_DESC
+  time_ASC
+  time_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type CoursePreviousValues {
+  id: ID!
+  name: String!
+  courseNumber: String
+  time: String
+}
+
+type CourseSubscriptionPayload {
+  mutation: MutationType!
+  node: Course
+  updatedFields: [String!]
+  previousValues: CoursePreviousValues
+}
+
+input CourseSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CourseSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CourseSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CourseSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CourseWhereInput
+}
+
+input CourseUpdateInput {
+  name: String
+  courseNumber: String
+  time: String
+  institution: InstitutionUpdateOneRequiredWithoutCoursesInput
+  teacher: UserUpdateManyWithoutTeacherCoursesInput
+  students: UserUpdateManyWithoutStudentCoursesInput
+  tests: TestUpdateManyWithoutCourseInput
+}
+
+input CourseUpdateManyMutationInput {
+  name: String
+  courseNumber: String
+  time: String
+}
+
+input CourseUpdateManyWithoutInstitutionInput {
+  create: [CourseCreateWithoutInstitutionInput!]
+  connect: [CourseWhereUniqueInput!]
+  disconnect: [CourseWhereUniqueInput!]
+  delete: [CourseWhereUniqueInput!]
+  update: [CourseUpdateWithWhereUniqueWithoutInstitutionInput!]
+  upsert: [CourseUpsertWithWhereUniqueWithoutInstitutionInput!]
+}
+
+input CourseUpdateManyWithoutStudentsInput {
+  create: [CourseCreateWithoutStudentsInput!]
+  connect: [CourseWhereUniqueInput!]
+  disconnect: [CourseWhereUniqueInput!]
+  delete: [CourseWhereUniqueInput!]
+  update: [CourseUpdateWithWhereUniqueWithoutStudentsInput!]
+  upsert: [CourseUpsertWithWhereUniqueWithoutStudentsInput!]
+}
+
+input CourseUpdateManyWithoutTeacherInput {
+  create: [CourseCreateWithoutTeacherInput!]
+  connect: [CourseWhereUniqueInput!]
+  disconnect: [CourseWhereUniqueInput!]
+  delete: [CourseWhereUniqueInput!]
+  update: [CourseUpdateWithWhereUniqueWithoutTeacherInput!]
+  upsert: [CourseUpsertWithWhereUniqueWithoutTeacherInput!]
+}
+
+input CourseUpdateOneRequiredWithoutTestsInput {
+  create: CourseCreateWithoutTestsInput
+  connect: CourseWhereUniqueInput
+  update: CourseUpdateWithoutTestsDataInput
+  upsert: CourseUpsertWithoutTestsInput
+}
+
+input CourseUpdateWithoutInstitutionDataInput {
+  name: String
+  courseNumber: String
+  time: String
+  teacher: UserUpdateManyWithoutTeacherCoursesInput
+  students: UserUpdateManyWithoutStudentCoursesInput
+  tests: TestUpdateManyWithoutCourseInput
+}
+
+input CourseUpdateWithoutStudentsDataInput {
+  name: String
+  courseNumber: String
+  time: String
+  institution: InstitutionUpdateOneRequiredWithoutCoursesInput
+  teacher: UserUpdateManyWithoutTeacherCoursesInput
+  tests: TestUpdateManyWithoutCourseInput
+}
+
+input CourseUpdateWithoutTeacherDataInput {
+  name: String
+  courseNumber: String
+  time: String
+  institution: InstitutionUpdateOneRequiredWithoutCoursesInput
+  students: UserUpdateManyWithoutStudentCoursesInput
+  tests: TestUpdateManyWithoutCourseInput
+}
+
+input CourseUpdateWithoutTestsDataInput {
+  name: String
+  courseNumber: String
+  time: String
+  institution: InstitutionUpdateOneRequiredWithoutCoursesInput
+  teacher: UserUpdateManyWithoutTeacherCoursesInput
+  students: UserUpdateManyWithoutStudentCoursesInput
+}
+
+input CourseUpdateWithWhereUniqueWithoutInstitutionInput {
+  where: CourseWhereUniqueInput!
+  data: CourseUpdateWithoutInstitutionDataInput!
+}
+
+input CourseUpdateWithWhereUniqueWithoutStudentsInput {
+  where: CourseWhereUniqueInput!
+  data: CourseUpdateWithoutStudentsDataInput!
+}
+
+input CourseUpdateWithWhereUniqueWithoutTeacherInput {
+  where: CourseWhereUniqueInput!
+  data: CourseUpdateWithoutTeacherDataInput!
+}
+
+input CourseUpsertWithoutTestsInput {
+  update: CourseUpdateWithoutTestsDataInput!
+  create: CourseCreateWithoutTestsInput!
+}
+
+input CourseUpsertWithWhereUniqueWithoutInstitutionInput {
+  where: CourseWhereUniqueInput!
+  update: CourseUpdateWithoutInstitutionDataInput!
+  create: CourseCreateWithoutInstitutionInput!
+}
+
+input CourseUpsertWithWhereUniqueWithoutStudentsInput {
+  where: CourseWhereUniqueInput!
+  update: CourseUpdateWithoutStudentsDataInput!
+  create: CourseCreateWithoutStudentsInput!
+}
+
+input CourseUpsertWithWhereUniqueWithoutTeacherInput {
+  where: CourseWhereUniqueInput!
+  update: CourseUpdateWithoutTeacherDataInput!
+  create: CourseCreateWithoutTeacherInput!
+}
+
+input CourseWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CourseWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CourseWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CourseWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  courseNumber: String
+
+  """All values that are not equal to given value."""
+  courseNumber_not: String
+
+  """All values that are contained in given list."""
+  courseNumber_in: [String!]
+
+  """All values that are not contained in given list."""
+  courseNumber_not_in: [String!]
+
+  """All values less than the given value."""
+  courseNumber_lt: String
+
+  """All values less than or equal the given value."""
+  courseNumber_lte: String
+
+  """All values greater than the given value."""
+  courseNumber_gt: String
+
+  """All values greater than or equal the given value."""
+  courseNumber_gte: String
+
+  """All values containing the given string."""
+  courseNumber_contains: String
+
+  """All values not containing the given string."""
+  courseNumber_not_contains: String
+
+  """All values starting with the given string."""
+  courseNumber_starts_with: String
+
+  """All values not starting with the given string."""
+  courseNumber_not_starts_with: String
+
+  """All values ending with the given string."""
+  courseNumber_ends_with: String
+
+  """All values not ending with the given string."""
+  courseNumber_not_ends_with: String
+  time: String
+
+  """All values that are not equal to given value."""
+  time_not: String
+
+  """All values that are contained in given list."""
+  time_in: [String!]
+
+  """All values that are not contained in given list."""
+  time_not_in: [String!]
+
+  """All values less than the given value."""
+  time_lt: String
+
+  """All values less than or equal the given value."""
+  time_lte: String
+
+  """All values greater than the given value."""
+  time_gt: String
+
+  """All values greater than or equal the given value."""
+  time_gte: String
+
+  """All values containing the given string."""
+  time_contains: String
+
+  """All values not containing the given string."""
+  time_not_contains: String
+
+  """All values starting with the given string."""
+  time_starts_with: String
+
+  """All values not starting with the given string."""
+  time_not_starts_with: String
+
+  """All values ending with the given string."""
+  time_ends_with: String
+
+  """All values not ending with the given string."""
+  time_not_ends_with: String
+  institution: InstitutionWhereInput
+  teacher_every: UserWhereInput
+  teacher_some: UserWhereInput
+  teacher_none: UserWhereInput
+  students_every: UserWhereInput
+  students_some: UserWhereInput
+  students_none: UserWhereInput
+  tests_every: TestWhereInput
+  tests_some: TestWhereInput
+  tests_none: TestWhereInput
+}
+
+input CourseWhereUniqueInput {
+  id: ID
+}
+
+scalar DateTime
+
+type Institution implements Node {
+  id: ID!
+  name: String!
+  type: String
+  contacts(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  teachers(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  students(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  courses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course!]
+}
+
+"""A connection to a list of items."""
+type InstitutionConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [InstitutionEdge]!
+  aggregate: AggregateInstitution!
+}
+
+input InstitutionCreateInput {
+  name: String!
+  type: String
+  contacts: UserCreateManyWithoutInstitutionContactInput
+  teachers: UserCreateManyWithoutTeacherInstitutionInput
+  students: UserCreateManyWithoutStudentInstitutionInput
+  courses: CourseCreateManyWithoutInstitutionInput
+}
+
+input InstitutionCreateManyWithoutContactsInput {
+  create: [InstitutionCreateWithoutContactsInput!]
+  connect: [InstitutionWhereUniqueInput!]
+}
+
+input InstitutionCreateManyWithoutStudentsInput {
+  create: [InstitutionCreateWithoutStudentsInput!]
+  connect: [InstitutionWhereUniqueInput!]
+}
+
+input InstitutionCreateManyWithoutTeachersInput {
+  create: [InstitutionCreateWithoutTeachersInput!]
+  connect: [InstitutionWhereUniqueInput!]
+}
+
+input InstitutionCreateOneWithoutCoursesInput {
+  create: InstitutionCreateWithoutCoursesInput
+  connect: InstitutionWhereUniqueInput
+}
+
+input InstitutionCreateWithoutContactsInput {
+  name: String!
+  type: String
+  teachers: UserCreateManyWithoutTeacherInstitutionInput
+  students: UserCreateManyWithoutStudentInstitutionInput
+  courses: CourseCreateManyWithoutInstitutionInput
+}
+
+input InstitutionCreateWithoutCoursesInput {
+  name: String!
+  type: String
+  contacts: UserCreateManyWithoutInstitutionContactInput
+  teachers: UserCreateManyWithoutTeacherInstitutionInput
+  students: UserCreateManyWithoutStudentInstitutionInput
+}
+
+input InstitutionCreateWithoutStudentsInput {
+  name: String!
+  type: String
+  contacts: UserCreateManyWithoutInstitutionContactInput
+  teachers: UserCreateManyWithoutTeacherInstitutionInput
+  courses: CourseCreateManyWithoutInstitutionInput
+}
+
+input InstitutionCreateWithoutTeachersInput {
+  name: String!
+  type: String
+  contacts: UserCreateManyWithoutInstitutionContactInput
+  students: UserCreateManyWithoutStudentInstitutionInput
+  courses: CourseCreateManyWithoutInstitutionInput
+}
+
+"""An edge in a connection."""
+type InstitutionEdge {
+  """The item at the end of the edge."""
+  node: Institution!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum InstitutionOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  type_ASC
+  type_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type InstitutionPreviousValues {
+  id: ID!
+  name: String!
+  type: String
+}
+
+type InstitutionSubscriptionPayload {
+  mutation: MutationType!
+  node: Institution
+  updatedFields: [String!]
+  previousValues: InstitutionPreviousValues
+}
+
+input InstitutionSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [InstitutionSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [InstitutionSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [InstitutionSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: InstitutionWhereInput
+}
+
+input InstitutionUpdateInput {
+  name: String
+  type: String
+  contacts: UserUpdateManyWithoutInstitutionContactInput
+  teachers: UserUpdateManyWithoutTeacherInstitutionInput
+  students: UserUpdateManyWithoutStudentInstitutionInput
+  courses: CourseUpdateManyWithoutInstitutionInput
+}
+
+input InstitutionUpdateManyMutationInput {
+  name: String
+  type: String
+}
+
+input InstitutionUpdateManyWithoutContactsInput {
+  create: [InstitutionCreateWithoutContactsInput!]
+  connect: [InstitutionWhereUniqueInput!]
+  disconnect: [InstitutionWhereUniqueInput!]
+  delete: [InstitutionWhereUniqueInput!]
+  update: [InstitutionUpdateWithWhereUniqueWithoutContactsInput!]
+  upsert: [InstitutionUpsertWithWhereUniqueWithoutContactsInput!]
+}
+
+input InstitutionUpdateManyWithoutStudentsInput {
+  create: [InstitutionCreateWithoutStudentsInput!]
+  connect: [InstitutionWhereUniqueInput!]
+  disconnect: [InstitutionWhereUniqueInput!]
+  delete: [InstitutionWhereUniqueInput!]
+  update: [InstitutionUpdateWithWhereUniqueWithoutStudentsInput!]
+  upsert: [InstitutionUpsertWithWhereUniqueWithoutStudentsInput!]
+}
+
+input InstitutionUpdateManyWithoutTeachersInput {
+  create: [InstitutionCreateWithoutTeachersInput!]
+  connect: [InstitutionWhereUniqueInput!]
+  disconnect: [InstitutionWhereUniqueInput!]
+  delete: [InstitutionWhereUniqueInput!]
+  update: [InstitutionUpdateWithWhereUniqueWithoutTeachersInput!]
+  upsert: [InstitutionUpsertWithWhereUniqueWithoutTeachersInput!]
+}
+
+input InstitutionUpdateOneRequiredWithoutCoursesInput {
+  create: InstitutionCreateWithoutCoursesInput
+  connect: InstitutionWhereUniqueInput
+  update: InstitutionUpdateWithoutCoursesDataInput
+  upsert: InstitutionUpsertWithoutCoursesInput
+}
+
+input InstitutionUpdateWithoutContactsDataInput {
+  name: String
+  type: String
+  teachers: UserUpdateManyWithoutTeacherInstitutionInput
+  students: UserUpdateManyWithoutStudentInstitutionInput
+  courses: CourseUpdateManyWithoutInstitutionInput
+}
+
+input InstitutionUpdateWithoutCoursesDataInput {
+  name: String
+  type: String
+  contacts: UserUpdateManyWithoutInstitutionContactInput
+  teachers: UserUpdateManyWithoutTeacherInstitutionInput
+  students: UserUpdateManyWithoutStudentInstitutionInput
+}
+
+input InstitutionUpdateWithoutStudentsDataInput {
+  name: String
+  type: String
+  contacts: UserUpdateManyWithoutInstitutionContactInput
+  teachers: UserUpdateManyWithoutTeacherInstitutionInput
+  courses: CourseUpdateManyWithoutInstitutionInput
+}
+
+input InstitutionUpdateWithoutTeachersDataInput {
+  name: String
+  type: String
+  contacts: UserUpdateManyWithoutInstitutionContactInput
+  students: UserUpdateManyWithoutStudentInstitutionInput
+  courses: CourseUpdateManyWithoutInstitutionInput
+}
+
+input InstitutionUpdateWithWhereUniqueWithoutContactsInput {
+  where: InstitutionWhereUniqueInput!
+  data: InstitutionUpdateWithoutContactsDataInput!
+}
+
+input InstitutionUpdateWithWhereUniqueWithoutStudentsInput {
+  where: InstitutionWhereUniqueInput!
+  data: InstitutionUpdateWithoutStudentsDataInput!
+}
+
+input InstitutionUpdateWithWhereUniqueWithoutTeachersInput {
+  where: InstitutionWhereUniqueInput!
+  data: InstitutionUpdateWithoutTeachersDataInput!
+}
+
+input InstitutionUpsertWithoutCoursesInput {
+  update: InstitutionUpdateWithoutCoursesDataInput!
+  create: InstitutionCreateWithoutCoursesInput!
+}
+
+input InstitutionUpsertWithWhereUniqueWithoutContactsInput {
+  where: InstitutionWhereUniqueInput!
+  update: InstitutionUpdateWithoutContactsDataInput!
+  create: InstitutionCreateWithoutContactsInput!
+}
+
+input InstitutionUpsertWithWhereUniqueWithoutStudentsInput {
+  where: InstitutionWhereUniqueInput!
+  update: InstitutionUpdateWithoutStudentsDataInput!
+  create: InstitutionCreateWithoutStudentsInput!
+}
+
+input InstitutionUpsertWithWhereUniqueWithoutTeachersInput {
+  where: InstitutionWhereUniqueInput!
+  update: InstitutionUpdateWithoutTeachersDataInput!
+  create: InstitutionCreateWithoutTeachersInput!
+}
+
+input InstitutionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [InstitutionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [InstitutionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [InstitutionWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  type: String
+
+  """All values that are not equal to given value."""
+  type_not: String
+
+  """All values that are contained in given list."""
+  type_in: [String!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [String!]
+
+  """All values less than the given value."""
+  type_lt: String
+
+  """All values less than or equal the given value."""
+  type_lte: String
+
+  """All values greater than the given value."""
+  type_gt: String
+
+  """All values greater than or equal the given value."""
+  type_gte: String
+
+  """All values containing the given string."""
+  type_contains: String
+
+  """All values not containing the given string."""
+  type_not_contains: String
+
+  """All values starting with the given string."""
+  type_starts_with: String
+
+  """All values not starting with the given string."""
+  type_not_starts_with: String
+
+  """All values ending with the given string."""
+  type_ends_with: String
+
+  """All values not ending with the given string."""
+  type_not_ends_with: String
+  contacts_every: UserWhereInput
+  contacts_some: UserWhereInput
+  contacts_none: UserWhereInput
+  teachers_every: UserWhereInput
+  teachers_some: UserWhereInput
+  teachers_none: UserWhereInput
+  students_every: UserWhereInput
+  students_some: UserWhereInput
+  students_none: UserWhereInput
+  courses_every: CourseWhereInput
+  courses_some: CourseWhereInput
+  courses_none: CourseWhereInput
+}
+
+input InstitutionWhereUniqueInput {
+  id: ID
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Mutation {
+  createUser(data: UserCreateInput!): User!
+  createInstitution(data: InstitutionCreateInput!): Institution!
+  createCourse(data: CourseCreateInput!): Course!
+  createTest(data: TestCreateInput!): Test!
+  createQuestion(data: QuestionCreateInput!): Question!
+  createQuestionChoice(data: QuestionChoiceCreateInput!): QuestionChoice!
+  createChallenge(data: ChallengeCreateInput!): Challenge!
+  createPanel(data: PanelCreateInput!): Panel!
+  createSequence(data: SequenceCreateInput!): Sequence!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateInstitution(data: InstitutionUpdateInput!, where: InstitutionWhereUniqueInput!): Institution
+  updateCourse(data: CourseUpdateInput!, where: CourseWhereUniqueInput!): Course
+  updateTest(data: TestUpdateInput!, where: TestWhereUniqueInput!): Test
+  updateQuestion(data: QuestionUpdateInput!, where: QuestionWhereUniqueInput!): Question
+  updateQuestionChoice(data: QuestionChoiceUpdateInput!, where: QuestionChoiceWhereUniqueInput!): QuestionChoice
+  updateChallenge(data: ChallengeUpdateInput!, where: ChallengeWhereUniqueInput!): Challenge
+  updatePanel(data: PanelUpdateInput!, where: PanelWhereUniqueInput!): Panel
+  updateSequence(data: SequenceUpdateInput!, where: SequenceWhereUniqueInput!): Sequence
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteInstitution(where: InstitutionWhereUniqueInput!): Institution
+  deleteCourse(where: CourseWhereUniqueInput!): Course
+  deleteTest(where: TestWhereUniqueInput!): Test
+  deleteQuestion(where: QuestionWhereUniqueInput!): Question
+  deleteQuestionChoice(where: QuestionChoiceWhereUniqueInput!): QuestionChoice
+  deleteChallenge(where: ChallengeWhereUniqueInput!): Challenge
+  deletePanel(where: PanelWhereUniqueInput!): Panel
+  deleteSequence(where: SequenceWhereUniqueInput!): Sequence
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertInstitution(where: InstitutionWhereUniqueInput!, create: InstitutionCreateInput!, update: InstitutionUpdateInput!): Institution!
+  upsertCourse(where: CourseWhereUniqueInput!, create: CourseCreateInput!, update: CourseUpdateInput!): Course!
+  upsertTest(where: TestWhereUniqueInput!, create: TestCreateInput!, update: TestUpdateInput!): Test!
+  upsertQuestion(where: QuestionWhereUniqueInput!, create: QuestionCreateInput!, update: QuestionUpdateInput!): Question!
+  upsertQuestionChoice(where: QuestionChoiceWhereUniqueInput!, create: QuestionChoiceCreateInput!, update: QuestionChoiceUpdateInput!): QuestionChoice!
+  upsertChallenge(where: ChallengeWhereUniqueInput!, create: ChallengeCreateInput!, update: ChallengeUpdateInput!): Challenge!
+  upsertPanel(where: PanelWhereUniqueInput!, create: PanelCreateInput!, update: PanelUpdateInput!): Panel!
+  upsertSequence(where: SequenceWhereUniqueInput!, create: SequenceCreateInput!, update: SequenceUpdateInput!): Sequence!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  updateManyInstitutions(data: InstitutionUpdateManyMutationInput!, where: InstitutionWhereInput): BatchPayload!
+  updateManyCourses(data: CourseUpdateManyMutationInput!, where: CourseWhereInput): BatchPayload!
+  updateManyTests(data: TestUpdateManyMutationInput!, where: TestWhereInput): BatchPayload!
+  updateManyQuestions(data: QuestionUpdateManyMutationInput!, where: QuestionWhereInput): BatchPayload!
+  updateManyQuestionChoices(data: QuestionChoiceUpdateManyMutationInput!, where: QuestionChoiceWhereInput): BatchPayload!
+  updateManyChallenges(data: ChallengeUpdateManyMutationInput!, where: ChallengeWhereInput): BatchPayload!
+  updateManyPanels(data: PanelUpdateManyMutationInput!, where: PanelWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyInstitutions(where: InstitutionWhereInput): BatchPayload!
+  deleteManyCourses(where: CourseWhereInput): BatchPayload!
+  deleteManyTests(where: TestWhereInput): BatchPayload!
+  deleteManyQuestions(where: QuestionWhereInput): BatchPayload!
+  deleteManyQuestionChoices(where: QuestionChoiceWhereInput): BatchPayload!
+  deleteManyChallenges(where: ChallengeWhereInput): BatchPayload!
+  deleteManyPanels(where: PanelWhereInput): BatchPayload!
+  deleteManySequences(where: SequenceWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Panel implements Node {
+  id: ID!
+  test: Test!
+  link: String!
+  sequences(where: SequenceWhereInput, orderBy: SequenceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Sequence!]
+  usedSequence(where: SequenceWhereInput, orderBy: SequenceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Sequence!]
+}
+
+"""A connection to a list of items."""
+type PanelConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [PanelEdge]!
+  aggregate: AggregatePanel!
+}
+
+input PanelCreateInput {
+  link: String!
+  test: TestCreateOneWithoutPanelsInput!
+  sequences: SequenceCreateManyInput
+  usedSequence: SequenceCreateManyWithoutUsedPanelsInput
+}
+
+input PanelCreateManyInput {
+  create: [PanelCreateInput!]
+  connect: [PanelWhereUniqueInput!]
+}
+
+input PanelCreateManyWithoutTestInput {
+  create: [PanelCreateWithoutTestInput!]
+  connect: [PanelWhereUniqueInput!]
+}
+
+input PanelCreateManyWithoutUsedSequenceInput {
+  create: [PanelCreateWithoutUsedSequenceInput!]
+  connect: [PanelWhereUniqueInput!]
+}
+
+input PanelCreateWithoutTestInput {
+  link: String!
+  sequences: SequenceCreateManyInput
+  usedSequence: SequenceCreateManyWithoutUsedPanelsInput
+}
+
+input PanelCreateWithoutUsedSequenceInput {
+  link: String!
+  test: TestCreateOneWithoutPanelsInput!
+  sequences: SequenceCreateManyInput
+}
+
+"""An edge in a connection."""
+type PanelEdge {
+  """The item at the end of the edge."""
+  node: Panel!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum PanelOrderByInput {
+  id_ASC
+  id_DESC
+  link_ASC
+  link_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type PanelPreviousValues {
+  id: ID!
+  link: String!
+}
+
+type PanelSubscriptionPayload {
+  mutation: MutationType!
+  node: Panel
+  updatedFields: [String!]
+  previousValues: PanelPreviousValues
+}
+
+input PanelSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PanelSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PanelSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PanelSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: PanelWhereInput
+}
+
+input PanelUpdateDataInput {
+  link: String
+  test: TestUpdateOneRequiredWithoutPanelsInput
+  sequences: SequenceUpdateManyInput
+  usedSequence: SequenceUpdateManyWithoutUsedPanelsInput
+}
+
+input PanelUpdateInput {
+  link: String
+  test: TestUpdateOneRequiredWithoutPanelsInput
+  sequences: SequenceUpdateManyInput
+  usedSequence: SequenceUpdateManyWithoutUsedPanelsInput
+}
+
+input PanelUpdateManyInput {
+  create: [PanelCreateInput!]
+  connect: [PanelWhereUniqueInput!]
+  disconnect: [PanelWhereUniqueInput!]
+  delete: [PanelWhereUniqueInput!]
+  update: [PanelUpdateWithWhereUniqueNestedInput!]
+  upsert: [PanelUpsertWithWhereUniqueNestedInput!]
+}
+
+input PanelUpdateManyMutationInput {
+  link: String
+}
+
+input PanelUpdateManyWithoutTestInput {
+  create: [PanelCreateWithoutTestInput!]
+  connect: [PanelWhereUniqueInput!]
+  disconnect: [PanelWhereUniqueInput!]
+  delete: [PanelWhereUniqueInput!]
+  update: [PanelUpdateWithWhereUniqueWithoutTestInput!]
+  upsert: [PanelUpsertWithWhereUniqueWithoutTestInput!]
+}
+
+input PanelUpdateManyWithoutUsedSequenceInput {
+  create: [PanelCreateWithoutUsedSequenceInput!]
+  connect: [PanelWhereUniqueInput!]
+  disconnect: [PanelWhereUniqueInput!]
+  delete: [PanelWhereUniqueInput!]
+  update: [PanelUpdateWithWhereUniqueWithoutUsedSequenceInput!]
+  upsert: [PanelUpsertWithWhereUniqueWithoutUsedSequenceInput!]
+}
+
+input PanelUpdateWithoutTestDataInput {
+  link: String
+  sequences: SequenceUpdateManyInput
+  usedSequence: SequenceUpdateManyWithoutUsedPanelsInput
+}
+
+input PanelUpdateWithoutUsedSequenceDataInput {
+  link: String
+  test: TestUpdateOneRequiredWithoutPanelsInput
+  sequences: SequenceUpdateManyInput
+}
+
+input PanelUpdateWithWhereUniqueNestedInput {
+  where: PanelWhereUniqueInput!
+  data: PanelUpdateDataInput!
+}
+
+input PanelUpdateWithWhereUniqueWithoutTestInput {
+  where: PanelWhereUniqueInput!
+  data: PanelUpdateWithoutTestDataInput!
+}
+
+input PanelUpdateWithWhereUniqueWithoutUsedSequenceInput {
+  where: PanelWhereUniqueInput!
+  data: PanelUpdateWithoutUsedSequenceDataInput!
+}
+
+input PanelUpsertWithWhereUniqueNestedInput {
+  where: PanelWhereUniqueInput!
+  update: PanelUpdateDataInput!
+  create: PanelCreateInput!
+}
+
+input PanelUpsertWithWhereUniqueWithoutTestInput {
+  where: PanelWhereUniqueInput!
+  update: PanelUpdateWithoutTestDataInput!
+  create: PanelCreateWithoutTestInput!
+}
+
+input PanelUpsertWithWhereUniqueWithoutUsedSequenceInput {
+  where: PanelWhereUniqueInput!
+  update: PanelUpdateWithoutUsedSequenceDataInput!
+  create: PanelCreateWithoutUsedSequenceInput!
+}
+
+input PanelWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PanelWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PanelWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PanelWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  link: String
+
+  """All values that are not equal to given value."""
+  link_not: String
+
+  """All values that are contained in given list."""
+  link_in: [String!]
+
+  """All values that are not contained in given list."""
+  link_not_in: [String!]
+
+  """All values less than the given value."""
+  link_lt: String
+
+  """All values less than or equal the given value."""
+  link_lte: String
+
+  """All values greater than the given value."""
+  link_gt: String
+
+  """All values greater than or equal the given value."""
+  link_gte: String
+
+  """All values containing the given string."""
+  link_contains: String
+
+  """All values not containing the given string."""
+  link_not_contains: String
+
+  """All values starting with the given string."""
+  link_starts_with: String
+
+  """All values not starting with the given string."""
+  link_not_starts_with: String
+
+  """All values ending with the given string."""
+  link_ends_with: String
+
+  """All values not ending with the given string."""
+  link_not_ends_with: String
+  test: TestWhereInput
+  sequences_every: SequenceWhereInput
+  sequences_some: SequenceWhereInput
+  sequences_none: SequenceWhereInput
+  usedSequence_every: SequenceWhereInput
+  usedSequence_some: SequenceWhereInput
+  usedSequence_none: SequenceWhereInput
+}
+
+input PanelWhereUniqueInput {
+  id: ID
+}
+
+type Query {
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  institutions(where: InstitutionWhereInput, orderBy: InstitutionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Institution]!
+  courses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course]!
+  tests(where: TestWhereInput, orderBy: TestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Test]!
+  questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question]!
+  questionChoices(where: QuestionChoiceWhereInput, orderBy: QuestionChoiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [QuestionChoice]!
+  challenges(where: ChallengeWhereInput, orderBy: ChallengeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Challenge]!
+  panels(where: PanelWhereInput, orderBy: PanelOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Panel]!
+  sequences(where: SequenceWhereInput, orderBy: SequenceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Sequence]!
+  user(where: UserWhereUniqueInput!): User
+  institution(where: InstitutionWhereUniqueInput!): Institution
+  course(where: CourseWhereUniqueInput!): Course
+  test(where: TestWhereUniqueInput!): Test
+  question(where: QuestionWhereUniqueInput!): Question
+  questionChoice(where: QuestionChoiceWhereUniqueInput!): QuestionChoice
+  challenge(where: ChallengeWhereUniqueInput!): Challenge
+  panel(where: PanelWhereUniqueInput!): Panel
+  sequence(where: SequenceWhereUniqueInput!): Sequence
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  institutionsConnection(where: InstitutionWhereInput, orderBy: InstitutionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InstitutionConnection!
+  coursesConnection(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CourseConnection!
+  testsConnection(where: TestWhereInput, orderBy: TestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TestConnection!
+  questionsConnection(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): QuestionConnection!
+  questionChoicesConnection(where: QuestionChoiceWhereInput, orderBy: QuestionChoiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): QuestionChoiceConnection!
+  challengesConnection(where: ChallengeWhereInput, orderBy: ChallengeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ChallengeConnection!
+  panelsConnection(where: PanelWhereInput, orderBy: PanelOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PanelConnection!
+  sequencesConnection(where: SequenceWhereInput, orderBy: SequenceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SequenceConnection!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+}
+
+type Question implements Node {
+  id: ID!
+  answer: QuestionChoice
+  answeredBy: User!
+  answerTime: DateTime
+  question: String!
+  questionBy: User!
+  questionTime: DateTime!
+  expirationTime: DateTime
+  panelUrl: String!
+  test: Test!
+  choices(where: QuestionChoiceWhereInput, orderBy: QuestionChoiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [QuestionChoice!]
+  challenges(where: ChallengeWhereInput, orderBy: ChallengeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Challenge!]
+}
+
+type QuestionChoice implements Node {
+  id: ID!
+  choice: String!
+  question: Question!
+  answers(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question!]
+  correct: Boolean
+}
+
+"""A connection to a list of items."""
+type QuestionChoiceConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [QuestionChoiceEdge]!
+  aggregate: AggregateQuestionChoice!
+}
+
+input QuestionChoiceCreateInput {
+  choice: String!
+  correct: Boolean
+  question: QuestionCreateOneWithoutChoicesInput!
+  answers: QuestionCreateManyWithoutAnswerInput
+}
+
+input QuestionChoiceCreateManyWithoutQuestionInput {
+  create: [QuestionChoiceCreateWithoutQuestionInput!]
+  connect: [QuestionChoiceWhereUniqueInput!]
+}
+
+input QuestionChoiceCreateOneWithoutAnswersInput {
+  create: QuestionChoiceCreateWithoutAnswersInput
+  connect: QuestionChoiceWhereUniqueInput
+}
+
+input QuestionChoiceCreateWithoutAnswersInput {
+  choice: String!
+  correct: Boolean
+  question: QuestionCreateOneWithoutChoicesInput!
+}
+
+input QuestionChoiceCreateWithoutQuestionInput {
+  choice: String!
+  correct: Boolean
+  answers: QuestionCreateManyWithoutAnswerInput
+}
+
+"""An edge in a connection."""
+type QuestionChoiceEdge {
+  """The item at the end of the edge."""
+  node: QuestionChoice!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum QuestionChoiceOrderByInput {
+  id_ASC
+  id_DESC
+  choice_ASC
+  choice_DESC
+  correct_ASC
+  correct_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type QuestionChoicePreviousValues {
+  id: ID!
+  choice: String!
+  correct: Boolean
+}
+
+type QuestionChoiceSubscriptionPayload {
+  mutation: MutationType!
+  node: QuestionChoice
+  updatedFields: [String!]
+  previousValues: QuestionChoicePreviousValues
+}
+
+input QuestionChoiceSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [QuestionChoiceSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [QuestionChoiceSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [QuestionChoiceSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: QuestionChoiceWhereInput
+}
+
+input QuestionChoiceUpdateInput {
+  choice: String
+  correct: Boolean
+  question: QuestionUpdateOneRequiredWithoutChoicesInput
+  answers: QuestionUpdateManyWithoutAnswerInput
+}
+
+input QuestionChoiceUpdateManyMutationInput {
+  choice: String
+  correct: Boolean
+}
+
+input QuestionChoiceUpdateManyWithoutQuestionInput {
+  create: [QuestionChoiceCreateWithoutQuestionInput!]
+  connect: [QuestionChoiceWhereUniqueInput!]
+  disconnect: [QuestionChoiceWhereUniqueInput!]
+  delete: [QuestionChoiceWhereUniqueInput!]
+  update: [QuestionChoiceUpdateWithWhereUniqueWithoutQuestionInput!]
+  upsert: [QuestionChoiceUpsertWithWhereUniqueWithoutQuestionInput!]
+}
+
+input QuestionChoiceUpdateOneWithoutAnswersInput {
+  create: QuestionChoiceCreateWithoutAnswersInput
+  connect: QuestionChoiceWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: QuestionChoiceUpdateWithoutAnswersDataInput
+  upsert: QuestionChoiceUpsertWithoutAnswersInput
+}
+
+input QuestionChoiceUpdateWithoutAnswersDataInput {
+  choice: String
+  correct: Boolean
+  question: QuestionUpdateOneRequiredWithoutChoicesInput
+}
+
+input QuestionChoiceUpdateWithoutQuestionDataInput {
+  choice: String
+  correct: Boolean
+  answers: QuestionUpdateManyWithoutAnswerInput
+}
+
+input QuestionChoiceUpdateWithWhereUniqueWithoutQuestionInput {
+  where: QuestionChoiceWhereUniqueInput!
+  data: QuestionChoiceUpdateWithoutQuestionDataInput!
+}
+
+input QuestionChoiceUpsertWithoutAnswersInput {
+  update: QuestionChoiceUpdateWithoutAnswersDataInput!
+  create: QuestionChoiceCreateWithoutAnswersInput!
+}
+
+input QuestionChoiceUpsertWithWhereUniqueWithoutQuestionInput {
+  where: QuestionChoiceWhereUniqueInput!
+  update: QuestionChoiceUpdateWithoutQuestionDataInput!
+  create: QuestionChoiceCreateWithoutQuestionInput!
+}
+
+input QuestionChoiceWhereInput {
+  """Logical AND on all given filters."""
+  AND: [QuestionChoiceWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [QuestionChoiceWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [QuestionChoiceWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  choice: String
+
+  """All values that are not equal to given value."""
+  choice_not: String
+
+  """All values that are contained in given list."""
+  choice_in: [String!]
+
+  """All values that are not contained in given list."""
+  choice_not_in: [String!]
+
+  """All values less than the given value."""
+  choice_lt: String
+
+  """All values less than or equal the given value."""
+  choice_lte: String
+
+  """All values greater than the given value."""
+  choice_gt: String
+
+  """All values greater than or equal the given value."""
+  choice_gte: String
+
+  """All values containing the given string."""
+  choice_contains: String
+
+  """All values not containing the given string."""
+  choice_not_contains: String
+
+  """All values starting with the given string."""
+  choice_starts_with: String
+
+  """All values not starting with the given string."""
+  choice_not_starts_with: String
+
+  """All values ending with the given string."""
+  choice_ends_with: String
+
+  """All values not ending with the given string."""
+  choice_not_ends_with: String
+  correct: Boolean
+
+  """All values that are not equal to given value."""
+  correct_not: Boolean
+  question: QuestionWhereInput
+  answers_every: QuestionWhereInput
+  answers_some: QuestionWhereInput
+  answers_none: QuestionWhereInput
+}
+
+input QuestionChoiceWhereUniqueInput {
+  id: ID
+}
+
+"""A connection to a list of items."""
+type QuestionConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [QuestionEdge]!
+  aggregate: AggregateQuestion!
+}
+
+input QuestionCreateInput {
+  answerTime: DateTime
+  question: String!
+  questionTime: DateTime!
+  expirationTime: DateTime
+  panelUrl: String!
+  answer: QuestionChoiceCreateOneWithoutAnswersInput
+  answeredBy: UserCreateOneWithoutAnswersInput!
+  questionBy: UserCreateOneWithoutQuestionsInput!
+  test: TestCreateOneWithoutQuestionsInput!
+  choices: QuestionChoiceCreateManyWithoutQuestionInput
+  challenges: ChallengeCreateManyWithoutQuestionInput
+}
+
+input QuestionCreateManyWithoutAnsweredByInput {
+  create: [QuestionCreateWithoutAnsweredByInput!]
+  connect: [QuestionWhereUniqueInput!]
+}
+
+input QuestionCreateManyWithoutAnswerInput {
+  create: [QuestionCreateWithoutAnswerInput!]
+  connect: [QuestionWhereUniqueInput!]
+}
+
+input QuestionCreateManyWithoutQuestionByInput {
+  create: [QuestionCreateWithoutQuestionByInput!]
+  connect: [QuestionWhereUniqueInput!]
+}
+
+input QuestionCreateManyWithoutTestInput {
+  create: [QuestionCreateWithoutTestInput!]
+  connect: [QuestionWhereUniqueInput!]
+}
+
+input QuestionCreateOneWithoutChallengesInput {
+  create: QuestionCreateWithoutChallengesInput
+  connect: QuestionWhereUniqueInput
+}
+
+input QuestionCreateOneWithoutChoicesInput {
+  create: QuestionCreateWithoutChoicesInput
+  connect: QuestionWhereUniqueInput
+}
+
+input QuestionCreateWithoutAnsweredByInput {
+  answerTime: DateTime
+  question: String!
+  questionTime: DateTime!
+  expirationTime: DateTime
+  panelUrl: String!
+  answer: QuestionChoiceCreateOneWithoutAnswersInput
+  questionBy: UserCreateOneWithoutQuestionsInput!
+  test: TestCreateOneWithoutQuestionsInput!
+  choices: QuestionChoiceCreateManyWithoutQuestionInput
+  challenges: ChallengeCreateManyWithoutQuestionInput
+}
+
+input QuestionCreateWithoutAnswerInput {
+  answerTime: DateTime
+  question: String!
+  questionTime: DateTime!
+  expirationTime: DateTime
+  panelUrl: String!
+  answeredBy: UserCreateOneWithoutAnswersInput!
+  questionBy: UserCreateOneWithoutQuestionsInput!
+  test: TestCreateOneWithoutQuestionsInput!
+  choices: QuestionChoiceCreateManyWithoutQuestionInput
+  challenges: ChallengeCreateManyWithoutQuestionInput
+}
+
+input QuestionCreateWithoutChallengesInput {
+  answerTime: DateTime
+  question: String!
+  questionTime: DateTime!
+  expirationTime: DateTime
+  panelUrl: String!
+  answer: QuestionChoiceCreateOneWithoutAnswersInput
+  answeredBy: UserCreateOneWithoutAnswersInput!
+  questionBy: UserCreateOneWithoutQuestionsInput!
+  test: TestCreateOneWithoutQuestionsInput!
+  choices: QuestionChoiceCreateManyWithoutQuestionInput
+}
+
+input QuestionCreateWithoutChoicesInput {
+  answerTime: DateTime
+  question: String!
+  questionTime: DateTime!
+  expirationTime: DateTime
+  panelUrl: String!
+  answer: QuestionChoiceCreateOneWithoutAnswersInput
+  answeredBy: UserCreateOneWithoutAnswersInput!
+  questionBy: UserCreateOneWithoutQuestionsInput!
+  test: TestCreateOneWithoutQuestionsInput!
+  challenges: ChallengeCreateManyWithoutQuestionInput
+}
+
+input QuestionCreateWithoutQuestionByInput {
+  answerTime: DateTime
+  question: String!
+  questionTime: DateTime!
+  expirationTime: DateTime
+  panelUrl: String!
+  answer: QuestionChoiceCreateOneWithoutAnswersInput
+  answeredBy: UserCreateOneWithoutAnswersInput!
+  test: TestCreateOneWithoutQuestionsInput!
+  choices: QuestionChoiceCreateManyWithoutQuestionInput
+  challenges: ChallengeCreateManyWithoutQuestionInput
+}
+
+input QuestionCreateWithoutTestInput {
+  answerTime: DateTime
+  question: String!
+  questionTime: DateTime!
+  expirationTime: DateTime
+  panelUrl: String!
+  answer: QuestionChoiceCreateOneWithoutAnswersInput
+  answeredBy: UserCreateOneWithoutAnswersInput!
+  questionBy: UserCreateOneWithoutQuestionsInput!
+  choices: QuestionChoiceCreateManyWithoutQuestionInput
+  challenges: ChallengeCreateManyWithoutQuestionInput
+}
+
+"""An edge in a connection."""
+type QuestionEdge {
+  """The item at the end of the edge."""
+  node: Question!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum QuestionOrderByInput {
+  id_ASC
+  id_DESC
+  answerTime_ASC
+  answerTime_DESC
+  question_ASC
+  question_DESC
+  questionTime_ASC
+  questionTime_DESC
+  expirationTime_ASC
+  expirationTime_DESC
+  panelUrl_ASC
+  panelUrl_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type QuestionPreviousValues {
+  id: ID!
+  answerTime: DateTime
+  question: String!
+  questionTime: DateTime!
+  expirationTime: DateTime
+  panelUrl: String!
+}
+
+type QuestionSubscriptionPayload {
+  mutation: MutationType!
+  node: Question
+  updatedFields: [String!]
+  previousValues: QuestionPreviousValues
+}
+
+input QuestionSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [QuestionSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [QuestionSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [QuestionSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: QuestionWhereInput
+}
+
+input QuestionUpdateInput {
+  answerTime: DateTime
+  question: String
+  questionTime: DateTime
+  expirationTime: DateTime
+  panelUrl: String
+  answer: QuestionChoiceUpdateOneWithoutAnswersInput
+  answeredBy: UserUpdateOneRequiredWithoutAnswersInput
+  questionBy: UserUpdateOneRequiredWithoutQuestionsInput
+  test: TestUpdateOneRequiredWithoutQuestionsInput
+  choices: QuestionChoiceUpdateManyWithoutQuestionInput
+  challenges: ChallengeUpdateManyWithoutQuestionInput
+}
+
+input QuestionUpdateManyMutationInput {
+  answerTime: DateTime
+  question: String
+  questionTime: DateTime
+  expirationTime: DateTime
+  panelUrl: String
+}
+
+input QuestionUpdateManyWithoutAnsweredByInput {
+  create: [QuestionCreateWithoutAnsweredByInput!]
+  connect: [QuestionWhereUniqueInput!]
+  disconnect: [QuestionWhereUniqueInput!]
+  delete: [QuestionWhereUniqueInput!]
+  update: [QuestionUpdateWithWhereUniqueWithoutAnsweredByInput!]
+  upsert: [QuestionUpsertWithWhereUniqueWithoutAnsweredByInput!]
+}
+
+input QuestionUpdateManyWithoutAnswerInput {
+  create: [QuestionCreateWithoutAnswerInput!]
+  connect: [QuestionWhereUniqueInput!]
+  disconnect: [QuestionWhereUniqueInput!]
+  delete: [QuestionWhereUniqueInput!]
+  update: [QuestionUpdateWithWhereUniqueWithoutAnswerInput!]
+  upsert: [QuestionUpsertWithWhereUniqueWithoutAnswerInput!]
+}
+
+input QuestionUpdateManyWithoutQuestionByInput {
+  create: [QuestionCreateWithoutQuestionByInput!]
+  connect: [QuestionWhereUniqueInput!]
+  disconnect: [QuestionWhereUniqueInput!]
+  delete: [QuestionWhereUniqueInput!]
+  update: [QuestionUpdateWithWhereUniqueWithoutQuestionByInput!]
+  upsert: [QuestionUpsertWithWhereUniqueWithoutQuestionByInput!]
+}
+
+input QuestionUpdateManyWithoutTestInput {
+  create: [QuestionCreateWithoutTestInput!]
+  connect: [QuestionWhereUniqueInput!]
+  disconnect: [QuestionWhereUniqueInput!]
+  delete: [QuestionWhereUniqueInput!]
+  update: [QuestionUpdateWithWhereUniqueWithoutTestInput!]
+  upsert: [QuestionUpsertWithWhereUniqueWithoutTestInput!]
+}
+
+input QuestionUpdateOneRequiredWithoutChallengesInput {
+  create: QuestionCreateWithoutChallengesInput
+  connect: QuestionWhereUniqueInput
+  update: QuestionUpdateWithoutChallengesDataInput
+  upsert: QuestionUpsertWithoutChallengesInput
+}
+
+input QuestionUpdateOneRequiredWithoutChoicesInput {
+  create: QuestionCreateWithoutChoicesInput
+  connect: QuestionWhereUniqueInput
+  update: QuestionUpdateWithoutChoicesDataInput
+  upsert: QuestionUpsertWithoutChoicesInput
+}
+
+input QuestionUpdateWithoutAnswerDataInput {
+  answerTime: DateTime
+  question: String
+  questionTime: DateTime
+  expirationTime: DateTime
+  panelUrl: String
+  answeredBy: UserUpdateOneRequiredWithoutAnswersInput
+  questionBy: UserUpdateOneRequiredWithoutQuestionsInput
+  test: TestUpdateOneRequiredWithoutQuestionsInput
+  choices: QuestionChoiceUpdateManyWithoutQuestionInput
+  challenges: ChallengeUpdateManyWithoutQuestionInput
+}
+
+input QuestionUpdateWithoutAnsweredByDataInput {
+  answerTime: DateTime
+  question: String
+  questionTime: DateTime
+  expirationTime: DateTime
+  panelUrl: String
+  answer: QuestionChoiceUpdateOneWithoutAnswersInput
+  questionBy: UserUpdateOneRequiredWithoutQuestionsInput
+  test: TestUpdateOneRequiredWithoutQuestionsInput
+  choices: QuestionChoiceUpdateManyWithoutQuestionInput
+  challenges: ChallengeUpdateManyWithoutQuestionInput
+}
+
+input QuestionUpdateWithoutChallengesDataInput {
+  answerTime: DateTime
+  question: String
+  questionTime: DateTime
+  expirationTime: DateTime
+  panelUrl: String
+  answer: QuestionChoiceUpdateOneWithoutAnswersInput
+  answeredBy: UserUpdateOneRequiredWithoutAnswersInput
+  questionBy: UserUpdateOneRequiredWithoutQuestionsInput
+  test: TestUpdateOneRequiredWithoutQuestionsInput
+  choices: QuestionChoiceUpdateManyWithoutQuestionInput
+}
+
+input QuestionUpdateWithoutChoicesDataInput {
+  answerTime: DateTime
+  question: String
+  questionTime: DateTime
+  expirationTime: DateTime
+  panelUrl: String
+  answer: QuestionChoiceUpdateOneWithoutAnswersInput
+  answeredBy: UserUpdateOneRequiredWithoutAnswersInput
+  questionBy: UserUpdateOneRequiredWithoutQuestionsInput
+  test: TestUpdateOneRequiredWithoutQuestionsInput
+  challenges: ChallengeUpdateManyWithoutQuestionInput
+}
+
+input QuestionUpdateWithoutQuestionByDataInput {
+  answerTime: DateTime
+  question: String
+  questionTime: DateTime
+  expirationTime: DateTime
+  panelUrl: String
+  answer: QuestionChoiceUpdateOneWithoutAnswersInput
+  answeredBy: UserUpdateOneRequiredWithoutAnswersInput
+  test: TestUpdateOneRequiredWithoutQuestionsInput
+  choices: QuestionChoiceUpdateManyWithoutQuestionInput
+  challenges: ChallengeUpdateManyWithoutQuestionInput
+}
+
+input QuestionUpdateWithoutTestDataInput {
+  answerTime: DateTime
+  question: String
+  questionTime: DateTime
+  expirationTime: DateTime
+  panelUrl: String
+  answer: QuestionChoiceUpdateOneWithoutAnswersInput
+  answeredBy: UserUpdateOneRequiredWithoutAnswersInput
+  questionBy: UserUpdateOneRequiredWithoutQuestionsInput
+  choices: QuestionChoiceUpdateManyWithoutQuestionInput
+  challenges: ChallengeUpdateManyWithoutQuestionInput
+}
+
+input QuestionUpdateWithWhereUniqueWithoutAnsweredByInput {
+  where: QuestionWhereUniqueInput!
+  data: QuestionUpdateWithoutAnsweredByDataInput!
+}
+
+input QuestionUpdateWithWhereUniqueWithoutAnswerInput {
+  where: QuestionWhereUniqueInput!
+  data: QuestionUpdateWithoutAnswerDataInput!
+}
+
+input QuestionUpdateWithWhereUniqueWithoutQuestionByInput {
+  where: QuestionWhereUniqueInput!
+  data: QuestionUpdateWithoutQuestionByDataInput!
+}
+
+input QuestionUpdateWithWhereUniqueWithoutTestInput {
+  where: QuestionWhereUniqueInput!
+  data: QuestionUpdateWithoutTestDataInput!
+}
+
+input QuestionUpsertWithoutChallengesInput {
+  update: QuestionUpdateWithoutChallengesDataInput!
+  create: QuestionCreateWithoutChallengesInput!
+}
+
+input QuestionUpsertWithoutChoicesInput {
+  update: QuestionUpdateWithoutChoicesDataInput!
+  create: QuestionCreateWithoutChoicesInput!
+}
+
+input QuestionUpsertWithWhereUniqueWithoutAnsweredByInput {
+  where: QuestionWhereUniqueInput!
+  update: QuestionUpdateWithoutAnsweredByDataInput!
+  create: QuestionCreateWithoutAnsweredByInput!
+}
+
+input QuestionUpsertWithWhereUniqueWithoutAnswerInput {
+  where: QuestionWhereUniqueInput!
+  update: QuestionUpdateWithoutAnswerDataInput!
+  create: QuestionCreateWithoutAnswerInput!
+}
+
+input QuestionUpsertWithWhereUniqueWithoutQuestionByInput {
+  where: QuestionWhereUniqueInput!
+  update: QuestionUpdateWithoutQuestionByDataInput!
+  create: QuestionCreateWithoutQuestionByInput!
+}
+
+input QuestionUpsertWithWhereUniqueWithoutTestInput {
+  where: QuestionWhereUniqueInput!
+  update: QuestionUpdateWithoutTestDataInput!
+  create: QuestionCreateWithoutTestInput!
+}
+
+input QuestionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [QuestionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [QuestionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [QuestionWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  answerTime: DateTime
+
+  """All values that are not equal to given value."""
+  answerTime_not: DateTime
+
+  """All values that are contained in given list."""
+  answerTime_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  answerTime_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  answerTime_lt: DateTime
+
+  """All values less than or equal the given value."""
+  answerTime_lte: DateTime
+
+  """All values greater than the given value."""
+  answerTime_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  answerTime_gte: DateTime
+  question: String
+
+  """All values that are not equal to given value."""
+  question_not: String
+
+  """All values that are contained in given list."""
+  question_in: [String!]
+
+  """All values that are not contained in given list."""
+  question_not_in: [String!]
+
+  """All values less than the given value."""
+  question_lt: String
+
+  """All values less than or equal the given value."""
+  question_lte: String
+
+  """All values greater than the given value."""
+  question_gt: String
+
+  """All values greater than or equal the given value."""
+  question_gte: String
+
+  """All values containing the given string."""
+  question_contains: String
+
+  """All values not containing the given string."""
+  question_not_contains: String
+
+  """All values starting with the given string."""
+  question_starts_with: String
+
+  """All values not starting with the given string."""
+  question_not_starts_with: String
+
+  """All values ending with the given string."""
+  question_ends_with: String
+
+  """All values not ending with the given string."""
+  question_not_ends_with: String
+  questionTime: DateTime
+
+  """All values that are not equal to given value."""
+  questionTime_not: DateTime
+
+  """All values that are contained in given list."""
+  questionTime_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  questionTime_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  questionTime_lt: DateTime
+
+  """All values less than or equal the given value."""
+  questionTime_lte: DateTime
+
+  """All values greater than the given value."""
+  questionTime_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  questionTime_gte: DateTime
+  expirationTime: DateTime
+
+  """All values that are not equal to given value."""
+  expirationTime_not: DateTime
+
+  """All values that are contained in given list."""
+  expirationTime_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  expirationTime_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  expirationTime_lt: DateTime
+
+  """All values less than or equal the given value."""
+  expirationTime_lte: DateTime
+
+  """All values greater than the given value."""
+  expirationTime_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  expirationTime_gte: DateTime
+  panelUrl: String
+
+  """All values that are not equal to given value."""
+  panelUrl_not: String
+
+  """All values that are contained in given list."""
+  panelUrl_in: [String!]
+
+  """All values that are not contained in given list."""
+  panelUrl_not_in: [String!]
+
+  """All values less than the given value."""
+  panelUrl_lt: String
+
+  """All values less than or equal the given value."""
+  panelUrl_lte: String
+
+  """All values greater than the given value."""
+  panelUrl_gt: String
+
+  """All values greater than or equal the given value."""
+  panelUrl_gte: String
+
+  """All values containing the given string."""
+  panelUrl_contains: String
+
+  """All values not containing the given string."""
+  panelUrl_not_contains: String
+
+  """All values starting with the given string."""
+  panelUrl_starts_with: String
+
+  """All values not starting with the given string."""
+  panelUrl_not_starts_with: String
+
+  """All values ending with the given string."""
+  panelUrl_ends_with: String
+
+  """All values not ending with the given string."""
+  panelUrl_not_ends_with: String
+  answer: QuestionChoiceWhereInput
+  answeredBy: UserWhereInput
+  questionBy: UserWhereInput
+  test: TestWhereInput
+  choices_every: QuestionChoiceWhereInput
+  choices_some: QuestionChoiceWhereInput
+  choices_none: QuestionChoiceWhereInput
+  challenges_every: ChallengeWhereInput
+  challenges_some: ChallengeWhereInput
+  challenges_none: ChallengeWhereInput
+}
+
+input QuestionWhereUniqueInput {
+  id: ID
+}
+
+type Sequence implements Node {
+  id: ID!
+  test: Test!
+  students(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  usedStudents(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  panels(where: PanelWhereInput, orderBy: PanelOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Panel!]
+  usedPanels(where: PanelWhereInput, orderBy: PanelOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Panel!]
+}
+
+"""A connection to a list of items."""
+type SequenceConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [SequenceEdge]!
+  aggregate: AggregateSequence!
+}
+
+input SequenceCreateInput {
+  test: TestCreateOneWithoutSequencesInput!
+  students: UserCreateManyWithoutTestSequenceInput
+  usedStudents: UserCreateManyWithoutUsedTestSequenceInput
+  panels: PanelCreateManyInput
+  usedPanels: PanelCreateManyWithoutUsedSequenceInput
+}
+
+input SequenceCreateManyInput {
+  create: [SequenceCreateInput!]
+  connect: [SequenceWhereUniqueInput!]
+}
+
+input SequenceCreateManyWithoutStudentsInput {
+  create: [SequenceCreateWithoutStudentsInput!]
+  connect: [SequenceWhereUniqueInput!]
+}
+
+input SequenceCreateManyWithoutUsedPanelsInput {
+  create: [SequenceCreateWithoutUsedPanelsInput!]
+  connect: [SequenceWhereUniqueInput!]
+}
+
+input SequenceCreateManyWithoutUsedStudentsInput {
+  create: [SequenceCreateWithoutUsedStudentsInput!]
+  connect: [SequenceWhereUniqueInput!]
+}
+
+input SequenceCreateOneWithoutTestInput {
+  create: SequenceCreateWithoutTestInput
+  connect: SequenceWhereUniqueInput
+}
+
+input SequenceCreateWithoutStudentsInput {
+  test: TestCreateOneWithoutSequencesInput!
+  usedStudents: UserCreateManyWithoutUsedTestSequenceInput
+  panels: PanelCreateManyInput
+  usedPanels: PanelCreateManyWithoutUsedSequenceInput
+}
+
+input SequenceCreateWithoutTestInput {
+  students: UserCreateManyWithoutTestSequenceInput
+  usedStudents: UserCreateManyWithoutUsedTestSequenceInput
+  panels: PanelCreateManyInput
+  usedPanels: PanelCreateManyWithoutUsedSequenceInput
+}
+
+input SequenceCreateWithoutUsedPanelsInput {
+  test: TestCreateOneWithoutSequencesInput!
+  students: UserCreateManyWithoutTestSequenceInput
+  usedStudents: UserCreateManyWithoutUsedTestSequenceInput
+  panels: PanelCreateManyInput
+}
+
+input SequenceCreateWithoutUsedStudentsInput {
+  test: TestCreateOneWithoutSequencesInput!
+  students: UserCreateManyWithoutTestSequenceInput
+  panels: PanelCreateManyInput
+  usedPanels: PanelCreateManyWithoutUsedSequenceInput
+}
+
+"""An edge in a connection."""
+type SequenceEdge {
+  """The item at the end of the edge."""
+  node: Sequence!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum SequenceOrderByInput {
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type SequencePreviousValues {
+  id: ID!
+}
+
+type SequenceSubscriptionPayload {
+  mutation: MutationType!
+  node: Sequence
+  updatedFields: [String!]
+  previousValues: SequencePreviousValues
+}
+
+input SequenceSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [SequenceSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [SequenceSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [SequenceSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: SequenceWhereInput
+}
+
+input SequenceUpdateDataInput {
+  test: TestUpdateOneRequiredWithoutSequencesInput
+  students: UserUpdateManyWithoutTestSequenceInput
+  usedStudents: UserUpdateManyWithoutUsedTestSequenceInput
+  panels: PanelUpdateManyInput
+  usedPanels: PanelUpdateManyWithoutUsedSequenceInput
+}
+
+input SequenceUpdateInput {
+  test: TestUpdateOneRequiredWithoutSequencesInput
+  students: UserUpdateManyWithoutTestSequenceInput
+  usedStudents: UserUpdateManyWithoutUsedTestSequenceInput
+  panels: PanelUpdateManyInput
+  usedPanels: PanelUpdateManyWithoutUsedSequenceInput
+}
+
+input SequenceUpdateManyInput {
+  create: [SequenceCreateInput!]
+  connect: [SequenceWhereUniqueInput!]
+  disconnect: [SequenceWhereUniqueInput!]
+  delete: [SequenceWhereUniqueInput!]
+  update: [SequenceUpdateWithWhereUniqueNestedInput!]
+  upsert: [SequenceUpsertWithWhereUniqueNestedInput!]
+}
+
+input SequenceUpdateManyWithoutStudentsInput {
+  create: [SequenceCreateWithoutStudentsInput!]
+  connect: [SequenceWhereUniqueInput!]
+  disconnect: [SequenceWhereUniqueInput!]
+  delete: [SequenceWhereUniqueInput!]
+  update: [SequenceUpdateWithWhereUniqueWithoutStudentsInput!]
+  upsert: [SequenceUpsertWithWhereUniqueWithoutStudentsInput!]
+}
+
+input SequenceUpdateManyWithoutUsedPanelsInput {
+  create: [SequenceCreateWithoutUsedPanelsInput!]
+  connect: [SequenceWhereUniqueInput!]
+  disconnect: [SequenceWhereUniqueInput!]
+  delete: [SequenceWhereUniqueInput!]
+  update: [SequenceUpdateWithWhereUniqueWithoutUsedPanelsInput!]
+  upsert: [SequenceUpsertWithWhereUniqueWithoutUsedPanelsInput!]
+}
+
+input SequenceUpdateManyWithoutUsedStudentsInput {
+  create: [SequenceCreateWithoutUsedStudentsInput!]
+  connect: [SequenceWhereUniqueInput!]
+  disconnect: [SequenceWhereUniqueInput!]
+  delete: [SequenceWhereUniqueInput!]
+  update: [SequenceUpdateWithWhereUniqueWithoutUsedStudentsInput!]
+  upsert: [SequenceUpsertWithWhereUniqueWithoutUsedStudentsInput!]
+}
+
+input SequenceUpdateOneRequiredWithoutTestInput {
+  create: SequenceCreateWithoutTestInput
+  connect: SequenceWhereUniqueInput
+  update: SequenceUpdateWithoutTestDataInput
+  upsert: SequenceUpsertWithoutTestInput
+}
+
+input SequenceUpdateWithoutStudentsDataInput {
+  test: TestUpdateOneRequiredWithoutSequencesInput
+  usedStudents: UserUpdateManyWithoutUsedTestSequenceInput
+  panels: PanelUpdateManyInput
+  usedPanels: PanelUpdateManyWithoutUsedSequenceInput
+}
+
+input SequenceUpdateWithoutTestDataInput {
+  students: UserUpdateManyWithoutTestSequenceInput
+  usedStudents: UserUpdateManyWithoutUsedTestSequenceInput
+  panels: PanelUpdateManyInput
+  usedPanels: PanelUpdateManyWithoutUsedSequenceInput
+}
+
+input SequenceUpdateWithoutUsedPanelsDataInput {
+  test: TestUpdateOneRequiredWithoutSequencesInput
+  students: UserUpdateManyWithoutTestSequenceInput
+  usedStudents: UserUpdateManyWithoutUsedTestSequenceInput
+  panels: PanelUpdateManyInput
+}
+
+input SequenceUpdateWithoutUsedStudentsDataInput {
+  test: TestUpdateOneRequiredWithoutSequencesInput
+  students: UserUpdateManyWithoutTestSequenceInput
+  panels: PanelUpdateManyInput
+  usedPanels: PanelUpdateManyWithoutUsedSequenceInput
+}
+
+input SequenceUpdateWithWhereUniqueNestedInput {
+  where: SequenceWhereUniqueInput!
+  data: SequenceUpdateDataInput!
+}
+
+input SequenceUpdateWithWhereUniqueWithoutStudentsInput {
+  where: SequenceWhereUniqueInput!
+  data: SequenceUpdateWithoutStudentsDataInput!
+}
+
+input SequenceUpdateWithWhereUniqueWithoutUsedPanelsInput {
+  where: SequenceWhereUniqueInput!
+  data: SequenceUpdateWithoutUsedPanelsDataInput!
+}
+
+input SequenceUpdateWithWhereUniqueWithoutUsedStudentsInput {
+  where: SequenceWhereUniqueInput!
+  data: SequenceUpdateWithoutUsedStudentsDataInput!
+}
+
+input SequenceUpsertWithoutTestInput {
+  update: SequenceUpdateWithoutTestDataInput!
+  create: SequenceCreateWithoutTestInput!
+}
+
+input SequenceUpsertWithWhereUniqueNestedInput {
+  where: SequenceWhereUniqueInput!
+  update: SequenceUpdateDataInput!
+  create: SequenceCreateInput!
+}
+
+input SequenceUpsertWithWhereUniqueWithoutStudentsInput {
+  where: SequenceWhereUniqueInput!
+  update: SequenceUpdateWithoutStudentsDataInput!
+  create: SequenceCreateWithoutStudentsInput!
+}
+
+input SequenceUpsertWithWhereUniqueWithoutUsedPanelsInput {
+  where: SequenceWhereUniqueInput!
+  update: SequenceUpdateWithoutUsedPanelsDataInput!
+  create: SequenceCreateWithoutUsedPanelsInput!
+}
+
+input SequenceUpsertWithWhereUniqueWithoutUsedStudentsInput {
+  where: SequenceWhereUniqueInput!
+  update: SequenceUpdateWithoutUsedStudentsDataInput!
+  create: SequenceCreateWithoutUsedStudentsInput!
+}
+
+input SequenceWhereInput {
+  """Logical AND on all given filters."""
+  AND: [SequenceWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [SequenceWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [SequenceWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  test: TestWhereInput
+  students_every: UserWhereInput
+  students_some: UserWhereInput
+  students_none: UserWhereInput
+  usedStudents_every: UserWhereInput
+  usedStudents_some: UserWhereInput
+  usedStudents_none: UserWhereInput
+  panels_every: PanelWhereInput
+  panels_some: PanelWhereInput
+  panels_none: PanelWhereInput
+  usedPanels_every: PanelWhereInput
+  usedPanels_some: PanelWhereInput
+  usedPanels_none: PanelWhereInput
+}
+
+input SequenceWhereUniqueInput {
+  id: ID
+}
+
+type Subscription {
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  institution(where: InstitutionSubscriptionWhereInput): InstitutionSubscriptionPayload
+  course(where: CourseSubscriptionWhereInput): CourseSubscriptionPayload
+  test(where: TestSubscriptionWhereInput): TestSubscriptionPayload
+  question(where: QuestionSubscriptionWhereInput): QuestionSubscriptionPayload
+  questionChoice(where: QuestionChoiceSubscriptionWhereInput): QuestionChoiceSubscriptionPayload
+  challenge(where: ChallengeSubscriptionWhereInput): ChallengeSubscriptionPayload
+  panel(where: PanelSubscriptionWhereInput): PanelSubscriptionPayload
+  sequence(where: SequenceSubscriptionWhereInput): SequenceSubscriptionPayload
+}
+
+type Test implements Node {
+  id: ID!
+  subject: String!
+  testNumber: String
+  testDate: DateTime
+  release: Boolean
+  releaseDate: DateTime
+  course: Course!
+  panels(where: PanelWhereInput, orderBy: PanelOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Panel!]
+  questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question!]
+  sequences: Sequence!
+}
+
+"""A connection to a list of items."""
+type TestConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [TestEdge]!
+  aggregate: AggregateTest!
+}
+
+input TestCreateInput {
+  subject: String!
+  testNumber: String
+  testDate: DateTime
+  release: Boolean
+  releaseDate: DateTime
+  course: CourseCreateOneWithoutTestsInput!
+  panels: PanelCreateManyWithoutTestInput
+  questions: QuestionCreateManyWithoutTestInput
+  sequences: SequenceCreateOneWithoutTestInput!
+}
+
+input TestCreateManyWithoutCourseInput {
+  create: [TestCreateWithoutCourseInput!]
+  connect: [TestWhereUniqueInput!]
+}
+
+input TestCreateOneWithoutPanelsInput {
+  create: TestCreateWithoutPanelsInput
+  connect: TestWhereUniqueInput
+}
+
+input TestCreateOneWithoutQuestionsInput {
+  create: TestCreateWithoutQuestionsInput
+  connect: TestWhereUniqueInput
+}
+
+input TestCreateOneWithoutSequencesInput {
+  create: TestCreateWithoutSequencesInput
+  connect: TestWhereUniqueInput
+}
+
+input TestCreateWithoutCourseInput {
+  subject: String!
+  testNumber: String
+  testDate: DateTime
+  release: Boolean
+  releaseDate: DateTime
+  panels: PanelCreateManyWithoutTestInput
+  questions: QuestionCreateManyWithoutTestInput
+  sequences: SequenceCreateOneWithoutTestInput!
+}
+
+input TestCreateWithoutPanelsInput {
+  subject: String!
+  testNumber: String
+  testDate: DateTime
+  release: Boolean
+  releaseDate: DateTime
+  course: CourseCreateOneWithoutTestsInput!
+  questions: QuestionCreateManyWithoutTestInput
+  sequences: SequenceCreateOneWithoutTestInput!
+}
+
+input TestCreateWithoutQuestionsInput {
+  subject: String!
+  testNumber: String
+  testDate: DateTime
+  release: Boolean
+  releaseDate: DateTime
+  course: CourseCreateOneWithoutTestsInput!
+  panels: PanelCreateManyWithoutTestInput
+  sequences: SequenceCreateOneWithoutTestInput!
+}
+
+input TestCreateWithoutSequencesInput {
+  subject: String!
+  testNumber: String
+  testDate: DateTime
+  release: Boolean
+  releaseDate: DateTime
+  course: CourseCreateOneWithoutTestsInput!
+  panels: PanelCreateManyWithoutTestInput
+  questions: QuestionCreateManyWithoutTestInput
+}
+
+"""An edge in a connection."""
+type TestEdge {
+  """The item at the end of the edge."""
+  node: Test!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum TestOrderByInput {
+  id_ASC
+  id_DESC
+  subject_ASC
+  subject_DESC
+  testNumber_ASC
+  testNumber_DESC
+  testDate_ASC
+  testDate_DESC
+  release_ASC
+  release_DESC
+  releaseDate_ASC
+  releaseDate_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type TestPreviousValues {
+  id: ID!
+  subject: String!
+  testNumber: String
+  testDate: DateTime
+  release: Boolean
+  releaseDate: DateTime
+}
+
+type TestSubscriptionPayload {
+  mutation: MutationType!
+  node: Test
+  updatedFields: [String!]
+  previousValues: TestPreviousValues
+}
+
+input TestSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TestSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [TestSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [TestSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: TestWhereInput
+}
+
+input TestUpdateInput {
+  subject: String
+  testNumber: String
+  testDate: DateTime
+  release: Boolean
+  releaseDate: DateTime
+  course: CourseUpdateOneRequiredWithoutTestsInput
+  panels: PanelUpdateManyWithoutTestInput
+  questions: QuestionUpdateManyWithoutTestInput
+  sequences: SequenceUpdateOneRequiredWithoutTestInput
+}
+
+input TestUpdateManyMutationInput {
+  subject: String
+  testNumber: String
+  testDate: DateTime
+  release: Boolean
+  releaseDate: DateTime
+}
+
+input TestUpdateManyWithoutCourseInput {
+  create: [TestCreateWithoutCourseInput!]
+  connect: [TestWhereUniqueInput!]
+  disconnect: [TestWhereUniqueInput!]
+  delete: [TestWhereUniqueInput!]
+  update: [TestUpdateWithWhereUniqueWithoutCourseInput!]
+  upsert: [TestUpsertWithWhereUniqueWithoutCourseInput!]
+}
+
+input TestUpdateOneRequiredWithoutPanelsInput {
+  create: TestCreateWithoutPanelsInput
+  connect: TestWhereUniqueInput
+  update: TestUpdateWithoutPanelsDataInput
+  upsert: TestUpsertWithoutPanelsInput
+}
+
+input TestUpdateOneRequiredWithoutQuestionsInput {
+  create: TestCreateWithoutQuestionsInput
+  connect: TestWhereUniqueInput
+  update: TestUpdateWithoutQuestionsDataInput
+  upsert: TestUpsertWithoutQuestionsInput
+}
+
+input TestUpdateOneRequiredWithoutSequencesInput {
+  create: TestCreateWithoutSequencesInput
+  connect: TestWhereUniqueInput
+  update: TestUpdateWithoutSequencesDataInput
+  upsert: TestUpsertWithoutSequencesInput
+}
+
+input TestUpdateWithoutCourseDataInput {
+  subject: String
+  testNumber: String
+  testDate: DateTime
+  release: Boolean
+  releaseDate: DateTime
+  panels: PanelUpdateManyWithoutTestInput
+  questions: QuestionUpdateManyWithoutTestInput
+  sequences: SequenceUpdateOneRequiredWithoutTestInput
+}
+
+input TestUpdateWithoutPanelsDataInput {
+  subject: String
+  testNumber: String
+  testDate: DateTime
+  release: Boolean
+  releaseDate: DateTime
+  course: CourseUpdateOneRequiredWithoutTestsInput
+  questions: QuestionUpdateManyWithoutTestInput
+  sequences: SequenceUpdateOneRequiredWithoutTestInput
+}
+
+input TestUpdateWithoutQuestionsDataInput {
+  subject: String
+  testNumber: String
+  testDate: DateTime
+  release: Boolean
+  releaseDate: DateTime
+  course: CourseUpdateOneRequiredWithoutTestsInput
+  panels: PanelUpdateManyWithoutTestInput
+  sequences: SequenceUpdateOneRequiredWithoutTestInput
+}
+
+input TestUpdateWithoutSequencesDataInput {
+  subject: String
+  testNumber: String
+  testDate: DateTime
+  release: Boolean
+  releaseDate: DateTime
+  course: CourseUpdateOneRequiredWithoutTestsInput
+  panels: PanelUpdateManyWithoutTestInput
+  questions: QuestionUpdateManyWithoutTestInput
+}
+
+input TestUpdateWithWhereUniqueWithoutCourseInput {
+  where: TestWhereUniqueInput!
+  data: TestUpdateWithoutCourseDataInput!
+}
+
+input TestUpsertWithoutPanelsInput {
+  update: TestUpdateWithoutPanelsDataInput!
+  create: TestCreateWithoutPanelsInput!
+}
+
+input TestUpsertWithoutQuestionsInput {
+  update: TestUpdateWithoutQuestionsDataInput!
+  create: TestCreateWithoutQuestionsInput!
+}
+
+input TestUpsertWithoutSequencesInput {
+  update: TestUpdateWithoutSequencesDataInput!
+  create: TestCreateWithoutSequencesInput!
+}
+
+input TestUpsertWithWhereUniqueWithoutCourseInput {
+  where: TestWhereUniqueInput!
+  update: TestUpdateWithoutCourseDataInput!
+  create: TestCreateWithoutCourseInput!
+}
+
+input TestWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TestWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [TestWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [TestWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  subject: String
+
+  """All values that are not equal to given value."""
+  subject_not: String
+
+  """All values that are contained in given list."""
+  subject_in: [String!]
+
+  """All values that are not contained in given list."""
+  subject_not_in: [String!]
+
+  """All values less than the given value."""
+  subject_lt: String
+
+  """All values less than or equal the given value."""
+  subject_lte: String
+
+  """All values greater than the given value."""
+  subject_gt: String
+
+  """All values greater than or equal the given value."""
+  subject_gte: String
+
+  """All values containing the given string."""
+  subject_contains: String
+
+  """All values not containing the given string."""
+  subject_not_contains: String
+
+  """All values starting with the given string."""
+  subject_starts_with: String
+
+  """All values not starting with the given string."""
+  subject_not_starts_with: String
+
+  """All values ending with the given string."""
+  subject_ends_with: String
+
+  """All values not ending with the given string."""
+  subject_not_ends_with: String
+  testNumber: String
+
+  """All values that are not equal to given value."""
+  testNumber_not: String
+
+  """All values that are contained in given list."""
+  testNumber_in: [String!]
+
+  """All values that are not contained in given list."""
+  testNumber_not_in: [String!]
+
+  """All values less than the given value."""
+  testNumber_lt: String
+
+  """All values less than or equal the given value."""
+  testNumber_lte: String
+
+  """All values greater than the given value."""
+  testNumber_gt: String
+
+  """All values greater than or equal the given value."""
+  testNumber_gte: String
+
+  """All values containing the given string."""
+  testNumber_contains: String
+
+  """All values not containing the given string."""
+  testNumber_not_contains: String
+
+  """All values starting with the given string."""
+  testNumber_starts_with: String
+
+  """All values not starting with the given string."""
+  testNumber_not_starts_with: String
+
+  """All values ending with the given string."""
+  testNumber_ends_with: String
+
+  """All values not ending with the given string."""
+  testNumber_not_ends_with: String
+  testDate: DateTime
+
+  """All values that are not equal to given value."""
+  testDate_not: DateTime
+
+  """All values that are contained in given list."""
+  testDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  testDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  testDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  testDate_lte: DateTime
+
+  """All values greater than the given value."""
+  testDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  testDate_gte: DateTime
+  release: Boolean
+
+  """All values that are not equal to given value."""
+  release_not: Boolean
+  releaseDate: DateTime
+
+  """All values that are not equal to given value."""
+  releaseDate_not: DateTime
+
+  """All values that are contained in given list."""
+  releaseDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  releaseDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  releaseDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  releaseDate_lte: DateTime
+
+  """All values greater than the given value."""
+  releaseDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  releaseDate_gte: DateTime
+  course: CourseWhereInput
+  panels_every: PanelWhereInput
+  panels_some: PanelWhereInput
+  panels_none: PanelWhereInput
+  questions_every: QuestionWhereInput
+  questions_some: QuestionWhereInput
+  questions_none: QuestionWhereInput
+  sequences: SequenceWhereInput
+}
+
+input TestWhereUniqueInput {
+  id: ID
+}
+
+type User implements Node {
+  id: ID!
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact(where: InstitutionWhereInput, orderBy: InstitutionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Institution!]
+  teacherInstitution(where: InstitutionWhereInput, orderBy: InstitutionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Institution!]
+  studentInstitution(where: InstitutionWhereInput, orderBy: InstitutionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Institution!]
+  teacherCourses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course!]
+  studentCourses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course!]
+  answers(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question!]
+  questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question!]
+  challengers(where: ChallengeWhereInput, orderBy: ChallengeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Challenge!]
+  testSequence(where: SequenceWhereInput, orderBy: SequenceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Sequence!]
+  usedTestSequence(where: SequenceWhereInput, orderBy: SequenceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Sequence!]
+}
+
+"""A connection to a list of items."""
+type UserConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [UserEdge]!
+  aggregate: AggregateUser!
+}
+
+input UserCreateInput {
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionCreateManyWithoutContactsInput
+  teacherInstitution: InstitutionCreateManyWithoutTeachersInput
+  studentInstitution: InstitutionCreateManyWithoutStudentsInput
+  teacherCourses: CourseCreateManyWithoutTeacherInput
+  studentCourses: CourseCreateManyWithoutStudentsInput
+  answers: QuestionCreateManyWithoutAnsweredByInput
+  questions: QuestionCreateManyWithoutQuestionByInput
+  challengers: ChallengeCreateManyWithoutChallengerInput
+  testSequence: SequenceCreateManyWithoutStudentsInput
+  usedTestSequence: SequenceCreateManyWithoutUsedStudentsInput
+}
+
+input UserCreateManyWithoutInstitutionContactInput {
+  create: [UserCreateWithoutInstitutionContactInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateManyWithoutStudentCoursesInput {
+  create: [UserCreateWithoutStudentCoursesInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateManyWithoutStudentInstitutionInput {
+  create: [UserCreateWithoutStudentInstitutionInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateManyWithoutTeacherCoursesInput {
+  create: [UserCreateWithoutTeacherCoursesInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateManyWithoutTeacherInstitutionInput {
+  create: [UserCreateWithoutTeacherInstitutionInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateManyWithoutTestSequenceInput {
+  create: [UserCreateWithoutTestSequenceInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateManyWithoutUsedTestSequenceInput {
+  create: [UserCreateWithoutUsedTestSequenceInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateOneWithoutAnswersInput {
+  create: UserCreateWithoutAnswersInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutChallengersInput {
+  create: UserCreateWithoutChallengersInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutQuestionsInput {
+  create: UserCreateWithoutQuestionsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutAnswersInput {
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionCreateManyWithoutContactsInput
+  teacherInstitution: InstitutionCreateManyWithoutTeachersInput
+  studentInstitution: InstitutionCreateManyWithoutStudentsInput
+  teacherCourses: CourseCreateManyWithoutTeacherInput
+  studentCourses: CourseCreateManyWithoutStudentsInput
+  questions: QuestionCreateManyWithoutQuestionByInput
+  challengers: ChallengeCreateManyWithoutChallengerInput
+  testSequence: SequenceCreateManyWithoutStudentsInput
+  usedTestSequence: SequenceCreateManyWithoutUsedStudentsInput
+}
+
+input UserCreateWithoutChallengersInput {
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionCreateManyWithoutContactsInput
+  teacherInstitution: InstitutionCreateManyWithoutTeachersInput
+  studentInstitution: InstitutionCreateManyWithoutStudentsInput
+  teacherCourses: CourseCreateManyWithoutTeacherInput
+  studentCourses: CourseCreateManyWithoutStudentsInput
+  answers: QuestionCreateManyWithoutAnsweredByInput
+  questions: QuestionCreateManyWithoutQuestionByInput
+  testSequence: SequenceCreateManyWithoutStudentsInput
+  usedTestSequence: SequenceCreateManyWithoutUsedStudentsInput
+}
+
+input UserCreateWithoutInstitutionContactInput {
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  teacherInstitution: InstitutionCreateManyWithoutTeachersInput
+  studentInstitution: InstitutionCreateManyWithoutStudentsInput
+  teacherCourses: CourseCreateManyWithoutTeacherInput
+  studentCourses: CourseCreateManyWithoutStudentsInput
+  answers: QuestionCreateManyWithoutAnsweredByInput
+  questions: QuestionCreateManyWithoutQuestionByInput
+  challengers: ChallengeCreateManyWithoutChallengerInput
+  testSequence: SequenceCreateManyWithoutStudentsInput
+  usedTestSequence: SequenceCreateManyWithoutUsedStudentsInput
+}
+
+input UserCreateWithoutQuestionsInput {
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionCreateManyWithoutContactsInput
+  teacherInstitution: InstitutionCreateManyWithoutTeachersInput
+  studentInstitution: InstitutionCreateManyWithoutStudentsInput
+  teacherCourses: CourseCreateManyWithoutTeacherInput
+  studentCourses: CourseCreateManyWithoutStudentsInput
+  answers: QuestionCreateManyWithoutAnsweredByInput
+  challengers: ChallengeCreateManyWithoutChallengerInput
+  testSequence: SequenceCreateManyWithoutStudentsInput
+  usedTestSequence: SequenceCreateManyWithoutUsedStudentsInput
+}
+
+input UserCreateWithoutStudentCoursesInput {
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionCreateManyWithoutContactsInput
+  teacherInstitution: InstitutionCreateManyWithoutTeachersInput
+  studentInstitution: InstitutionCreateManyWithoutStudentsInput
+  teacherCourses: CourseCreateManyWithoutTeacherInput
+  answers: QuestionCreateManyWithoutAnsweredByInput
+  questions: QuestionCreateManyWithoutQuestionByInput
+  challengers: ChallengeCreateManyWithoutChallengerInput
+  testSequence: SequenceCreateManyWithoutStudentsInput
+  usedTestSequence: SequenceCreateManyWithoutUsedStudentsInput
+}
+
+input UserCreateWithoutStudentInstitutionInput {
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionCreateManyWithoutContactsInput
+  teacherInstitution: InstitutionCreateManyWithoutTeachersInput
+  teacherCourses: CourseCreateManyWithoutTeacherInput
+  studentCourses: CourseCreateManyWithoutStudentsInput
+  answers: QuestionCreateManyWithoutAnsweredByInput
+  questions: QuestionCreateManyWithoutQuestionByInput
+  challengers: ChallengeCreateManyWithoutChallengerInput
+  testSequence: SequenceCreateManyWithoutStudentsInput
+  usedTestSequence: SequenceCreateManyWithoutUsedStudentsInput
+}
+
+input UserCreateWithoutTeacherCoursesInput {
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionCreateManyWithoutContactsInput
+  teacherInstitution: InstitutionCreateManyWithoutTeachersInput
+  studentInstitution: InstitutionCreateManyWithoutStudentsInput
+  studentCourses: CourseCreateManyWithoutStudentsInput
+  answers: QuestionCreateManyWithoutAnsweredByInput
+  questions: QuestionCreateManyWithoutQuestionByInput
+  challengers: ChallengeCreateManyWithoutChallengerInput
+  testSequence: SequenceCreateManyWithoutStudentsInput
+  usedTestSequence: SequenceCreateManyWithoutUsedStudentsInput
+}
+
+input UserCreateWithoutTeacherInstitutionInput {
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionCreateManyWithoutContactsInput
+  studentInstitution: InstitutionCreateManyWithoutStudentsInput
+  teacherCourses: CourseCreateManyWithoutTeacherInput
+  studentCourses: CourseCreateManyWithoutStudentsInput
+  answers: QuestionCreateManyWithoutAnsweredByInput
+  questions: QuestionCreateManyWithoutQuestionByInput
+  challengers: ChallengeCreateManyWithoutChallengerInput
+  testSequence: SequenceCreateManyWithoutStudentsInput
+  usedTestSequence: SequenceCreateManyWithoutUsedStudentsInput
+}
+
+input UserCreateWithoutTestSequenceInput {
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionCreateManyWithoutContactsInput
+  teacherInstitution: InstitutionCreateManyWithoutTeachersInput
+  studentInstitution: InstitutionCreateManyWithoutStudentsInput
+  teacherCourses: CourseCreateManyWithoutTeacherInput
+  studentCourses: CourseCreateManyWithoutStudentsInput
+  answers: QuestionCreateManyWithoutAnsweredByInput
+  questions: QuestionCreateManyWithoutQuestionByInput
+  challengers: ChallengeCreateManyWithoutChallengerInput
+  usedTestSequence: SequenceCreateManyWithoutUsedStudentsInput
+}
+
+input UserCreateWithoutUsedTestSequenceInput {
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionCreateManyWithoutContactsInput
+  teacherInstitution: InstitutionCreateManyWithoutTeachersInput
+  studentInstitution: InstitutionCreateManyWithoutStudentsInput
+  teacherCourses: CourseCreateManyWithoutTeacherInput
+  studentCourses: CourseCreateManyWithoutStudentsInput
+  answers: QuestionCreateManyWithoutAnsweredByInput
+  questions: QuestionCreateManyWithoutQuestionByInput
+  challengers: ChallengeCreateManyWithoutChallengerInput
+  testSequence: SequenceCreateManyWithoutStudentsInput
+}
+
+"""An edge in a connection."""
+type UserEdge {
+  """The item at the end of the edge."""
+  node: User!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum UserOrderByInput {
+  id_ASC
+  id_DESC
+  email_ASC
+  email_DESC
+  password_ASC
+  password_DESC
+  firstName_ASC
+  firstName_DESC
+  lastName_ASC
+  lastName_DESC
+  phone_ASC
+  phone_DESC
+  lastLogin_ASC
+  lastLogin_DESC
+  signUpDate_ASC
+  signUpDate_DESC
+  online_ASC
+  online_DESC
+  type_ASC
+  type_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type UserPreviousValues {
+  id: ID!
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+}
+
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  node: User
+  updatedFields: [String!]
+  previousValues: UserPreviousValues
+}
+
+input UserSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: UserWhereInput
+}
+
+enum UserType {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+input UserUpdateInput {
+  email: String
+  password: String
+  firstName: String
+  lastName: String
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionUpdateManyWithoutContactsInput
+  teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
+  studentInstitution: InstitutionUpdateManyWithoutStudentsInput
+  teacherCourses: CourseUpdateManyWithoutTeacherInput
+  studentCourses: CourseUpdateManyWithoutStudentsInput
+  answers: QuestionUpdateManyWithoutAnsweredByInput
+  questions: QuestionUpdateManyWithoutQuestionByInput
+  challengers: ChallengeUpdateManyWithoutChallengerInput
+  testSequence: SequenceUpdateManyWithoutStudentsInput
+  usedTestSequence: SequenceUpdateManyWithoutUsedStudentsInput
+}
+
+input UserUpdateManyMutationInput {
+  email: String
+  password: String
+  firstName: String
+  lastName: String
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+}
+
+input UserUpdateManyWithoutInstitutionContactInput {
+  create: [UserCreateWithoutInstitutionContactInput!]
+  connect: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutInstitutionContactInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutInstitutionContactInput!]
+}
+
+input UserUpdateManyWithoutStudentCoursesInput {
+  create: [UserCreateWithoutStudentCoursesInput!]
+  connect: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutStudentCoursesInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutStudentCoursesInput!]
+}
+
+input UserUpdateManyWithoutStudentInstitutionInput {
+  create: [UserCreateWithoutStudentInstitutionInput!]
+  connect: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutStudentInstitutionInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutStudentInstitutionInput!]
+}
+
+input UserUpdateManyWithoutTeacherCoursesInput {
+  create: [UserCreateWithoutTeacherCoursesInput!]
+  connect: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutTeacherCoursesInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutTeacherCoursesInput!]
+}
+
+input UserUpdateManyWithoutTeacherInstitutionInput {
+  create: [UserCreateWithoutTeacherInstitutionInput!]
+  connect: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutTeacherInstitutionInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutTeacherInstitutionInput!]
+}
+
+input UserUpdateManyWithoutTestSequenceInput {
+  create: [UserCreateWithoutTestSequenceInput!]
+  connect: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutTestSequenceInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutTestSequenceInput!]
+}
+
+input UserUpdateManyWithoutUsedTestSequenceInput {
+  create: [UserCreateWithoutUsedTestSequenceInput!]
+  connect: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutUsedTestSequenceInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutUsedTestSequenceInput!]
+}
+
+input UserUpdateOneRequiredWithoutAnswersInput {
+  create: UserCreateWithoutAnswersInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutAnswersDataInput
+  upsert: UserUpsertWithoutAnswersInput
+}
+
+input UserUpdateOneRequiredWithoutChallengersInput {
+  create: UserCreateWithoutChallengersInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutChallengersDataInput
+  upsert: UserUpsertWithoutChallengersInput
+}
+
+input UserUpdateOneRequiredWithoutQuestionsInput {
+  create: UserCreateWithoutQuestionsInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutQuestionsDataInput
+  upsert: UserUpsertWithoutQuestionsInput
+}
+
+input UserUpdateWithoutAnswersDataInput {
+  email: String
+  password: String
+  firstName: String
+  lastName: String
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionUpdateManyWithoutContactsInput
+  teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
+  studentInstitution: InstitutionUpdateManyWithoutStudentsInput
+  teacherCourses: CourseUpdateManyWithoutTeacherInput
+  studentCourses: CourseUpdateManyWithoutStudentsInput
+  questions: QuestionUpdateManyWithoutQuestionByInput
+  challengers: ChallengeUpdateManyWithoutChallengerInput
+  testSequence: SequenceUpdateManyWithoutStudentsInput
+  usedTestSequence: SequenceUpdateManyWithoutUsedStudentsInput
+}
+
+input UserUpdateWithoutChallengersDataInput {
+  email: String
+  password: String
+  firstName: String
+  lastName: String
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionUpdateManyWithoutContactsInput
+  teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
+  studentInstitution: InstitutionUpdateManyWithoutStudentsInput
+  teacherCourses: CourseUpdateManyWithoutTeacherInput
+  studentCourses: CourseUpdateManyWithoutStudentsInput
+  answers: QuestionUpdateManyWithoutAnsweredByInput
+  questions: QuestionUpdateManyWithoutQuestionByInput
+  testSequence: SequenceUpdateManyWithoutStudentsInput
+  usedTestSequence: SequenceUpdateManyWithoutUsedStudentsInput
+}
+
+input UserUpdateWithoutInstitutionContactDataInput {
+  email: String
+  password: String
+  firstName: String
+  lastName: String
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
+  studentInstitution: InstitutionUpdateManyWithoutStudentsInput
+  teacherCourses: CourseUpdateManyWithoutTeacherInput
+  studentCourses: CourseUpdateManyWithoutStudentsInput
+  answers: QuestionUpdateManyWithoutAnsweredByInput
+  questions: QuestionUpdateManyWithoutQuestionByInput
+  challengers: ChallengeUpdateManyWithoutChallengerInput
+  testSequence: SequenceUpdateManyWithoutStudentsInput
+  usedTestSequence: SequenceUpdateManyWithoutUsedStudentsInput
+}
+
+input UserUpdateWithoutQuestionsDataInput {
+  email: String
+  password: String
+  firstName: String
+  lastName: String
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionUpdateManyWithoutContactsInput
+  teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
+  studentInstitution: InstitutionUpdateManyWithoutStudentsInput
+  teacherCourses: CourseUpdateManyWithoutTeacherInput
+  studentCourses: CourseUpdateManyWithoutStudentsInput
+  answers: QuestionUpdateManyWithoutAnsweredByInput
+  challengers: ChallengeUpdateManyWithoutChallengerInput
+  testSequence: SequenceUpdateManyWithoutStudentsInput
+  usedTestSequence: SequenceUpdateManyWithoutUsedStudentsInput
+}
+
+input UserUpdateWithoutStudentCoursesDataInput {
+  email: String
+  password: String
+  firstName: String
+  lastName: String
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionUpdateManyWithoutContactsInput
+  teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
+  studentInstitution: InstitutionUpdateManyWithoutStudentsInput
+  teacherCourses: CourseUpdateManyWithoutTeacherInput
+  answers: QuestionUpdateManyWithoutAnsweredByInput
+  questions: QuestionUpdateManyWithoutQuestionByInput
+  challengers: ChallengeUpdateManyWithoutChallengerInput
+  testSequence: SequenceUpdateManyWithoutStudentsInput
+  usedTestSequence: SequenceUpdateManyWithoutUsedStudentsInput
+}
+
+input UserUpdateWithoutStudentInstitutionDataInput {
+  email: String
+  password: String
+  firstName: String
+  lastName: String
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionUpdateManyWithoutContactsInput
+  teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
+  teacherCourses: CourseUpdateManyWithoutTeacherInput
+  studentCourses: CourseUpdateManyWithoutStudentsInput
+  answers: QuestionUpdateManyWithoutAnsweredByInput
+  questions: QuestionUpdateManyWithoutQuestionByInput
+  challengers: ChallengeUpdateManyWithoutChallengerInput
+  testSequence: SequenceUpdateManyWithoutStudentsInput
+  usedTestSequence: SequenceUpdateManyWithoutUsedStudentsInput
+}
+
+input UserUpdateWithoutTeacherCoursesDataInput {
+  email: String
+  password: String
+  firstName: String
+  lastName: String
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionUpdateManyWithoutContactsInput
+  teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
+  studentInstitution: InstitutionUpdateManyWithoutStudentsInput
+  studentCourses: CourseUpdateManyWithoutStudentsInput
+  answers: QuestionUpdateManyWithoutAnsweredByInput
+  questions: QuestionUpdateManyWithoutQuestionByInput
+  challengers: ChallengeUpdateManyWithoutChallengerInput
+  testSequence: SequenceUpdateManyWithoutStudentsInput
+  usedTestSequence: SequenceUpdateManyWithoutUsedStudentsInput
+}
+
+input UserUpdateWithoutTeacherInstitutionDataInput {
+  email: String
+  password: String
+  firstName: String
+  lastName: String
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionUpdateManyWithoutContactsInput
+  studentInstitution: InstitutionUpdateManyWithoutStudentsInput
+  teacherCourses: CourseUpdateManyWithoutTeacherInput
+  studentCourses: CourseUpdateManyWithoutStudentsInput
+  answers: QuestionUpdateManyWithoutAnsweredByInput
+  questions: QuestionUpdateManyWithoutQuestionByInput
+  challengers: ChallengeUpdateManyWithoutChallengerInput
+  testSequence: SequenceUpdateManyWithoutStudentsInput
+  usedTestSequence: SequenceUpdateManyWithoutUsedStudentsInput
+}
+
+input UserUpdateWithoutTestSequenceDataInput {
+  email: String
+  password: String
+  firstName: String
+  lastName: String
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionUpdateManyWithoutContactsInput
+  teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
+  studentInstitution: InstitutionUpdateManyWithoutStudentsInput
+  teacherCourses: CourseUpdateManyWithoutTeacherInput
+  studentCourses: CourseUpdateManyWithoutStudentsInput
+  answers: QuestionUpdateManyWithoutAnsweredByInput
+  questions: QuestionUpdateManyWithoutQuestionByInput
+  challengers: ChallengeUpdateManyWithoutChallengerInput
+  usedTestSequence: SequenceUpdateManyWithoutUsedStudentsInput
+}
+
+input UserUpdateWithoutUsedTestSequenceDataInput {
+  email: String
+  password: String
+  firstName: String
+  lastName: String
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionUpdateManyWithoutContactsInput
+  teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
+  studentInstitution: InstitutionUpdateManyWithoutStudentsInput
+  teacherCourses: CourseUpdateManyWithoutTeacherInput
+  studentCourses: CourseUpdateManyWithoutStudentsInput
+  answers: QuestionUpdateManyWithoutAnsweredByInput
+  questions: QuestionUpdateManyWithoutQuestionByInput
+  challengers: ChallengeUpdateManyWithoutChallengerInput
+  testSequence: SequenceUpdateManyWithoutStudentsInput
+}
+
+input UserUpdateWithWhereUniqueWithoutInstitutionContactInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutInstitutionContactDataInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutStudentCoursesInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutStudentCoursesDataInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutStudentInstitutionInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutStudentInstitutionDataInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutTeacherCoursesInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutTeacherCoursesDataInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutTeacherInstitutionInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutTeacherInstitutionDataInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutTestSequenceInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutTestSequenceDataInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutUsedTestSequenceInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutUsedTestSequenceDataInput!
+}
+
+input UserUpsertWithoutAnswersInput {
+  update: UserUpdateWithoutAnswersDataInput!
+  create: UserCreateWithoutAnswersInput!
+}
+
+input UserUpsertWithoutChallengersInput {
+  update: UserUpdateWithoutChallengersDataInput!
+  create: UserCreateWithoutChallengersInput!
+}
+
+input UserUpsertWithoutQuestionsInput {
+  update: UserUpdateWithoutQuestionsDataInput!
+  create: UserCreateWithoutQuestionsInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutInstitutionContactInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutInstitutionContactDataInput!
+  create: UserCreateWithoutInstitutionContactInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutStudentCoursesInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutStudentCoursesDataInput!
+  create: UserCreateWithoutStudentCoursesInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutStudentInstitutionInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutStudentInstitutionDataInput!
+  create: UserCreateWithoutStudentInstitutionInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutTeacherCoursesInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutTeacherCoursesDataInput!
+  create: UserCreateWithoutTeacherCoursesInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutTeacherInstitutionInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutTeacherInstitutionDataInput!
+  create: UserCreateWithoutTeacherInstitutionInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutTestSequenceInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutTestSequenceDataInput!
+  create: UserCreateWithoutTestSequenceInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutUsedTestSequenceInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutUsedTestSequenceDataInput!
+  create: UserCreateWithoutUsedTestSequenceInput!
+}
+
+input UserWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
+  password: String
+
+  """All values that are not equal to given value."""
+  password_not: String
+
+  """All values that are contained in given list."""
+  password_in: [String!]
+
+  """All values that are not contained in given list."""
+  password_not_in: [String!]
+
+  """All values less than the given value."""
+  password_lt: String
+
+  """All values less than or equal the given value."""
+  password_lte: String
+
+  """All values greater than the given value."""
+  password_gt: String
+
+  """All values greater than or equal the given value."""
+  password_gte: String
+
+  """All values containing the given string."""
+  password_contains: String
+
+  """All values not containing the given string."""
+  password_not_contains: String
+
+  """All values starting with the given string."""
+  password_starts_with: String
+
+  """All values not starting with the given string."""
+  password_not_starts_with: String
+
+  """All values ending with the given string."""
+  password_ends_with: String
+
+  """All values not ending with the given string."""
+  password_not_ends_with: String
+  firstName: String
+
+  """All values that are not equal to given value."""
+  firstName_not: String
+
+  """All values that are contained in given list."""
+  firstName_in: [String!]
+
+  """All values that are not contained in given list."""
+  firstName_not_in: [String!]
+
+  """All values less than the given value."""
+  firstName_lt: String
+
+  """All values less than or equal the given value."""
+  firstName_lte: String
+
+  """All values greater than the given value."""
+  firstName_gt: String
+
+  """All values greater than or equal the given value."""
+  firstName_gte: String
+
+  """All values containing the given string."""
+  firstName_contains: String
+
+  """All values not containing the given string."""
+  firstName_not_contains: String
+
+  """All values starting with the given string."""
+  firstName_starts_with: String
+
+  """All values not starting with the given string."""
+  firstName_not_starts_with: String
+
+  """All values ending with the given string."""
+  firstName_ends_with: String
+
+  """All values not ending with the given string."""
+  firstName_not_ends_with: String
+  lastName: String
+
+  """All values that are not equal to given value."""
+  lastName_not: String
+
+  """All values that are contained in given list."""
+  lastName_in: [String!]
+
+  """All values that are not contained in given list."""
+  lastName_not_in: [String!]
+
+  """All values less than the given value."""
+  lastName_lt: String
+
+  """All values less than or equal the given value."""
+  lastName_lte: String
+
+  """All values greater than the given value."""
+  lastName_gt: String
+
+  """All values greater than or equal the given value."""
+  lastName_gte: String
+
+  """All values containing the given string."""
+  lastName_contains: String
+
+  """All values not containing the given string."""
+  lastName_not_contains: String
+
+  """All values starting with the given string."""
+  lastName_starts_with: String
+
+  """All values not starting with the given string."""
+  lastName_not_starts_with: String
+
+  """All values ending with the given string."""
+  lastName_ends_with: String
+
+  """All values not ending with the given string."""
+  lastName_not_ends_with: String
+  phone: String
+
+  """All values that are not equal to given value."""
+  phone_not: String
+
+  """All values that are contained in given list."""
+  phone_in: [String!]
+
+  """All values that are not contained in given list."""
+  phone_not_in: [String!]
+
+  """All values less than the given value."""
+  phone_lt: String
+
+  """All values less than or equal the given value."""
+  phone_lte: String
+
+  """All values greater than the given value."""
+  phone_gt: String
+
+  """All values greater than or equal the given value."""
+  phone_gte: String
+
+  """All values containing the given string."""
+  phone_contains: String
+
+  """All values not containing the given string."""
+  phone_not_contains: String
+
+  """All values starting with the given string."""
+  phone_starts_with: String
+
+  """All values not starting with the given string."""
+  phone_not_starts_with: String
+
+  """All values ending with the given string."""
+  phone_ends_with: String
+
+  """All values not ending with the given string."""
+  phone_not_ends_with: String
+  lastLogin: DateTime
+
+  """All values that are not equal to given value."""
+  lastLogin_not: DateTime
+
+  """All values that are contained in given list."""
+  lastLogin_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  lastLogin_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  lastLogin_lt: DateTime
+
+  """All values less than or equal the given value."""
+  lastLogin_lte: DateTime
+
+  """All values greater than the given value."""
+  lastLogin_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  lastLogin_gte: DateTime
+  signUpDate: DateTime
+
+  """All values that are not equal to given value."""
+  signUpDate_not: DateTime
+
+  """All values that are contained in given list."""
+  signUpDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  signUpDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  signUpDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  signUpDate_lte: DateTime
+
+  """All values greater than the given value."""
+  signUpDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  signUpDate_gte: DateTime
+  online: Boolean
+
+  """All values that are not equal to given value."""
+  online_not: Boolean
+  type: UserType
+
+  """All values that are not equal to given value."""
+  type_not: UserType
+
+  """All values that are contained in given list."""
+  type_in: [UserType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [UserType!]
+  institutionContact_every: InstitutionWhereInput
+  institutionContact_some: InstitutionWhereInput
+  institutionContact_none: InstitutionWhereInput
+  teacherInstitution_every: InstitutionWhereInput
+  teacherInstitution_some: InstitutionWhereInput
+  teacherInstitution_none: InstitutionWhereInput
+  studentInstitution_every: InstitutionWhereInput
+  studentInstitution_some: InstitutionWhereInput
+  studentInstitution_none: InstitutionWhereInput
+  teacherCourses_every: CourseWhereInput
+  teacherCourses_some: CourseWhereInput
+  teacherCourses_none: CourseWhereInput
+  studentCourses_every: CourseWhereInput
+  studentCourses_some: CourseWhereInput
+  studentCourses_none: CourseWhereInput
+  answers_every: QuestionWhereInput
+  answers_some: QuestionWhereInput
+  answers_none: QuestionWhereInput
+  questions_every: QuestionWhereInput
+  questions_some: QuestionWhereInput
+  questions_none: QuestionWhereInput
+  challengers_every: ChallengeWhereInput
+  challengers_some: ChallengeWhereInput
+  challengers_none: ChallengeWhereInput
+  testSequence_every: SequenceWhereInput
+  testSequence_some: SequenceWhereInput
+  testSequence_none: SequenceWhereInput
+  usedTestSequence_every: SequenceWhereInput
+  usedTestSequence_some: SequenceWhereInput
+  usedTestSequence_none: SequenceWhereInput
+}
+
+input UserWhereUniqueInput {
+  id: ID
+  email: String
+}

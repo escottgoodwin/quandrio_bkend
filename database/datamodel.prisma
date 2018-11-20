@@ -14,10 +14,10 @@ type User {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
-  type: UserType UserType @default(value: "STUDENT")
-  institutionContact: Institution! @relation(name: "ContactsByInstitution")
-  teacherInstitution: Institution! @relation(name: "TeachersByInstitution")
-  studentInstitution: Institution! @relation(name: "StudentsByInstitution")
+  type: UserType @default(value: "STUDENT")
+  institutionContact: [Institution!]! @relation(name: "ContactsByInstitution")
+  teacherInstitution: [Institution!]! @relation(name: "TeachersByInstitution")
+  studentInstitution: [Institution!]! @relation(name: "StudentsByInstitution")
   teacherCourses: [Course!]! @relation(name: "TeachersByCourse")
   studentCourses: [Course!]! @relation(name: "StudentsByCourse")
   answers: [Question!]! @relation(name: "AnswersByUser")
@@ -53,22 +53,20 @@ type Test {
   subject: String!
   testNumber: String
   testDate: DateTime
-  release: Bool
+  release: Boolean
   releaseDate: DateTime
   course: Course! @relation(name: "TestsByCourse")
-  panels: [Panel!]! @relation(name: "PanelsByCourse")
-  studentSequence: [User!]! @relation(name: "StudentSequenceByTest")
-  panelSequence: [Panel!]! @relation(name: "PanelSequenceByTest")
-  questions: [Questions!]! @relation(name: "QuestionsByTest")
+  panels: [Panel!]! @relation(name: "PanelsByTest")
+  questions: [Question!]! @relation(name: "QuestionsByTest")
   sequences: Sequence! @relation(name: "SequencesByTest")
 }
 
 type Panel {
   id: ID! @unique
-  course: Course! @relation(name: "PanelsByCourse")
+  test: Test! @relation(name: "PanelsByTest")
   link: String!
-  sequences: [Sequence!]! @relation(name: "PanelBySequence")
-  usedSequence: @relation(name: "UsedPanelBySequence")
+  sequences: [Sequence!]! @relation(name: "PanelSequenceByTest")
+  usedSequence: [Sequence!]! @relation(name: "UsedPanelBySequence")
 }
 
 type Question {
@@ -82,16 +80,16 @@ type Question {
   expirationTime: DateTime
   panelUrl: String!
   test: Test! @relation(name: "QuestionsByTest")
-  choices: [QuestionChoice!]! @relation(name: "ChoicesByQuestion")
-  challenges: @relation(name: "ChallengesByQuestion")
+  choices: [QuestionChoice!]! @relation(name: "QuestionChoicesByQuestion")
+  challenges: [Challenge!]! @relation(name: "ChallengesByQuestion")
 }
 
 type QuestionChoice {
   id: ID! @unique
   choice: String!
-  question: Question! @relation(name: "ChoicesByQuestion")
+  question: Question! @relation(name: "QuestionChoicesByQuestion")
   answers: [Question!]! @relation(name: "AnswerByQuestionChoice")
-  correct: Bool
+  correct: Boolean
 }
 
 type Challenge {

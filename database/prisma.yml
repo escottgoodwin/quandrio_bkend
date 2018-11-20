@@ -1,0 +1,10 @@
+endpoint: https://quandria-86dfa876be.herokuapp.com/quandria/dev
+
+datamodel: datamodel.prisma
+
+hooks:
+  post-deploy:
+    - graphql get-schema --project database
+
+# You can only access the API when providing JWTs that are signed with this secret
+secret: mysecret123

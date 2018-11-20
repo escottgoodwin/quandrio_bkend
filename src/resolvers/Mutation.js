@@ -34,7 +34,7 @@ async function login(parent, args, ctx, info) {
   }
 }
 
-function add_job(parent, { jobTitle, location, description, address, city, state, zip, clientId }, ctx, info) {
+function add_institution(parent, { jobTitle, location, description, address, city, state, zip, clientId }, ctx, info) {
   const userId = getUserId(ctx)
   const addedDate = new Date()
   const brochure_sent = new Date()
@@ -86,7 +86,7 @@ function add_job(parent, { jobTitle, location, description, address, city, state
 
 
 
-function update_client(parent, { id, clientName, address, city, state, zip, phone, email }, ctx, info) {
+function update_institution(parent, { id, clientName, address, city, state, zip, phone, email }, ctx, info) {
   const userId = getUserId(ctx)
   const updateDate = new Date()
   return ctx.db.mutation.updateClient(
@@ -115,9 +115,8 @@ function update_client(parent, { id, clientName, address, city, state, zip, phon
 
 
 module.exports = {
-  add_job,
-  add_client,
-  update_background,
+  add_institution,
+  update_institution,
   signup,
   login,
 }
