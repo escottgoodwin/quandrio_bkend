@@ -25,6 +25,9 @@ type User {
   challengers: [Challenge!]! @relation(name: "ChallengesByUser")
   testSequence: [Sequence!]! @relation(name: "UserBySequence")
   usedTestSequence: [Sequence!]! @relation(name: "UsedUserBySequence")
+  coursesAdded: [Course!]! @relation(name: "AddedByCourse")
+  testsAdded: [Test!]! @relation(name: "AddedByTest")
+  panelsAdded:  [Panel!]! @relation(name: "AddedByPanel")
 }
 
 type Institution {
@@ -39,30 +42,38 @@ type Institution {
 
 type Course {
   id: ID! @unique
+  addedBy: User! @relation(name: "AddedByCourse")
+  addedDate: DateTime
   name: String!
   courseNumber: String
   time: String
   institution: Institution! @relation(name: "CoursesByInstitution")
-  teacher: [User!]! @relation(name: "TeachersByCourse")
+  teachers: [User!]! @relation(name: "TeachersByCourse")
   students: [User!]! @relation(name: "StudentsByCourse")
   tests: [Test!]! @relation(name: "TestsByCourse")
 }
 
 type Test {
   id: ID! @unique
+  addedBy: User! @relation(name: "AddedByTest")
+  addedDate: DateTime
   subject: String!
   testNumber: String
   testDate: DateTime
+  published: Boolean
+  publishDate: DateTime
   release: Boolean
   releaseDate: DateTime
   course: Course! @relation(name: "TestsByCourse")
   panels: [Panel!]! @relation(name: "PanelsByTest")
   questions: [Question!]! @relation(name: "QuestionsByTest")
-  sequences: Sequence! @relation(name: "SequencesByTest")
+  sequences: Sequence @relation(name: "SequencesByTest")
 }
 
 type Panel {
   id: ID! @unique
+  addedBy: User! @relation(name: "AddedByPanel")
+  addedDate: DateTime
   test: Test! @relation(name: "PanelsByTest")
   link: String!
   sequences: [Sequence!]! @relation(name: "PanelSequenceByTest")
@@ -72,13 +83,13 @@ type Panel {
 type Question {
   id: ID! @unique
   answer: QuestionChoice @relation(name: "AnswerByQuestionChoice")
-  answeredBy: User! @relation(name: "AnswersByUser")
+  answeredBy: User @relation(name: "AnswersByUser")
   answerTime: DateTime
   question: String!
   questionBy: User! @relation(name: "QuestionsByUser")
-  questionTime: DateTime!
+  questionTime: DateTime
   expirationTime: DateTime
-  panelUrl: String!
+  panelUrl: String
   test: Test! @relation(name: "QuestionsByTest")
   choices: [QuestionChoice!]! @relation(name: "QuestionChoicesByQuestion")
   challenges: [Challenge!]! @relation(name: "ChallengesByQuestion")

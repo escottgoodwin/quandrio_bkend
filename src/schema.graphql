@@ -1,8 +1,15 @@
-# import User from "./generated/prisma.graphql"
+# import User,Institution,Course,Test,Question,QuestionChoice,Challenge from "./generated/prisma.graphql"
 
 type Query {
 
   users(filter: String): [User!]!
+  institutions(filter: String): [Institution!]!
+  courses(filter: String): [Course!]!
+  tests(filter: String): [Test!]!
+  panels(filter: String): [Panel!]!
+  questions(filter: String): [Question!]!
+  questionchoices(filter: String): [QuestionChoice!]!
+  challenges(filter: String): [Challenge!]!
 
   me: User
 }
@@ -13,9 +20,15 @@ type Mutation {
 
   login(email: String!, password: String!): AuthPayload
 
-  add_institution(name: String!, type: String): Institution!
+  addInstitution(name: String!, type: String): Institution!
 
-  update_institution(name: String!, type: String, contacts: ID, teachers: ID, students: ID, courses: ID): Institution!
+  updateInstitution(name: String!, type: String, contacts: ID, teachers: ID, students: ID, courses: ID): Institution!
+
+  addCourse(name: String!, courseNumber: String, time: String, institutionId: ID): Course!
+
+  addTest(subject: String!, testNumber: String, testDate: DateTime, courseId: ID): Test!
+
+  addPanel(link: String!, testId: ID): Panel!
 
 }
 

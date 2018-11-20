@@ -34,75 +34,41 @@ async function login(parent, args, ctx, info) {
   }
 }
 
-function add_institution(parent, { jobTitle, location, description, address, city, state, zip, clientId }, ctx, info) {
+function addInstitution(parent, { name, type }, ctx, info) {
   const userId = getUserId(ctx)
   const addedDate = new Date()
-  const brochure_sent = new Date()
-  const app_deadline = new Date()
-  const screening_deadline = new Date()
-  const presentation = new Date()
-  const background_deadline = new Date()
-  const final_interview = new Date()
 
-  brochure_sent.setDate(addedDate.getDate() + 14);
-  app_deadline.setDate(addedDate.getDate() + 44);
-  screening_deadline.setDate(addedDate.getDate() + 58);
-  presentation.setDate(addedDate.getDate() + 65);
-  background_deadline.setDate(addedDate.getDate() + 79);
-  final_interview.setDate(addedDate.getDate() + 86);
-
-  return ctx.db.mutation.createJob(
+  return ctx.db.mutation.createInstitution(
     {
       data: {
-        jobTitle,
-        addedDate,
-        location,
-        description,
-        address,
-        city,
-        state,
-        zip,
-        brochure_sent,
-        app_deadline,
-        screening_deadline,
-        presentation,
-        background_deadline,
-        final_interview,
-        client: {
-          connect: { id: clientId },
-        },
-        addedBy: {
-          connect: { id: userId },
-        },
-        consultants:
-          {
-            connect: [{ id: userId }],
-          }
+        name,
+        type
       },
     },
     info
   )
 }
 
-
-
-function update_institution(parent, { id, clientName, address, city, state, zip, phone, email }, ctx, info) {
+function updateInstitution(parent, { id, name, type, contacts, teachers, students, courses }, ctx, info) {
   const userId = getUserId(ctx)
   const updateDate = new Date()
-  return ctx.db.mutation.updateClient(
+  return ctx.db.mutation.updateInstitution(
     {
       data: {
-        clientName,
-        address,
-        city,
-        state,
-        zip,
-        phone,
-        email,
-        updateDate,
-        updatedBy: {
-          connect: { id: userId  }
-        }
+        name,
+        type,
+        contacts: {
+          connect: [{ id: contactId  }]
+        },
+        teachers: {
+          connect: [{ id: teacherId  }]
+        },
+        students: {
+          connect: [{ id: studentId  }]
+        },
+        courses: {
+          connect: [{ id: studentId  }]
+        },
       },
       where: {
         id: id
@@ -112,11 +78,84 @@ function update_institution(parent, { id, clientName, address, city, state, zip,
   )
 }
 
+function addCourse(parent, { name, courseNumber, time, institutionId }, ctx, info) {
+  const userId = getUserId(ctx)
+  const addedDate = new Date()
 
+  return ctx.db.mutation.createCourse(
+    {
+      data: {
+        name,
+        courseNumber,
+        time,
+        addedDate,
+        institution: {
+          connect: { id: institutionId  }
+        },
+        addedBy: {
+          connect: { id: userId },
+        },
+        teachers: {
+          connect: [{ id: userId }],
+        },
+      },
+    },
+    info
+  )
+}
+
+function addTest(parent, { subject, testNumber, testDate, courseId }, ctx, info) {
+  const userId = getUserId(ctx)
+  const addedDate = new Date()
+
+  return ctx.db.mutation.createTest(
+    {
+      data: {
+        subject,
+        testNumber,
+        testDate,
+        addedDate,
+        published: false,
+        release: false,
+        course: {
+          connect: { id: courseId  }
+        },
+        addedBy: {
+          connect: { id: userId },
+        },
+      },
+    },
+    info
+  )
+}
+
+function addPanel(parent, { link, testId }, ctx, info) {
+  const userId = getUserId(ctx)
+  const addedDate = new Date()
+
+  return ctx.db.mutation.createPanel(
+    {
+      data: {
+        link,
+        addedDate,
+        test: {
+          connect: { id: testId  }
+        },
+        addedBy: {
+          connect: { id: userId },
+        },
+      },
+    },
+    info
+  )
+}
 
 module.exports = {
-  add_institution,
-  update_institution,
+  addInstitution,
+  updateInstitution,
+  addCourse,
+  addTest,
+  addPanel,
   signup,
   login,
 }
