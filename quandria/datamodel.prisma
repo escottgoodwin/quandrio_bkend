@@ -1,0 +1,112 @@
+enum UserType {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+type User {
+  id: ID! @unique
+  email: String! @unique
+  password: String!
+  firstName: String!
+  lastName: String!
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType UserType @default(value: "STUDENT")
+  institutionContact: Institution! @relation(name: "ContactsByInstitution")
+  teacherInstitution: Institution! @relation(name: "TeachersByInstitution")
+  studentInstitution: Institution! @relation(name: "StudentsByInstitution")
+  teacherCourses: [Course!]! @relation(name: "TeachersByCourse")
+  studentCourses: [Course!]! @relation(name: "StudentsByCourse")
+  answers: [Question!]! @relation(name: "AnswersByUser")
+  questions: [Question!]! @relation(name: "QuestionsByUser")
+  challengers: [Challenge!]! @relation(name: "ChallengesByUser")
+  testSequence: [Sequence!]! @relation(name: "UserBySequence")
+  usedTestSequence: [Sequence!]! @relation(name: "UsedUserBySequence")
+}
+
+type Institution {
+  id: ID! @unique
+  name: String!
+  type: String
+  contacts: [User!]! @relation(name: "ContactsByInstitution")
+  teachers: [User!]! @relation(name: "TeachersByInstitution")
+  students: [User!]! @relation(name: "StudentsByInstitution")
+  courses: [Course!]! @relation(name: "CoursesByInstitution")
+}
+
+type Course {
+  id: ID! @unique
+  name: String!
+  courseNumber: String
+  time: String
+  institution: Institution! @relation(name: "CoursesByInstitution")
+  teacher: [User!]! @relation(name: "TeachersByCourse")
+  students: [User!]! @relation(name: "StudentsByCourse")
+  tests: [Test!]! @relation(name: "TestsByCourse")
+}
+
+type Test {
+  id: ID! @unique
+  subject: String!
+  testNumber: String
+  testDate: DateTime
+  release: Bool
+  releaseDate: DateTime
+  course: Course! @relation(name: "TestsByCourse")
+  panels: [Panel!]! @relation(name: "PanelsByCourse")
+  studentSequence: [User!]! @relation(name: "StudentSequenceByTest")
+  panelSequence: [Panel!]! @relation(name: "PanelSequenceByTest")
+  questions: [Questions!]! @relation(name: "QuestionsByTest")
+  sequences: Sequence! @relation(name: "SequencesByTest")
+}
+
+type Panel {
+  id: ID! @unique
+  course: Course! @relation(name: "PanelsByCourse")
+  link: String!
+  sequences: [Sequence!]! @relation(name: "PanelBySequence")
+  usedSequence: @relation(name: "UsedPanelBySequence")
+}
+
+type Question {
+  id: ID! @unique
+  answer: QuestionChoice @relation(name: "AnswerByQuestionChoice")
+  answeredBy: User! @relation(name: "AnswersByUser")
+  answerTime: DateTime
+  question: String!
+  questionBy: User! @relation(name: "QuestionsByUser")
+  questionTime: DateTime!
+  expirationTime: DateTime
+  panelUrl: String!
+  test: Test! @relation(name: "QuestionsByTest")
+  choices: [QuestionChoice!]! @relation(name: "ChoicesByQuestion")
+  challenges: @relation(name: "ChallengesByQuestion")
+}
+
+type QuestionChoice {
+  id: ID! @unique
+  choice: String!
+  question: Question! @relation(name: "ChoicesByQuestion")
+  answers: [Question!]! @relation(name: "AnswerByQuestionChoice")
+  correct: Bool
+}
+
+type Challenge {
+  id: ID! @unique
+  challenge: String
+  challenger: User! @relation(name: "ChallengesByUser")
+  challengeTime: DateTime
+  question: Question! @relation(name: "ChallengesByQuestion")
+}
+
+type Sequence {
+  id: ID! @unique
+  test: Test! @relation(name: "SequencesByTest")
+  students: [User!]! @relation(name: "UserBySequence")
+  usedStudents: [User!]! @relation(name: "UsedUserBySequence")
+  panels: [Panel!]! @relation(name: "PanelBySequence")
+  usedPanels: [Panel!]! @relation(name: "UsedPanelBySequence")
+}

@@ -1,0 +1,77 @@
+# import User, Job, Application, Client, AdPlaced, AdSource, Reference, Background, OutreachTarget, OutreachCall, ScreenCall, Article, Expense, Payment from "./generated/prisma.graphql"
+
+type Query {
+
+  jobs(filter: String): [Job!]!
+
+  users(filter: String): [User!]!
+
+  clients(filter: String): [Client!]!
+
+  applications(filter: String): [Application!]!
+
+  ad_sources(filter: String): [AdSource!]!
+
+  ads_placed(filter: String): [AdPlaced!]!
+
+  outreach_targets(filter: String): [OutreachTarget!]!
+
+  backgrounds(filter: String): [Background!]!
+
+  outreach_calls(filter: String): [OutreachCall!]!
+
+  screen_calls(filter: String): [ScreenCall!]!
+
+  references(filter: String): [Reference!]!
+
+  articles(filter: String): [Article!]!
+
+  expenses(filter: String): [Expense!]!
+
+  payments(filter: String): [Payment!]!
+
+  me: User
+}
+
+type Mutation {
+
+  signup(email: String!, password: String!, firstName: String!,lastName: String!, type: String): AuthPayload
+
+  login(email: String!, password: String!): AuthPayload
+
+  add_client(clientName: String!, address: String, city: String, state: String, zip: String, phone: String, email: String): Client!
+
+  apply(jobId: ID!): Application!
+
+  add_job(jobTitle: String!, location: String, description: String, address: String, city: String, state: String, zip: String, clientId: ID!): Job!
+
+  add_ad(jobId: ID!, publicationId: ID!, copy: String, adLink: String, ran: String, cost: Float): AdPlaced!
+
+  add_ad_source(pubName: String!, firstName: String, lastName: String, city: String, state: String, zip: String, phone: String, email: String, instructions: String): AdSource!
+
+  add_outreach_target(firstName: String!, lastName: String!, organization: String!, title: String!, city: String, state: String, zip: String, phone: String, email: String): OutreachTarget!
+
+  add_background(link: String, type: String, applicantId: ID!): Background!
+
+  add_outreach_call(lm: DateTime, notes: String, call_date: DateTime, referral: String, targetId: ID!, jobId: ID!): OutreachCall!
+
+  add_screen_call(lm: DateTime, notes: String, applicantId: ID!, applicationId: ID!, jobId: ID!): ScreenCall!
+
+  add_reference(firstName: String!, lastName: String!, organization: String!, title: String!,phone: String, email: String, relation: String, lm: DateTime, callDate: DateTime, notes: String, applicantId: ID!, applicationId: ID!, jobId: ID!): Reference!
+
+  add_article(title: String!,summary: String, link: String, articleDate: DateTime, applicantId: ID!, jobId: ID!): Article!
+
+  add_expense(type: String!, link: String, amount: Float!, expenseDate: DateTime, jobId: ID!): Expense!
+
+  add_payment(phase: String!, amount: Float!, jobId: ID!): Payment!
+
+  update_client(id: String!, clientName: String!, address: String, city: String, state: String, zip: String, phone: String, email: String): Client!
+
+  update_background(link: String, type: String, applicantId: String!): Background!
+
+}
+
+type AuthPayload {
+  token: String
+  user: User
+}

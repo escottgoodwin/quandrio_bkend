@@ -1,0 +1,6 @@
+endpoint: https://quandria-86dfa876be.herokuapp.com/quandria/dev
+datamodel: datamodel.prisma
+
+generate:
+  - generator: javascript-client
+    output: ./generated/prisma-client/
