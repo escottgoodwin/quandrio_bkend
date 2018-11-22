@@ -14,22 +14,30 @@ type User {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  updateDate: DateTime
+  updatedBy: User @relation(name: "UserUpdatesByUser" onDelete: CASCADE)
   type: UserType @default(value: "STUDENT")
-  institutionContact: [Institution!]! @relation(name: "ContactsByInstitution")
-  teacherInstitution: [Institution!]! @relation(name: "TeachersByInstitution")
-  studentInstitution: [Institution!]! @relation(name: "StudentsByInstitution")
-  teacherCourses: [Course!]! @relation(name: "TeachersByCourse")
-  studentCourses: [Course!]! @relation(name: "StudentsByCourse")
-  answers: [Answer!]! @relation(name: "AnswersByUser")
-  questions: [Question!]! @relation(name: "QuestionsByUser")
-  challengers: [Challenge!]! @relation(name: "ChallengesByUser")
-  testSequence: [Sequence!]! @relation(name: "UserBySequence")
-  usedTestSequence: [Sequence!]! @relation(name: "UsedUserBySequence")
-  coursesAdded: [Course!]! @relation(name: "AddedByCourse")
-  testsAdded: [Test!]! @relation(name: "AddedByTest")
-  panelsAdded:  [Panel!]! @relation(name: "AddedByPanel")
-  institutionUpdates: [Institution!]! @relation(name: "InstitutionUpdatesByUser")
-  courseUpdates: [Course!]! @relation(name: "CourseUpdatesByUser")
+  institutionContact: [Institution!]! @relation(name: "ContactsByInstitution" onDelete: CASCADE)
+  teacherInstitution: [Institution!]! @relation(name: "TeachersByInstitution" onDelete: CASCADE)
+  studentInstitution: [Institution!]! @relation(name: "StudentsByInstitution" onDelete: CASCADE)
+  teacherCourses: [Course!]! @relation(name: "TeachersByCourse" onDelete: CASCADE)
+  studentCourses: [Course!]! @relation(name: "StudentsByCourse" onDelete: CASCADE)
+  answers: [Answer!]! @relation(name: "AnswersByUser" onDelete: CASCADE)
+  questions: [Question!]! @relation(name: "QuestionsByUser" onDelete: CASCADE)
+  challenges: [Challenge!]! @relation(name: "ChallengesByUser" onDelete: CASCADE)
+  testSequence: [Sequence!]! @relation(name: "UserBySequence" onDelete: CASCADE)
+  usedTestSequence: [Sequence!]! @relation(name: "UsedUserBySequence"  onDelete: CASCADE)
+  coursesAdded: [Course!]! @relation(name: "AddedByCourse" onDelete: CASCADE)
+  testsAdded: [Test!]! @relation(name: "AddedByTest" onDelete: CASCADE)
+  panelsAdded:  [Panel!]! @relation(name: "AddedByPanel" onDelete: CASCADE)
+  institutionUpdates: [Institution!]! @relation(name: "InstitutionUpdatesByUser" onDelete: CASCADE)
+  courseUpdates: [Course!]! @relation(name: "CourseUpdatesByUser" onDelete: CASCADE)
+  testUpdates: [Test!]! @relation(name: "TestUpdatesByUser" onDelete: CASCADE)
+  questionUpdates: [Question!]! @relation(name: "QuestionUpdatesByUser" onDelete: CASCADE)
+  answerUpdates: [Answer!]! @relation(name: "AnswerUpdatesByUser" onDelete: CASCADE)
+  questionChoiceUpdates: [QuestionChoice!]! @relation(name: "QuestionChoiceUpdatesByUser" onDelete: CASCADE)
+  challengeUpdates: [Challenge!]! @relation(name: "ChallengeUpdatesByUser" onDelete: CASCADE)
+  userUpdates: [User!]! @relation(name: "UserUpdatesByUser" onDelete: CASCADE)
 }
 
 type Institution {
@@ -38,10 +46,10 @@ type Institution {
   type: String
   updateDate: DateTime
   updatedBy: User @relation(name: "InstitutionUpdatesByUser")
-  contacts: [User!]! @relation(name: "ContactsByInstitution" onDelete: CASCADE)
-  teachers: [User!]! @relation(name: "TeachersByInstitution" onDelete: CASCADE)
-  students: [User!]! @relation(name: "StudentsByInstitution" onDelete: CASCADE)
-  courses: [Course!]! @relation(name: "CoursesByInstitution" onDelete: CASCADE)
+  contacts: [User!]! @relation(name: "ContactsByInstitution")
+  teachers: [User!]! @relation(name: "TeachersByInstitution")
+  students: [User!]! @relation(name: "StudentsByInstitution")
+  courses: [Course!]! @relation(name: "CoursesByInstitution")
 }
 
 type Course {
@@ -63,6 +71,8 @@ type Test {
   id: ID! @unique
   addedBy: User! @relation(name: "AddedByTest")
   addedDate: DateTime
+  updateDate: DateTime
+  updatedBy: User @relation(name: "TestUpdatesByUser")
   subject: String!
   testNumber: String
   testDate: DateTime
@@ -93,6 +103,8 @@ type Question {
   questionBy: User! @relation(name: "QuestionsByUser")
   questionTime: DateTime
   expirationTime: DateTime
+  updateDate: DateTime
+  updatedBy: User @relation(name: "QuestionUpdatesByUser")
   panel: Panel @relation(name: "PanelByQuestion")
   test: Test! @relation(name: "QuestionsByTest")
   choices: [QuestionChoice!]! @relation(name: "QuestionChoicesByQuestion" onDelete: CASCADE)
@@ -106,12 +118,16 @@ type Answer {
   answerCorrect: Boolean
   answeredBy: User @relation(name: "AnswersByUser")
   answerTime: DateTime
+  updateDate: DateTime
+  updatedBy: User @relation(name: "AnswerUpdatesByUser")
   question: Question! @relation(name: "AnswerByQuestion")
 }
 
 type QuestionChoice {
   id: ID! @unique
   choice: String!
+  updateDate: DateTime
+  updatedBy: User @relation(name: "QuestionChoiceUpdatesByUser")
   question: Question! @relation(name: "QuestionChoicesByQuestion")
   answers: [Answer!]! @relation(name: "AnswerByQuestionChoice" onDelete: CASCADE)
   correct: Boolean  @default(value: false)
@@ -122,6 +138,8 @@ type Challenge {
   challenge: String
   challenger: User! @relation(name: "ChallengesByUser")
   challengeTime: DateTime
+  updateDate: DateTime
+  updatedBy: User @relation(name: "ChallengeUpdatesByUser")
   question: Question! @relation(name: "ChallengesByQuestion")
 }
 

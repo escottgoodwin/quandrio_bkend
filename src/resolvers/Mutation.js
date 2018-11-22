@@ -199,6 +199,35 @@ function addTest(parent, { subject, testNumber, testDate, courseId }, ctx, info)
   )
 }
 
+function updateTest(parent, { id, subject, testNumber, testDate, published, publishDate, release, releaseDate }, ctx, info) {
+  const userId = getUserId(ctx)
+  const updateDate = new Date()
+
+  return ctx.db.mutation.updateTest(
+    {
+      data: {
+        subject,
+        testNumber,
+        testDate,
+        published,
+        publishDate,
+        release,
+        releaseDate,
+        updateDate,
+        updatedBy: {
+          connect: {
+            id: userId
+          },
+        },
+      },
+      where: {
+        id: id
+    },
+  },
+    info
+  )
+}
+
 function addPanel(parent, { link, testId }, ctx, info) {
   const userId = getUserId(ctx)
   const addedDate = new Date()
@@ -247,6 +276,29 @@ function addQuestion(parent, { question, testId, panelId }, ctx, info) {
   )
 }
 
+function updateQuestion(parent, { id, question }, ctx, info) {
+  const userId = getUserId(ctx)
+  const updateDate = new Date()
+
+  return ctx.db.mutation.updateQuestion(
+    {
+      data: {
+        question,
+        updateDate,
+        updatedBy: {
+          connect: {
+            id: userId
+          },
+        },
+      },
+      where: {
+        id: id
+    },
+    },
+    info
+  )
+}
+
 function addQuestionChoice(parent, { choice, correct, questionId }, ctx, info) {
 
   return ctx.db.mutation.createQuestionChoice(
@@ -257,6 +309,31 @@ function addQuestionChoice(parent, { choice, correct, questionId }, ctx, info) {
         question: {
           connect: { id: questionId },
         }
+      },
+    },
+    info
+  )
+}
+
+function updateQuestionChoice(parent, { id, choice, correct }, ctx, info) {
+
+  const userId = getUserId(ctx)
+  const updateDate = new Date()
+
+  return ctx.db.mutation.updateQuestionChoice(
+    {
+      data: {
+        choice,
+        correct,
+        updateDate,
+        updatedBy: {
+          connect: {
+            id: userId
+          },
+        },
+      },
+      where: {
+        id: id
       },
     },
     info
@@ -278,6 +355,29 @@ function addChallenge(parent, { challenge, questionId }, ctx, info) {
         challenger: {
           connect: { id: userId },
         }
+      },
+    },
+    info
+  )
+}
+
+function updateChallenge(parent, { id, challenge }, ctx, info) {
+  const userId = getUserId(ctx)
+  const updateDate = new Date()
+
+  return ctx.db.mutation.updateChallenge(
+    {
+      data: {
+        challenge,
+        updateDate,
+        updatedBy: {
+          connect: {
+            id: userId
+          },
+        },
+      },
+      where: {
+        id: id
       },
     },
     info
@@ -333,6 +433,64 @@ function addSequence(parent, { testId, studentIds, panelIds }, ctx, info) {
   )
 }
 
+function updateSequence(parent, { id, studentIds,  panelIds, usedStudentIds,  usedPanelIds }, ctx, info) {
+  const userId = getUserId(ctx)
+  const sequenceAdded = new Date()
+
+  const students = checkField(studentIds)
+  const panels = checkField(panelIds)
+  const usedStudents = checkField(usedStudentIds)
+  const usedPanels = checkField(usedPanelIds)
+
+  return ctx.db.mutation.updateSequence(
+    {
+      data: {
+        students,
+        panels,
+        usedStudents,
+        usedPanels
+      },
+      where: {
+        id: id
+      },
+    },
+    info
+  )
+}
+
+async function updateUser(parent, { id, email, newPassword, firstName, lastName, phone, online }, ctx, info) {
+  const userId = getUserId(ctx)
+  const updateDate = new Date()
+  let password = ''
+  if (newPassword) {
+    let password = bcrypt.hash(newPassword, 10)
+  }
+
+
+  return await ctx.db.mutation.updateUser(
+    {
+      data: {
+        email,
+        password,
+        firstName,
+        lastName,
+        phone,
+        online,
+        updateDate,
+        updatedBy: {
+          connect: {
+            id: userId
+          },
+        },
+      },
+      where: {
+        id: id
+    },
+  },
+    info
+  )
+}
+
 module.exports = {
   signup,
   login,
@@ -341,10 +499,16 @@ module.exports = {
   addCourse,
   updateCourse,
   addTest,
+  updateTest,
   addPanel,
   addQuestion,
+  updateQuestion,
   addQuestionChoice,
+  updateQuestionChoice,
   addChallenge,
+  updateChallenge,
   addAnswer,
-  addSequence
+  addSequence,
+  updateSequence,
+  updateUser
 }
