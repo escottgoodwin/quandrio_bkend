@@ -50,11 +50,11 @@ async function login(parent, args, ctx, info) {
   }
 }
 
-function addInstitution(parent, { name, type }, ctx, info) {
-  const userId = getUserId(ctx)
+async function addInstitution(parent, { name, type }, ctx, info) {
+  const userId = await getUserId(ctx)
   const addedDate = new Date()
 
-  return ctx.db.mutation.createInstitution(
+  return await ctx.db.mutation.createInstitution(
     {
       data: {
         name,
@@ -65,11 +65,11 @@ function addInstitution(parent, { name, type }, ctx, info) {
   )
 }
 
-function updateInstitution(parent, { id, name, type }, ctx, info) {
-  const userId = getUserId(ctx)
+async function updateInstitution(parent, { id, name, type }, ctx, info) {
+  const userId = await getUserId(ctx)
   const updateDate = new Date()
 
-  return ctx.db.mutation.updateInstitution(
+  return await ctx.db.mutation.updateInstitution(
     {
       data: {
         name,
@@ -87,16 +87,28 @@ function updateInstitution(parent, { id, name, type }, ctx, info) {
   )
 }
 
-function updateInstitution(parent, { id, name, type, contactIds, teacherIds, studentIds, courseIds }, ctx, info) {
-  const userId = getUserId(ctx)
+async function deleteInstitution(parent, { id }, ctx, info) {
+
+  return await ctx.db.mutation.deleteInstitution(
+    {
+      where: {
+        id: id
+      }
+    },
+    info
+  )
+}
+
+async function updateInstitution(parent, { id, name, type, contactIds, teacherIds, studentIds, courseIds }, ctx, info) {
+  const userId = await getUserId(ctx)
   const updateDate = new Date()
 
-  const contacts = checkField(contactIds)
-  const teachers = checkField(teacherIds)
-  const courses = checkField(courseIds)
-  const students = checkField(studentIds)
+  const contacts = await checkField(contactIds)
+  const teachers = await checkField(teacherIds)
+  const courses = await checkField(courseIds)
+  const students = await checkField(studentIds)
 
-  return ctx.db.mutation.updateInstitution(
+  return await ctx.db.mutation.updateInstitution(
     {
       data: {
         name,
@@ -118,11 +130,11 @@ function updateInstitution(parent, { id, name, type, contactIds, teacherIds, stu
   )
 }
 
-function addCourse(parent, { name, courseNumber, time, institutionId }, ctx, info) {
-  const userId = getUserId(ctx)
+async function addCourse(parent, { name, courseNumber, time, institutionId }, ctx, info) {
+  const userId = await getUserId(ctx)
   const addedDate = new Date()
 
-  return ctx.db.mutation.createCourse(
+  return await ctx.db.mutation.createCourse(
     {
       data: {
         name,
@@ -144,14 +156,14 @@ function addCourse(parent, { name, courseNumber, time, institutionId }, ctx, inf
   )
 }
 
-function updateCourse(parent, { id, name, courseNumber, time, teacherIds, studentIds }, ctx, info) {
-  const userId = getUserId(ctx)
+async function updateCourse(parent, { id, name, courseNumber, time, teacherIds, studentIds }, ctx, info) {
+  const userId = await getUserId(ctx)
   const updateDate = new Date()
 
-  const teachers = checkField(teacherIds)
-  const students = checkField(studentIds)
+  const teachers = await checkField(teacherIds)
+  const students = await checkField(studentIds)
 
-  return ctx.db.mutation.updateCourse(
+  return await ctx.db.mutation.updateCourse(
     {
       data: {
         name,
@@ -174,11 +186,11 @@ function updateCourse(parent, { id, name, courseNumber, time, teacherIds, studen
   )
 }
 
-function addTest(parent, { subject, testNumber, testDate, courseId }, ctx, info) {
-  const userId = getUserId(ctx)
+async function addTest(parent, { subject, testNumber, testDate, courseId }, ctx, info) {
+  const userId = await getUserId(ctx)
   const addedDate = new Date()
 
-  return ctx.db.mutation.createTest(
+  return await ctx.db.mutation.createTest(
     {
       data: {
         subject,
@@ -199,11 +211,11 @@ function addTest(parent, { subject, testNumber, testDate, courseId }, ctx, info)
   )
 }
 
-function updateTest(parent, { id, subject, testNumber, testDate, published, publishDate, release, releaseDate }, ctx, info) {
-  const userId = getUserId(ctx)
+async function updateTest(parent, { id, subject, testNumber, testDate, published, publishDate, release, releaseDate }, ctx, info) {
+  const userId = await getUserId(ctx)
   const updateDate = new Date()
 
-  return ctx.db.mutation.updateTest(
+  return await ctx.db.mutation.updateTest(
     {
       data: {
         subject,
@@ -228,11 +240,11 @@ function updateTest(parent, { id, subject, testNumber, testDate, published, publ
   )
 }
 
-function addPanel(parent, { link, testId }, ctx, info) {
-  const userId = getUserId(ctx)
+async function addPanel(parent, { link, testId }, ctx, info) {
+  const userId = await getUserId(ctx)
   const addedDate = new Date()
 
-  return ctx.db.mutation.createPanel(
+  return await ctx.db.mutation.createPanel(
     {
       data: {
         link,
@@ -249,13 +261,13 @@ function addPanel(parent, { link, testId }, ctx, info) {
   )
 }
 
-function addQuestion(parent, { question, testId, panelId }, ctx, info) {
-  const userId = getUserId(ctx)
+async function addQuestion(parent, { question, testId, panelId }, ctx, info) {
+  const userId = await getUserId(ctx)
   const questionTime = new Date()
   const expirationTime = new Date()
   expirationTime.setHours(expirationTime.getHours() + 1);
 
-  return ctx.db.mutation.createQuestion(
+  return await ctx.db.mutation.createQuestion(
     {
       data: {
         questionTime,
@@ -276,11 +288,11 @@ function addQuestion(parent, { question, testId, panelId }, ctx, info) {
   )
 }
 
-function updateQuestion(parent, { id, question }, ctx, info) {
-  const userId = getUserId(ctx)
+async function updateQuestion(parent, { id, question }, ctx, info) {
+  const userId = await getUserId(ctx)
   const updateDate = new Date()
 
-  return ctx.db.mutation.updateQuestion(
+  return await ctx.db.mutation.updateQuestion(
     {
       data: {
         question,
@@ -299,9 +311,9 @@ function updateQuestion(parent, { id, question }, ctx, info) {
   )
 }
 
-function addQuestionChoice(parent, { choice, correct, questionId }, ctx, info) {
+async function addQuestionChoice(parent, { choice, correct, questionId }, ctx, info) {
 
-  return ctx.db.mutation.createQuestionChoice(
+  return await ctx.db.mutation.createQuestionChoice(
     {
       data: {
         choice,
@@ -315,12 +327,12 @@ function addQuestionChoice(parent, { choice, correct, questionId }, ctx, info) {
   )
 }
 
-function updateQuestionChoice(parent, { id, choice, correct }, ctx, info) {
+async function updateQuestionChoice(parent, { id, choice, correct }, ctx, info) {
 
-  const userId = getUserId(ctx)
+  const userId = await getUserId(ctx)
   const updateDate = new Date()
 
-  return ctx.db.mutation.updateQuestionChoice(
+  return await ctx.db.mutation.updateQuestionChoice(
     {
       data: {
         choice,
@@ -340,11 +352,11 @@ function updateQuestionChoice(parent, { id, choice, correct }, ctx, info) {
   )
 }
 
-function addChallenge(parent, { challenge, questionId }, ctx, info) {
-  const userId = getUserId(ctx)
+async function addChallenge(parent, { challenge, questionId }, ctx, info) {
+  const userId = await getUserId(ctx)
   const challengeTime = new Date()
 
-  return ctx.db.mutation.createChallenge(
+  return await ctx.db.mutation.createChallenge(
     {
       data: {
         challenge,
@@ -361,11 +373,11 @@ function addChallenge(parent, { challenge, questionId }, ctx, info) {
   )
 }
 
-function updateChallenge(parent, { id, challenge }, ctx, info) {
-  const userId = getUserId(ctx)
+async function updateChallenge(parent, { id, challenge }, ctx, info) {
+  const userId = await getUserId(ctx)
   const updateDate = new Date()
 
-  return ctx.db.mutation.updateChallenge(
+  return await  ctx.db.mutation.updateChallenge(
     {
       data: {
         challenge,
@@ -384,8 +396,8 @@ function updateChallenge(parent, { id, challenge }, ctx, info) {
   )
 }
 
-function addAnswer(parent, { answerChoiceId, questionId }, ctx, info) {
-  const userId = getUserId(ctx)
+async function addAnswer(parent, { answerChoiceId, questionId }, ctx, info) {
+  const userId = await getUserId(ctx)
   const answerTime = new Date()
 
   return ctx.db.mutation.createAnswer(
@@ -393,7 +405,7 @@ function addAnswer(parent, { answerChoiceId, questionId }, ctx, info) {
       data: {
         answerTime,
         answer: {
-          connect: { id: answerChoiceId  }
+        connect: { id: answerChoiceId  }
         },
         answeredBy: {
           connect: { id: userId },
@@ -407,12 +419,12 @@ function addAnswer(parent, { answerChoiceId, questionId }, ctx, info) {
   )
 }
 
-function addSequence(parent, { testId, studentIds, panelIds }, ctx, info) {
-  const userId = getUserId(ctx)
+async function addSequence(parent, { testId, studentIds, panelIds }, ctx, info) {
+  const userId = await getUserId(ctx)
   const sequenceAdded = new Date()
 
-  const studentObjs = studentIds.map(x => ({id: x}));
-  const panelIds = panelIds.map(x => ({id: x}));
+  const studentObjs = await studentIds.map(x => ({id: x}));
+  const panelIds = await panelIds.map(x => ({id: x}));
 
   return ctx.db.mutation.createSequence(
     {
@@ -433,16 +445,16 @@ function addSequence(parent, { testId, studentIds, panelIds }, ctx, info) {
   )
 }
 
-function updateSequence(parent, { id, studentIds,  panelIds, usedStudentIds,  usedPanelIds }, ctx, info) {
-  const userId = getUserId(ctx)
+async function updateSequence(parent, { id, studentIds,  panelIds, usedStudentIds,  usedPanelIds }, ctx, info) {
+  const userId = await getUserId(ctx)
   const sequenceAdded = new Date()
 
-  const students = checkField(studentIds)
-  const panels = checkField(panelIds)
-  const usedStudents = checkField(usedStudentIds)
-  const usedPanels = checkField(usedPanelIds)
+  const students = await checkField(studentIds)
+  const panels = await checkField(panelIds)
+  const usedStudents = await checkField(usedStudentIds)
+  const usedPanels = await checkField(usedPanelIds)
 
-  return ctx.db.mutation.updateSequence(
+  return await ctx.db.mutation.updateSequence(
     {
       data: {
         students,
@@ -459,11 +471,11 @@ function updateSequence(parent, { id, studentIds,  panelIds, usedStudentIds,  us
 }
 
 async function updateUser(parent, { id, email, newPassword, firstName, lastName, phone, online }, ctx, info) {
-  const userId = getUserId(ctx)
+  const userId = await getUserId(ctx)
   const updateDate = new Date()
   let password = ''
   if (newPassword) {
-    let password = bcrypt.hash(newPassword, 10)
+    let password = await bcrypt.hash(newPassword, 10)
   }
 
 
@@ -496,6 +508,7 @@ module.exports = {
   login,
   addInstitution,
   updateInstitution,
+  deleteInstitution,
   addCourse,
   updateCourse,
   addTest,
