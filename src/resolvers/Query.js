@@ -99,12 +99,11 @@ async function questionchoices(parent, args, ctx, info) {
       ? {
           OR: [
             { id: args.filter },
-            { choice: args.filter },
           ],
         }
       : {}
 
-    return await ctx.db.query.questionchoices({ where }, info)
+    return await ctx.db.query.questionChoices({ where }, info)
 }
 
 async function challenges(parent, args, ctx, info) {
@@ -121,6 +120,32 @@ async function challenges(parent, args, ctx, info) {
     return await ctx.db.query.challenges({ where }, info)
 }
 
+async function answers(parent, args, ctx, info) {
+
+  const where = args.filter
+      ? {
+          OR: [
+            { id: args.filter },
+          ],
+        }
+      : {}
+
+    return await ctx.db.query.answers({ where }, info)
+}
+
+async function sequences(parent, args, ctx, info) {
+
+  const where = args.filter
+      ? {
+          OR: [
+            { id: args.filter },
+          ],
+        }
+      : {}
+
+    return await ctx.db.query.sequences({ where }, info)
+}
+
 
 module.exports = {
   users,
@@ -130,5 +155,7 @@ module.exports = {
   panels,
   questions,
   questionchoices,
-  challenges
+  challenges,
+  answers,
+  sequences
 }

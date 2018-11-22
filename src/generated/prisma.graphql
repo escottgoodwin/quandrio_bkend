@@ -1,5 +1,9 @@
 # source: https://quandria-86dfa876be.herokuapp.com/quandria/dev
-# timestamp: Mon Nov 19 2018 23:30:38 GMT-0800 (Pacific Standard Time)
+# timestamp: Wed Nov 21 2018 17:11:04 GMT-0800 (Pacific Standard Time)
+
+type AggregateAnswer {
+  count: Int!
+}
 
 type AggregateChallenge {
   count: Int!
@@ -35,6 +39,314 @@ type AggregateTest {
 
 type AggregateUser {
   count: Int!
+}
+
+type Answer implements Node {
+  id: ID!
+  answer: QuestionChoice!
+  answerCorrect: Boolean
+  answeredBy: User
+  answerTime: DateTime
+  question: Question!
+}
+
+"""A connection to a list of items."""
+type AnswerConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [AnswerEdge]!
+  aggregate: AggregateAnswer!
+}
+
+input AnswerCreateInput {
+  answerCorrect: Boolean
+  answerTime: DateTime
+  answer: QuestionChoiceCreateOneWithoutAnswersInput!
+  answeredBy: UserCreateOneWithoutAnswersInput
+  question: QuestionCreateOneWithoutQuestionanswersInput!
+}
+
+input AnswerCreateManyWithoutAnsweredByInput {
+  create: [AnswerCreateWithoutAnsweredByInput!]
+  connect: [AnswerWhereUniqueInput!]
+}
+
+input AnswerCreateManyWithoutAnswerInput {
+  create: [AnswerCreateWithoutAnswerInput!]
+  connect: [AnswerWhereUniqueInput!]
+}
+
+input AnswerCreateManyWithoutQuestionInput {
+  create: [AnswerCreateWithoutQuestionInput!]
+  connect: [AnswerWhereUniqueInput!]
+}
+
+input AnswerCreateWithoutAnsweredByInput {
+  answerCorrect: Boolean
+  answerTime: DateTime
+  answer: QuestionChoiceCreateOneWithoutAnswersInput!
+  question: QuestionCreateOneWithoutQuestionanswersInput!
+}
+
+input AnswerCreateWithoutAnswerInput {
+  answerCorrect: Boolean
+  answerTime: DateTime
+  answeredBy: UserCreateOneWithoutAnswersInput
+  question: QuestionCreateOneWithoutQuestionanswersInput!
+}
+
+input AnswerCreateWithoutQuestionInput {
+  answerCorrect: Boolean
+  answerTime: DateTime
+  answer: QuestionChoiceCreateOneWithoutAnswersInput!
+  answeredBy: UserCreateOneWithoutAnswersInput
+}
+
+"""An edge in a connection."""
+type AnswerEdge {
+  """The item at the end of the edge."""
+  node: Answer!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum AnswerOrderByInput {
+  id_ASC
+  id_DESC
+  answerCorrect_ASC
+  answerCorrect_DESC
+  answerTime_ASC
+  answerTime_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type AnswerPreviousValues {
+  id: ID!
+  answerCorrect: Boolean
+  answerTime: DateTime
+}
+
+type AnswerSubscriptionPayload {
+  mutation: MutationType!
+  node: Answer
+  updatedFields: [String!]
+  previousValues: AnswerPreviousValues
+}
+
+input AnswerSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AnswerSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AnswerSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AnswerSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: AnswerWhereInput
+}
+
+input AnswerUpdateInput {
+  answerCorrect: Boolean
+  answerTime: DateTime
+  answer: QuestionChoiceUpdateOneRequiredWithoutAnswersInput
+  answeredBy: UserUpdateOneWithoutAnswersInput
+  question: QuestionUpdateOneRequiredWithoutQuestionanswersInput
+}
+
+input AnswerUpdateManyMutationInput {
+  answerCorrect: Boolean
+  answerTime: DateTime
+}
+
+input AnswerUpdateManyWithoutAnsweredByInput {
+  create: [AnswerCreateWithoutAnsweredByInput!]
+  connect: [AnswerWhereUniqueInput!]
+  disconnect: [AnswerWhereUniqueInput!]
+  delete: [AnswerWhereUniqueInput!]
+  update: [AnswerUpdateWithWhereUniqueWithoutAnsweredByInput!]
+  upsert: [AnswerUpsertWithWhereUniqueWithoutAnsweredByInput!]
+}
+
+input AnswerUpdateManyWithoutAnswerInput {
+  create: [AnswerCreateWithoutAnswerInput!]
+  connect: [AnswerWhereUniqueInput!]
+  disconnect: [AnswerWhereUniqueInput!]
+  delete: [AnswerWhereUniqueInput!]
+  update: [AnswerUpdateWithWhereUniqueWithoutAnswerInput!]
+  upsert: [AnswerUpsertWithWhereUniqueWithoutAnswerInput!]
+}
+
+input AnswerUpdateManyWithoutQuestionInput {
+  create: [AnswerCreateWithoutQuestionInput!]
+  connect: [AnswerWhereUniqueInput!]
+  disconnect: [AnswerWhereUniqueInput!]
+  delete: [AnswerWhereUniqueInput!]
+  update: [AnswerUpdateWithWhereUniqueWithoutQuestionInput!]
+  upsert: [AnswerUpsertWithWhereUniqueWithoutQuestionInput!]
+}
+
+input AnswerUpdateWithoutAnswerDataInput {
+  answerCorrect: Boolean
+  answerTime: DateTime
+  answeredBy: UserUpdateOneWithoutAnswersInput
+  question: QuestionUpdateOneRequiredWithoutQuestionanswersInput
+}
+
+input AnswerUpdateWithoutAnsweredByDataInput {
+  answerCorrect: Boolean
+  answerTime: DateTime
+  answer: QuestionChoiceUpdateOneRequiredWithoutAnswersInput
+  question: QuestionUpdateOneRequiredWithoutQuestionanswersInput
+}
+
+input AnswerUpdateWithoutQuestionDataInput {
+  answerCorrect: Boolean
+  answerTime: DateTime
+  answer: QuestionChoiceUpdateOneRequiredWithoutAnswersInput
+  answeredBy: UserUpdateOneWithoutAnswersInput
+}
+
+input AnswerUpdateWithWhereUniqueWithoutAnsweredByInput {
+  where: AnswerWhereUniqueInput!
+  data: AnswerUpdateWithoutAnsweredByDataInput!
+}
+
+input AnswerUpdateWithWhereUniqueWithoutAnswerInput {
+  where: AnswerWhereUniqueInput!
+  data: AnswerUpdateWithoutAnswerDataInput!
+}
+
+input AnswerUpdateWithWhereUniqueWithoutQuestionInput {
+  where: AnswerWhereUniqueInput!
+  data: AnswerUpdateWithoutQuestionDataInput!
+}
+
+input AnswerUpsertWithWhereUniqueWithoutAnsweredByInput {
+  where: AnswerWhereUniqueInput!
+  update: AnswerUpdateWithoutAnsweredByDataInput!
+  create: AnswerCreateWithoutAnsweredByInput!
+}
+
+input AnswerUpsertWithWhereUniqueWithoutAnswerInput {
+  where: AnswerWhereUniqueInput!
+  update: AnswerUpdateWithoutAnswerDataInput!
+  create: AnswerCreateWithoutAnswerInput!
+}
+
+input AnswerUpsertWithWhereUniqueWithoutQuestionInput {
+  where: AnswerWhereUniqueInput!
+  update: AnswerUpdateWithoutQuestionDataInput!
+  create: AnswerCreateWithoutQuestionInput!
+}
+
+input AnswerWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AnswerWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AnswerWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AnswerWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  answerCorrect: Boolean
+
+  """All values that are not equal to given value."""
+  answerCorrect_not: Boolean
+  answerTime: DateTime
+
+  """All values that are not equal to given value."""
+  answerTime_not: DateTime
+
+  """All values that are contained in given list."""
+  answerTime_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  answerTime_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  answerTime_lt: DateTime
+
+  """All values less than or equal the given value."""
+  answerTime_lte: DateTime
+
+  """All values greater than the given value."""
+  answerTime_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  answerTime_gte: DateTime
+  answer: QuestionChoiceWhereInput
+  answeredBy: UserWhereInput
+  question: QuestionWhereInput
+}
+
+input AnswerWhereUniqueInput {
+  id: ID
 }
 
 type BatchPayload {
@@ -343,6 +655,8 @@ type Course implements Node {
   id: ID!
   addedBy: User!
   addedDate: DateTime
+  updateDate: DateTime
+  updatedBy: User
   name: String!
   courseNumber: String
   time: String
@@ -364,10 +678,12 @@ type CourseConnection {
 
 input CourseCreateInput {
   addedDate: DateTime
+  updateDate: DateTime
   name: String!
   courseNumber: String
   time: String
   addedBy: UserCreateOneWithoutCoursesAddedInput!
+  updatedBy: UserCreateOneWithoutCourseUpdatesInput
   institution: InstitutionCreateOneWithoutCoursesInput!
   teachers: UserCreateManyWithoutTeacherCoursesInput
   students: UserCreateManyWithoutStudentCoursesInput
@@ -394,6 +710,11 @@ input CourseCreateManyWithoutTeachersInput {
   connect: [CourseWhereUniqueInput!]
 }
 
+input CourseCreateManyWithoutUpdatedByInput {
+  create: [CourseCreateWithoutUpdatedByInput!]
+  connect: [CourseWhereUniqueInput!]
+}
+
 input CourseCreateOneWithoutTestsInput {
   create: CourseCreateWithoutTestsInput
   connect: CourseWhereUniqueInput
@@ -401,9 +722,11 @@ input CourseCreateOneWithoutTestsInput {
 
 input CourseCreateWithoutAddedByInput {
   addedDate: DateTime
+  updateDate: DateTime
   name: String!
   courseNumber: String
   time: String
+  updatedBy: UserCreateOneWithoutCourseUpdatesInput
   institution: InstitutionCreateOneWithoutCoursesInput!
   teachers: UserCreateManyWithoutTeacherCoursesInput
   students: UserCreateManyWithoutStudentCoursesInput
@@ -412,10 +735,12 @@ input CourseCreateWithoutAddedByInput {
 
 input CourseCreateWithoutInstitutionInput {
   addedDate: DateTime
+  updateDate: DateTime
   name: String!
   courseNumber: String
   time: String
   addedBy: UserCreateOneWithoutCoursesAddedInput!
+  updatedBy: UserCreateOneWithoutCourseUpdatesInput
   teachers: UserCreateManyWithoutTeacherCoursesInput
   students: UserCreateManyWithoutStudentCoursesInput
   tests: TestCreateManyWithoutCourseInput
@@ -423,10 +748,12 @@ input CourseCreateWithoutInstitutionInput {
 
 input CourseCreateWithoutStudentsInput {
   addedDate: DateTime
+  updateDate: DateTime
   name: String!
   courseNumber: String
   time: String
   addedBy: UserCreateOneWithoutCoursesAddedInput!
+  updatedBy: UserCreateOneWithoutCourseUpdatesInput
   institution: InstitutionCreateOneWithoutCoursesInput!
   teachers: UserCreateManyWithoutTeacherCoursesInput
   tests: TestCreateManyWithoutCourseInput
@@ -434,10 +761,12 @@ input CourseCreateWithoutStudentsInput {
 
 input CourseCreateWithoutTeachersInput {
   addedDate: DateTime
+  updateDate: DateTime
   name: String!
   courseNumber: String
   time: String
   addedBy: UserCreateOneWithoutCoursesAddedInput!
+  updatedBy: UserCreateOneWithoutCourseUpdatesInput
   institution: InstitutionCreateOneWithoutCoursesInput!
   students: UserCreateManyWithoutStudentCoursesInput
   tests: TestCreateManyWithoutCourseInput
@@ -445,6 +774,20 @@ input CourseCreateWithoutTeachersInput {
 
 input CourseCreateWithoutTestsInput {
   addedDate: DateTime
+  updateDate: DateTime
+  name: String!
+  courseNumber: String
+  time: String
+  addedBy: UserCreateOneWithoutCoursesAddedInput!
+  updatedBy: UserCreateOneWithoutCourseUpdatesInput
+  institution: InstitutionCreateOneWithoutCoursesInput!
+  teachers: UserCreateManyWithoutTeacherCoursesInput
+  students: UserCreateManyWithoutStudentCoursesInput
+}
+
+input CourseCreateWithoutUpdatedByInput {
+  addedDate: DateTime
+  updateDate: DateTime
   name: String!
   courseNumber: String
   time: String
@@ -452,6 +795,7 @@ input CourseCreateWithoutTestsInput {
   institution: InstitutionCreateOneWithoutCoursesInput!
   teachers: UserCreateManyWithoutTeacherCoursesInput
   students: UserCreateManyWithoutStudentCoursesInput
+  tests: TestCreateManyWithoutCourseInput
 }
 
 """An edge in a connection."""
@@ -468,6 +812,8 @@ enum CourseOrderByInput {
   id_DESC
   addedDate_ASC
   addedDate_DESC
+  updateDate_ASC
+  updateDate_DESC
   name_ASC
   name_DESC
   courseNumber_ASC
@@ -483,6 +829,7 @@ enum CourseOrderByInput {
 type CoursePreviousValues {
   id: ID!
   addedDate: DateTime
+  updateDate: DateTime
   name: String!
   courseNumber: String
   time: String
@@ -529,10 +876,12 @@ input CourseSubscriptionWhereInput {
 
 input CourseUpdateInput {
   addedDate: DateTime
+  updateDate: DateTime
   name: String
   courseNumber: String
   time: String
   addedBy: UserUpdateOneRequiredWithoutCoursesAddedInput
+  updatedBy: UserUpdateOneWithoutCourseUpdatesInput
   institution: InstitutionUpdateOneRequiredWithoutCoursesInput
   teachers: UserUpdateManyWithoutTeacherCoursesInput
   students: UserUpdateManyWithoutStudentCoursesInput
@@ -541,6 +890,7 @@ input CourseUpdateInput {
 
 input CourseUpdateManyMutationInput {
   addedDate: DateTime
+  updateDate: DateTime
   name: String
   courseNumber: String
   time: String
@@ -582,6 +932,15 @@ input CourseUpdateManyWithoutTeachersInput {
   upsert: [CourseUpsertWithWhereUniqueWithoutTeachersInput!]
 }
 
+input CourseUpdateManyWithoutUpdatedByInput {
+  create: [CourseCreateWithoutUpdatedByInput!]
+  connect: [CourseWhereUniqueInput!]
+  disconnect: [CourseWhereUniqueInput!]
+  delete: [CourseWhereUniqueInput!]
+  update: [CourseUpdateWithWhereUniqueWithoutUpdatedByInput!]
+  upsert: [CourseUpsertWithWhereUniqueWithoutUpdatedByInput!]
+}
+
 input CourseUpdateOneRequiredWithoutTestsInput {
   create: CourseCreateWithoutTestsInput
   connect: CourseWhereUniqueInput
@@ -591,9 +950,11 @@ input CourseUpdateOneRequiredWithoutTestsInput {
 
 input CourseUpdateWithoutAddedByDataInput {
   addedDate: DateTime
+  updateDate: DateTime
   name: String
   courseNumber: String
   time: String
+  updatedBy: UserUpdateOneWithoutCourseUpdatesInput
   institution: InstitutionUpdateOneRequiredWithoutCoursesInput
   teachers: UserUpdateManyWithoutTeacherCoursesInput
   students: UserUpdateManyWithoutStudentCoursesInput
@@ -602,10 +963,12 @@ input CourseUpdateWithoutAddedByDataInput {
 
 input CourseUpdateWithoutInstitutionDataInput {
   addedDate: DateTime
+  updateDate: DateTime
   name: String
   courseNumber: String
   time: String
   addedBy: UserUpdateOneRequiredWithoutCoursesAddedInput
+  updatedBy: UserUpdateOneWithoutCourseUpdatesInput
   teachers: UserUpdateManyWithoutTeacherCoursesInput
   students: UserUpdateManyWithoutStudentCoursesInput
   tests: TestUpdateManyWithoutCourseInput
@@ -613,10 +976,12 @@ input CourseUpdateWithoutInstitutionDataInput {
 
 input CourseUpdateWithoutStudentsDataInput {
   addedDate: DateTime
+  updateDate: DateTime
   name: String
   courseNumber: String
   time: String
   addedBy: UserUpdateOneRequiredWithoutCoursesAddedInput
+  updatedBy: UserUpdateOneWithoutCourseUpdatesInput
   institution: InstitutionUpdateOneRequiredWithoutCoursesInput
   teachers: UserUpdateManyWithoutTeacherCoursesInput
   tests: TestUpdateManyWithoutCourseInput
@@ -624,10 +989,12 @@ input CourseUpdateWithoutStudentsDataInput {
 
 input CourseUpdateWithoutTeachersDataInput {
   addedDate: DateTime
+  updateDate: DateTime
   name: String
   courseNumber: String
   time: String
   addedBy: UserUpdateOneRequiredWithoutCoursesAddedInput
+  updatedBy: UserUpdateOneWithoutCourseUpdatesInput
   institution: InstitutionUpdateOneRequiredWithoutCoursesInput
   students: UserUpdateManyWithoutStudentCoursesInput
   tests: TestUpdateManyWithoutCourseInput
@@ -635,6 +1002,20 @@ input CourseUpdateWithoutTeachersDataInput {
 
 input CourseUpdateWithoutTestsDataInput {
   addedDate: DateTime
+  updateDate: DateTime
+  name: String
+  courseNumber: String
+  time: String
+  addedBy: UserUpdateOneRequiredWithoutCoursesAddedInput
+  updatedBy: UserUpdateOneWithoutCourseUpdatesInput
+  institution: InstitutionUpdateOneRequiredWithoutCoursesInput
+  teachers: UserUpdateManyWithoutTeacherCoursesInput
+  students: UserUpdateManyWithoutStudentCoursesInput
+}
+
+input CourseUpdateWithoutUpdatedByDataInput {
+  addedDate: DateTime
+  updateDate: DateTime
   name: String
   courseNumber: String
   time: String
@@ -642,6 +1023,7 @@ input CourseUpdateWithoutTestsDataInput {
   institution: InstitutionUpdateOneRequiredWithoutCoursesInput
   teachers: UserUpdateManyWithoutTeacherCoursesInput
   students: UserUpdateManyWithoutStudentCoursesInput
+  tests: TestUpdateManyWithoutCourseInput
 }
 
 input CourseUpdateWithWhereUniqueWithoutAddedByInput {
@@ -662,6 +1044,11 @@ input CourseUpdateWithWhereUniqueWithoutStudentsInput {
 input CourseUpdateWithWhereUniqueWithoutTeachersInput {
   where: CourseWhereUniqueInput!
   data: CourseUpdateWithoutTeachersDataInput!
+}
+
+input CourseUpdateWithWhereUniqueWithoutUpdatedByInput {
+  where: CourseWhereUniqueInput!
+  data: CourseUpdateWithoutUpdatedByDataInput!
 }
 
 input CourseUpsertWithoutTestsInput {
@@ -691,6 +1078,12 @@ input CourseUpsertWithWhereUniqueWithoutTeachersInput {
   where: CourseWhereUniqueInput!
   update: CourseUpdateWithoutTeachersDataInput!
   create: CourseCreateWithoutTeachersInput!
+}
+
+input CourseUpsertWithWhereUniqueWithoutUpdatedByInput {
+  where: CourseWhereUniqueInput!
+  update: CourseUpdateWithoutUpdatedByDataInput!
+  create: CourseCreateWithoutUpdatedByInput!
 }
 
 input CourseWhereInput {
@@ -764,6 +1157,28 @@ input CourseWhereInput {
 
   """All values greater than or equal the given value."""
   addedDate_gte: DateTime
+  updateDate: DateTime
+
+  """All values that are not equal to given value."""
+  updateDate_not: DateTime
+
+  """All values that are contained in given list."""
+  updateDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updateDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updateDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updateDate_lte: DateTime
+
+  """All values greater than the given value."""
+  updateDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updateDate_gte: DateTime
   name: String
 
   """All values that are not equal to given value."""
@@ -885,6 +1300,7 @@ input CourseWhereInput {
   """All values not ending with the given string."""
   time_not_ends_with: String
   addedBy: UserWhereInput
+  updatedBy: UserWhereInput
   institution: InstitutionWhereInput
   teachers_every: UserWhereInput
   teachers_some: UserWhereInput
@@ -907,6 +1323,8 @@ type Institution implements Node {
   id: ID!
   name: String!
   type: String
+  updateDate: DateTime
+  updatedBy: User
   contacts(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   teachers(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   students(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
@@ -926,6 +1344,8 @@ type InstitutionConnection {
 input InstitutionCreateInput {
   name: String!
   type: String
+  updateDate: DateTime
+  updatedBy: UserCreateOneWithoutInstitutionUpdatesInput
   contacts: UserCreateManyWithoutInstitutionContactInput
   teachers: UserCreateManyWithoutTeacherInstitutionInput
   students: UserCreateManyWithoutStudentInstitutionInput
@@ -947,6 +1367,11 @@ input InstitutionCreateManyWithoutTeachersInput {
   connect: [InstitutionWhereUniqueInput!]
 }
 
+input InstitutionCreateManyWithoutUpdatedByInput {
+  create: [InstitutionCreateWithoutUpdatedByInput!]
+  connect: [InstitutionWhereUniqueInput!]
+}
+
 input InstitutionCreateOneWithoutCoursesInput {
   create: InstitutionCreateWithoutCoursesInput
   connect: InstitutionWhereUniqueInput
@@ -955,6 +1380,8 @@ input InstitutionCreateOneWithoutCoursesInput {
 input InstitutionCreateWithoutContactsInput {
   name: String!
   type: String
+  updateDate: DateTime
+  updatedBy: UserCreateOneWithoutInstitutionUpdatesInput
   teachers: UserCreateManyWithoutTeacherInstitutionInput
   students: UserCreateManyWithoutStudentInstitutionInput
   courses: CourseCreateManyWithoutInstitutionInput
@@ -963,6 +1390,8 @@ input InstitutionCreateWithoutContactsInput {
 input InstitutionCreateWithoutCoursesInput {
   name: String!
   type: String
+  updateDate: DateTime
+  updatedBy: UserCreateOneWithoutInstitutionUpdatesInput
   contacts: UserCreateManyWithoutInstitutionContactInput
   teachers: UserCreateManyWithoutTeacherInstitutionInput
   students: UserCreateManyWithoutStudentInstitutionInput
@@ -971,6 +1400,8 @@ input InstitutionCreateWithoutCoursesInput {
 input InstitutionCreateWithoutStudentsInput {
   name: String!
   type: String
+  updateDate: DateTime
+  updatedBy: UserCreateOneWithoutInstitutionUpdatesInput
   contacts: UserCreateManyWithoutInstitutionContactInput
   teachers: UserCreateManyWithoutTeacherInstitutionInput
   courses: CourseCreateManyWithoutInstitutionInput
@@ -979,7 +1410,19 @@ input InstitutionCreateWithoutStudentsInput {
 input InstitutionCreateWithoutTeachersInput {
   name: String!
   type: String
+  updateDate: DateTime
+  updatedBy: UserCreateOneWithoutInstitutionUpdatesInput
   contacts: UserCreateManyWithoutInstitutionContactInput
+  students: UserCreateManyWithoutStudentInstitutionInput
+  courses: CourseCreateManyWithoutInstitutionInput
+}
+
+input InstitutionCreateWithoutUpdatedByInput {
+  name: String!
+  type: String
+  updateDate: DateTime
+  contacts: UserCreateManyWithoutInstitutionContactInput
+  teachers: UserCreateManyWithoutTeacherInstitutionInput
   students: UserCreateManyWithoutStudentInstitutionInput
   courses: CourseCreateManyWithoutInstitutionInput
 }
@@ -1000,6 +1443,8 @@ enum InstitutionOrderByInput {
   name_DESC
   type_ASC
   type_DESC
+  updateDate_ASC
+  updateDate_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1010,6 +1455,7 @@ type InstitutionPreviousValues {
   id: ID!
   name: String!
   type: String
+  updateDate: DateTime
 }
 
 type InstitutionSubscriptionPayload {
@@ -1054,6 +1500,8 @@ input InstitutionSubscriptionWhereInput {
 input InstitutionUpdateInput {
   name: String
   type: String
+  updateDate: DateTime
+  updatedBy: UserUpdateOneWithoutInstitutionUpdatesInput
   contacts: UserUpdateManyWithoutInstitutionContactInput
   teachers: UserUpdateManyWithoutTeacherInstitutionInput
   students: UserUpdateManyWithoutStudentInstitutionInput
@@ -1063,6 +1511,7 @@ input InstitutionUpdateInput {
 input InstitutionUpdateManyMutationInput {
   name: String
   type: String
+  updateDate: DateTime
 }
 
 input InstitutionUpdateManyWithoutContactsInput {
@@ -1092,6 +1541,15 @@ input InstitutionUpdateManyWithoutTeachersInput {
   upsert: [InstitutionUpsertWithWhereUniqueWithoutTeachersInput!]
 }
 
+input InstitutionUpdateManyWithoutUpdatedByInput {
+  create: [InstitutionCreateWithoutUpdatedByInput!]
+  connect: [InstitutionWhereUniqueInput!]
+  disconnect: [InstitutionWhereUniqueInput!]
+  delete: [InstitutionWhereUniqueInput!]
+  update: [InstitutionUpdateWithWhereUniqueWithoutUpdatedByInput!]
+  upsert: [InstitutionUpsertWithWhereUniqueWithoutUpdatedByInput!]
+}
+
 input InstitutionUpdateOneRequiredWithoutCoursesInput {
   create: InstitutionCreateWithoutCoursesInput
   connect: InstitutionWhereUniqueInput
@@ -1102,6 +1560,8 @@ input InstitutionUpdateOneRequiredWithoutCoursesInput {
 input InstitutionUpdateWithoutContactsDataInput {
   name: String
   type: String
+  updateDate: DateTime
+  updatedBy: UserUpdateOneWithoutInstitutionUpdatesInput
   teachers: UserUpdateManyWithoutTeacherInstitutionInput
   students: UserUpdateManyWithoutStudentInstitutionInput
   courses: CourseUpdateManyWithoutInstitutionInput
@@ -1110,6 +1570,8 @@ input InstitutionUpdateWithoutContactsDataInput {
 input InstitutionUpdateWithoutCoursesDataInput {
   name: String
   type: String
+  updateDate: DateTime
+  updatedBy: UserUpdateOneWithoutInstitutionUpdatesInput
   contacts: UserUpdateManyWithoutInstitutionContactInput
   teachers: UserUpdateManyWithoutTeacherInstitutionInput
   students: UserUpdateManyWithoutStudentInstitutionInput
@@ -1118,6 +1580,8 @@ input InstitutionUpdateWithoutCoursesDataInput {
 input InstitutionUpdateWithoutStudentsDataInput {
   name: String
   type: String
+  updateDate: DateTime
+  updatedBy: UserUpdateOneWithoutInstitutionUpdatesInput
   contacts: UserUpdateManyWithoutInstitutionContactInput
   teachers: UserUpdateManyWithoutTeacherInstitutionInput
   courses: CourseUpdateManyWithoutInstitutionInput
@@ -1126,7 +1590,19 @@ input InstitutionUpdateWithoutStudentsDataInput {
 input InstitutionUpdateWithoutTeachersDataInput {
   name: String
   type: String
+  updateDate: DateTime
+  updatedBy: UserUpdateOneWithoutInstitutionUpdatesInput
   contacts: UserUpdateManyWithoutInstitutionContactInput
+  students: UserUpdateManyWithoutStudentInstitutionInput
+  courses: CourseUpdateManyWithoutInstitutionInput
+}
+
+input InstitutionUpdateWithoutUpdatedByDataInput {
+  name: String
+  type: String
+  updateDate: DateTime
+  contacts: UserUpdateManyWithoutInstitutionContactInput
+  teachers: UserUpdateManyWithoutTeacherInstitutionInput
   students: UserUpdateManyWithoutStudentInstitutionInput
   courses: CourseUpdateManyWithoutInstitutionInput
 }
@@ -1144,6 +1620,11 @@ input InstitutionUpdateWithWhereUniqueWithoutStudentsInput {
 input InstitutionUpdateWithWhereUniqueWithoutTeachersInput {
   where: InstitutionWhereUniqueInput!
   data: InstitutionUpdateWithoutTeachersDataInput!
+}
+
+input InstitutionUpdateWithWhereUniqueWithoutUpdatedByInput {
+  where: InstitutionWhereUniqueInput!
+  data: InstitutionUpdateWithoutUpdatedByDataInput!
 }
 
 input InstitutionUpsertWithoutCoursesInput {
@@ -1167,6 +1648,12 @@ input InstitutionUpsertWithWhereUniqueWithoutTeachersInput {
   where: InstitutionWhereUniqueInput!
   update: InstitutionUpdateWithoutTeachersDataInput!
   create: InstitutionCreateWithoutTeachersInput!
+}
+
+input InstitutionUpsertWithWhereUniqueWithoutUpdatedByInput {
+  where: InstitutionWhereUniqueInput!
+  update: InstitutionUpdateWithoutUpdatedByDataInput!
+  create: InstitutionCreateWithoutUpdatedByInput!
 }
 
 input InstitutionWhereInput {
@@ -1298,6 +1785,29 @@ input InstitutionWhereInput {
 
   """All values not ending with the given string."""
   type_not_ends_with: String
+  updateDate: DateTime
+
+  """All values that are not equal to given value."""
+  updateDate_not: DateTime
+
+  """All values that are contained in given list."""
+  updateDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updateDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updateDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updateDate_lte: DateTime
+
+  """All values greater than the given value."""
+  updateDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updateDate_gte: DateTime
+  updatedBy: UserWhereInput
   contacts_every: UserWhereInput
   contacts_some: UserWhereInput
   contacts_none: UserWhereInput
@@ -1328,6 +1838,7 @@ type Mutation {
   createCourse(data: CourseCreateInput!): Course!
   createTest(data: TestCreateInput!): Test!
   createQuestion(data: QuestionCreateInput!): Question!
+  createAnswer(data: AnswerCreateInput!): Answer!
   createQuestionChoice(data: QuestionChoiceCreateInput!): QuestionChoice!
   createChallenge(data: ChallengeCreateInput!): Challenge!
   createPanel(data: PanelCreateInput!): Panel!
@@ -1337,6 +1848,7 @@ type Mutation {
   updateCourse(data: CourseUpdateInput!, where: CourseWhereUniqueInput!): Course
   updateTest(data: TestUpdateInput!, where: TestWhereUniqueInput!): Test
   updateQuestion(data: QuestionUpdateInput!, where: QuestionWhereUniqueInput!): Question
+  updateAnswer(data: AnswerUpdateInput!, where: AnswerWhereUniqueInput!): Answer
   updateQuestionChoice(data: QuestionChoiceUpdateInput!, where: QuestionChoiceWhereUniqueInput!): QuestionChoice
   updateChallenge(data: ChallengeUpdateInput!, where: ChallengeWhereUniqueInput!): Challenge
   updatePanel(data: PanelUpdateInput!, where: PanelWhereUniqueInput!): Panel
@@ -1346,6 +1858,7 @@ type Mutation {
   deleteCourse(where: CourseWhereUniqueInput!): Course
   deleteTest(where: TestWhereUniqueInput!): Test
   deleteQuestion(where: QuestionWhereUniqueInput!): Question
+  deleteAnswer(where: AnswerWhereUniqueInput!): Answer
   deleteQuestionChoice(where: QuestionChoiceWhereUniqueInput!): QuestionChoice
   deleteChallenge(where: ChallengeWhereUniqueInput!): Challenge
   deletePanel(where: PanelWhereUniqueInput!): Panel
@@ -1355,6 +1868,7 @@ type Mutation {
   upsertCourse(where: CourseWhereUniqueInput!, create: CourseCreateInput!, update: CourseUpdateInput!): Course!
   upsertTest(where: TestWhereUniqueInput!, create: TestCreateInput!, update: TestUpdateInput!): Test!
   upsertQuestion(where: QuestionWhereUniqueInput!, create: QuestionCreateInput!, update: QuestionUpdateInput!): Question!
+  upsertAnswer(where: AnswerWhereUniqueInput!, create: AnswerCreateInput!, update: AnswerUpdateInput!): Answer!
   upsertQuestionChoice(where: QuestionChoiceWhereUniqueInput!, create: QuestionChoiceCreateInput!, update: QuestionChoiceUpdateInput!): QuestionChoice!
   upsertChallenge(where: ChallengeWhereUniqueInput!, create: ChallengeCreateInput!, update: ChallengeUpdateInput!): Challenge!
   upsertPanel(where: PanelWhereUniqueInput!, create: PanelCreateInput!, update: PanelUpdateInput!): Panel!
@@ -1364,14 +1878,17 @@ type Mutation {
   updateManyCourses(data: CourseUpdateManyMutationInput!, where: CourseWhereInput): BatchPayload!
   updateManyTests(data: TestUpdateManyMutationInput!, where: TestWhereInput): BatchPayload!
   updateManyQuestions(data: QuestionUpdateManyMutationInput!, where: QuestionWhereInput): BatchPayload!
+  updateManyAnswers(data: AnswerUpdateManyMutationInput!, where: AnswerWhereInput): BatchPayload!
   updateManyQuestionChoices(data: QuestionChoiceUpdateManyMutationInput!, where: QuestionChoiceWhereInput): BatchPayload!
   updateManyChallenges(data: ChallengeUpdateManyMutationInput!, where: ChallengeWhereInput): BatchPayload!
   updateManyPanels(data: PanelUpdateManyMutationInput!, where: PanelWhereInput): BatchPayload!
+  updateManySequences(data: SequenceUpdateManyMutationInput!, where: SequenceWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyInstitutions(where: InstitutionWhereInput): BatchPayload!
   deleteManyCourses(where: CourseWhereInput): BatchPayload!
   deleteManyTests(where: TestWhereInput): BatchPayload!
   deleteManyQuestions(where: QuestionWhereInput): BatchPayload!
+  deleteManyAnswers(where: AnswerWhereInput): BatchPayload!
   deleteManyQuestionChoices(where: QuestionChoiceWhereInput): BatchPayload!
   deleteManyChallenges(where: ChallengeWhereInput): BatchPayload!
   deleteManyPanels(where: PanelWhereInput): BatchPayload!
@@ -1413,6 +1930,7 @@ type Panel implements Node {
   link: String!
   sequences(where: SequenceWhereInput, orderBy: SequenceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Sequence!]
   usedSequence(where: SequenceWhereInput, orderBy: SequenceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Sequence!]
+  questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question!]
 }
 
 """A connection to a list of items."""
@@ -1432,6 +1950,7 @@ input PanelCreateInput {
   test: TestCreateOneWithoutPanelsInput!
   sequences: SequenceCreateManyInput
   usedSequence: SequenceCreateManyWithoutUsedPanelsInput
+  questions: QuestionCreateManyWithoutPanelInput
 }
 
 input PanelCreateManyInput {
@@ -1454,9 +1973,24 @@ input PanelCreateManyWithoutUsedSequenceInput {
   connect: [PanelWhereUniqueInput!]
 }
 
+input PanelCreateOneWithoutQuestionsInput {
+  create: PanelCreateWithoutQuestionsInput
+  connect: PanelWhereUniqueInput
+}
+
 input PanelCreateWithoutAddedByInput {
   addedDate: DateTime
   link: String!
+  test: TestCreateOneWithoutPanelsInput!
+  sequences: SequenceCreateManyInput
+  usedSequence: SequenceCreateManyWithoutUsedPanelsInput
+  questions: QuestionCreateManyWithoutPanelInput
+}
+
+input PanelCreateWithoutQuestionsInput {
+  addedDate: DateTime
+  link: String!
+  addedBy: UserCreateOneWithoutPanelsAddedInput!
   test: TestCreateOneWithoutPanelsInput!
   sequences: SequenceCreateManyInput
   usedSequence: SequenceCreateManyWithoutUsedPanelsInput
@@ -1468,6 +2002,7 @@ input PanelCreateWithoutTestInput {
   addedBy: UserCreateOneWithoutPanelsAddedInput!
   sequences: SequenceCreateManyInput
   usedSequence: SequenceCreateManyWithoutUsedPanelsInput
+  questions: QuestionCreateManyWithoutPanelInput
 }
 
 input PanelCreateWithoutUsedSequenceInput {
@@ -1476,6 +2011,7 @@ input PanelCreateWithoutUsedSequenceInput {
   addedBy: UserCreateOneWithoutPanelsAddedInput!
   test: TestCreateOneWithoutPanelsInput!
   sequences: SequenceCreateManyInput
+  questions: QuestionCreateManyWithoutPanelInput
 }
 
 """An edge in a connection."""
@@ -1552,6 +2088,7 @@ input PanelUpdateDataInput {
   test: TestUpdateOneRequiredWithoutPanelsInput
   sequences: SequenceUpdateManyInput
   usedSequence: SequenceUpdateManyWithoutUsedPanelsInput
+  questions: QuestionUpdateManyWithoutPanelInput
 }
 
 input PanelUpdateInput {
@@ -1561,6 +2098,7 @@ input PanelUpdateInput {
   test: TestUpdateOneRequiredWithoutPanelsInput
   sequences: SequenceUpdateManyInput
   usedSequence: SequenceUpdateManyWithoutUsedPanelsInput
+  questions: QuestionUpdateManyWithoutPanelInput
 }
 
 input PanelUpdateManyInput {
@@ -1604,9 +2142,28 @@ input PanelUpdateManyWithoutUsedSequenceInput {
   upsert: [PanelUpsertWithWhereUniqueWithoutUsedSequenceInput!]
 }
 
+input PanelUpdateOneWithoutQuestionsInput {
+  create: PanelCreateWithoutQuestionsInput
+  connect: PanelWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: PanelUpdateWithoutQuestionsDataInput
+  upsert: PanelUpsertWithoutQuestionsInput
+}
+
 input PanelUpdateWithoutAddedByDataInput {
   addedDate: DateTime
   link: String
+  test: TestUpdateOneRequiredWithoutPanelsInput
+  sequences: SequenceUpdateManyInput
+  usedSequence: SequenceUpdateManyWithoutUsedPanelsInput
+  questions: QuestionUpdateManyWithoutPanelInput
+}
+
+input PanelUpdateWithoutQuestionsDataInput {
+  addedDate: DateTime
+  link: String
+  addedBy: UserUpdateOneRequiredWithoutPanelsAddedInput
   test: TestUpdateOneRequiredWithoutPanelsInput
   sequences: SequenceUpdateManyInput
   usedSequence: SequenceUpdateManyWithoutUsedPanelsInput
@@ -1618,6 +2175,7 @@ input PanelUpdateWithoutTestDataInput {
   addedBy: UserUpdateOneRequiredWithoutPanelsAddedInput
   sequences: SequenceUpdateManyInput
   usedSequence: SequenceUpdateManyWithoutUsedPanelsInput
+  questions: QuestionUpdateManyWithoutPanelInput
 }
 
 input PanelUpdateWithoutUsedSequenceDataInput {
@@ -1626,6 +2184,7 @@ input PanelUpdateWithoutUsedSequenceDataInput {
   addedBy: UserUpdateOneRequiredWithoutPanelsAddedInput
   test: TestUpdateOneRequiredWithoutPanelsInput
   sequences: SequenceUpdateManyInput
+  questions: QuestionUpdateManyWithoutPanelInput
 }
 
 input PanelUpdateWithWhereUniqueNestedInput {
@@ -1646,6 +2205,11 @@ input PanelUpdateWithWhereUniqueWithoutTestInput {
 input PanelUpdateWithWhereUniqueWithoutUsedSequenceInput {
   where: PanelWhereUniqueInput!
   data: PanelUpdateWithoutUsedSequenceDataInput!
+}
+
+input PanelUpsertWithoutQuestionsInput {
+  update: PanelUpdateWithoutQuestionsDataInput!
+  create: PanelCreateWithoutQuestionsInput!
 }
 
 input PanelUpsertWithWhereUniqueNestedInput {
@@ -1791,6 +2355,9 @@ input PanelWhereInput {
   usedSequence_every: SequenceWhereInput
   usedSequence_some: SequenceWhereInput
   usedSequence_none: SequenceWhereInput
+  questions_every: QuestionWhereInput
+  questions_some: QuestionWhereInput
+  questions_none: QuestionWhereInput
 }
 
 input PanelWhereUniqueInput {
@@ -1803,6 +2370,7 @@ type Query {
   courses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course]!
   tests(where: TestWhereInput, orderBy: TestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Test]!
   questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question]!
+  answers(where: AnswerWhereInput, orderBy: AnswerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Answer]!
   questionChoices(where: QuestionChoiceWhereInput, orderBy: QuestionChoiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [QuestionChoice]!
   challenges(where: ChallengeWhereInput, orderBy: ChallengeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Challenge]!
   panels(where: PanelWhereInput, orderBy: PanelOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Panel]!
@@ -1812,6 +2380,7 @@ type Query {
   course(where: CourseWhereUniqueInput!): Course
   test(where: TestWhereUniqueInput!): Test
   question(where: QuestionWhereUniqueInput!): Question
+  answer(where: AnswerWhereUniqueInput!): Answer
   questionChoice(where: QuestionChoiceWhereUniqueInput!): QuestionChoice
   challenge(where: ChallengeWhereUniqueInput!): Challenge
   panel(where: PanelWhereUniqueInput!): Panel
@@ -1821,6 +2390,7 @@ type Query {
   coursesConnection(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CourseConnection!
   testsConnection(where: TestWhereInput, orderBy: TestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TestConnection!
   questionsConnection(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): QuestionConnection!
+  answersConnection(where: AnswerWhereInput, orderBy: AnswerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AnswerConnection!
   questionChoicesConnection(where: QuestionChoiceWhereInput, orderBy: QuestionChoiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): QuestionChoiceConnection!
   challengesConnection(where: ChallengeWhereInput, orderBy: ChallengeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ChallengeConnection!
   panelsConnection(where: PanelWhereInput, orderBy: PanelOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PanelConnection!
@@ -1835,24 +2405,22 @@ type Query {
 
 type Question implements Node {
   id: ID!
-  answer: QuestionChoice
-  answeredBy: User
-  answerTime: DateTime
   question: String!
   questionBy: User!
   questionTime: DateTime
   expirationTime: DateTime
-  panelUrl: String
+  panel: Panel
   test: Test!
   choices(where: QuestionChoiceWhereInput, orderBy: QuestionChoiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [QuestionChoice!]
   challenges(where: ChallengeWhereInput, orderBy: ChallengeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Challenge!]
+  questionanswers(where: AnswerWhereInput, orderBy: AnswerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Answer!]
 }
 
 type QuestionChoice implements Node {
   id: ID!
   choice: String!
   question: Question!
-  answers(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question!]
+  answers(where: AnswerWhereInput, orderBy: AnswerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Answer!]
   correct: Boolean
 }
 
@@ -1870,7 +2438,7 @@ input QuestionChoiceCreateInput {
   choice: String!
   correct: Boolean
   question: QuestionCreateOneWithoutChoicesInput!
-  answers: QuestionCreateManyWithoutAnswerInput
+  answers: AnswerCreateManyWithoutAnswerInput
 }
 
 input QuestionChoiceCreateManyWithoutQuestionInput {
@@ -1892,7 +2460,7 @@ input QuestionChoiceCreateWithoutAnswersInput {
 input QuestionChoiceCreateWithoutQuestionInput {
   choice: String!
   correct: Boolean
-  answers: QuestionCreateManyWithoutAnswerInput
+  answers: AnswerCreateManyWithoutAnswerInput
 }
 
 """An edge in a connection."""
@@ -1966,7 +2534,7 @@ input QuestionChoiceUpdateInput {
   choice: String
   correct: Boolean
   question: QuestionUpdateOneRequiredWithoutChoicesInput
-  answers: QuestionUpdateManyWithoutAnswerInput
+  answers: AnswerUpdateManyWithoutAnswerInput
 }
 
 input QuestionChoiceUpdateManyMutationInput {
@@ -1983,11 +2551,9 @@ input QuestionChoiceUpdateManyWithoutQuestionInput {
   upsert: [QuestionChoiceUpsertWithWhereUniqueWithoutQuestionInput!]
 }
 
-input QuestionChoiceUpdateOneWithoutAnswersInput {
+input QuestionChoiceUpdateOneRequiredWithoutAnswersInput {
   create: QuestionChoiceCreateWithoutAnswersInput
   connect: QuestionChoiceWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
   update: QuestionChoiceUpdateWithoutAnswersDataInput
   upsert: QuestionChoiceUpsertWithoutAnswersInput
 }
@@ -2001,7 +2567,7 @@ input QuestionChoiceUpdateWithoutAnswersDataInput {
 input QuestionChoiceUpdateWithoutQuestionDataInput {
   choice: String
   correct: Boolean
-  answers: QuestionUpdateManyWithoutAnswerInput
+  answers: AnswerUpdateManyWithoutAnswerInput
 }
 
 input QuestionChoiceUpdateWithWhereUniqueWithoutQuestionInput {
@@ -2114,9 +2680,9 @@ input QuestionChoiceWhereInput {
   """All values that are not equal to given value."""
   correct_not: Boolean
   question: QuestionWhereInput
-  answers_every: QuestionWhereInput
-  answers_some: QuestionWhereInput
-  answers_none: QuestionWhereInput
+  answers_every: AnswerWhereInput
+  answers_some: AnswerWhereInput
+  answers_none: AnswerWhereInput
 }
 
 input QuestionChoiceWhereUniqueInput {
@@ -2134,26 +2700,19 @@ type QuestionConnection {
 }
 
 input QuestionCreateInput {
-  answerTime: DateTime
   question: String!
   questionTime: DateTime
   expirationTime: DateTime
-  panelUrl: String
-  answer: QuestionChoiceCreateOneWithoutAnswersInput
-  answeredBy: UserCreateOneWithoutAnswersInput
   questionBy: UserCreateOneWithoutQuestionsInput!
+  panel: PanelCreateOneWithoutQuestionsInput
   test: TestCreateOneWithoutQuestionsInput!
   choices: QuestionChoiceCreateManyWithoutQuestionInput
   challenges: ChallengeCreateManyWithoutQuestionInput
+  questionanswers: AnswerCreateManyWithoutQuestionInput
 }
 
-input QuestionCreateManyWithoutAnsweredByInput {
-  create: [QuestionCreateWithoutAnsweredByInput!]
-  connect: [QuestionWhereUniqueInput!]
-}
-
-input QuestionCreateManyWithoutAnswerInput {
-  create: [QuestionCreateWithoutAnswerInput!]
+input QuestionCreateManyWithoutPanelInput {
+  create: [QuestionCreateWithoutPanelInput!]
   connect: [QuestionWhereUniqueInput!]
 }
 
@@ -2177,82 +2736,75 @@ input QuestionCreateOneWithoutChoicesInput {
   connect: QuestionWhereUniqueInput
 }
 
-input QuestionCreateWithoutAnsweredByInput {
-  answerTime: DateTime
-  question: String!
-  questionTime: DateTime
-  expirationTime: DateTime
-  panelUrl: String
-  answer: QuestionChoiceCreateOneWithoutAnswersInput
-  questionBy: UserCreateOneWithoutQuestionsInput!
-  test: TestCreateOneWithoutQuestionsInput!
-  choices: QuestionChoiceCreateManyWithoutQuestionInput
-  challenges: ChallengeCreateManyWithoutQuestionInput
-}
-
-input QuestionCreateWithoutAnswerInput {
-  answerTime: DateTime
-  question: String!
-  questionTime: DateTime
-  expirationTime: DateTime
-  panelUrl: String
-  answeredBy: UserCreateOneWithoutAnswersInput
-  questionBy: UserCreateOneWithoutQuestionsInput!
-  test: TestCreateOneWithoutQuestionsInput!
-  choices: QuestionChoiceCreateManyWithoutQuestionInput
-  challenges: ChallengeCreateManyWithoutQuestionInput
+input QuestionCreateOneWithoutQuestionanswersInput {
+  create: QuestionCreateWithoutQuestionanswersInput
+  connect: QuestionWhereUniqueInput
 }
 
 input QuestionCreateWithoutChallengesInput {
-  answerTime: DateTime
   question: String!
   questionTime: DateTime
   expirationTime: DateTime
-  panelUrl: String
-  answer: QuestionChoiceCreateOneWithoutAnswersInput
-  answeredBy: UserCreateOneWithoutAnswersInput
   questionBy: UserCreateOneWithoutQuestionsInput!
+  panel: PanelCreateOneWithoutQuestionsInput
   test: TestCreateOneWithoutQuestionsInput!
   choices: QuestionChoiceCreateManyWithoutQuestionInput
+  questionanswers: AnswerCreateManyWithoutQuestionInput
 }
 
 input QuestionCreateWithoutChoicesInput {
-  answerTime: DateTime
   question: String!
   questionTime: DateTime
   expirationTime: DateTime
-  panelUrl: String
-  answer: QuestionChoiceCreateOneWithoutAnswersInput
-  answeredBy: UserCreateOneWithoutAnswersInput
+  questionBy: UserCreateOneWithoutQuestionsInput!
+  panel: PanelCreateOneWithoutQuestionsInput
+  test: TestCreateOneWithoutQuestionsInput!
+  challenges: ChallengeCreateManyWithoutQuestionInput
+  questionanswers: AnswerCreateManyWithoutQuestionInput
+}
+
+input QuestionCreateWithoutPanelInput {
+  question: String!
+  questionTime: DateTime
+  expirationTime: DateTime
   questionBy: UserCreateOneWithoutQuestionsInput!
   test: TestCreateOneWithoutQuestionsInput!
+  choices: QuestionChoiceCreateManyWithoutQuestionInput
+  challenges: ChallengeCreateManyWithoutQuestionInput
+  questionanswers: AnswerCreateManyWithoutQuestionInput
+}
+
+input QuestionCreateWithoutQuestionanswersInput {
+  question: String!
+  questionTime: DateTime
+  expirationTime: DateTime
+  questionBy: UserCreateOneWithoutQuestionsInput!
+  panel: PanelCreateOneWithoutQuestionsInput
+  test: TestCreateOneWithoutQuestionsInput!
+  choices: QuestionChoiceCreateManyWithoutQuestionInput
   challenges: ChallengeCreateManyWithoutQuestionInput
 }
 
 input QuestionCreateWithoutQuestionByInput {
-  answerTime: DateTime
   question: String!
   questionTime: DateTime
   expirationTime: DateTime
-  panelUrl: String
-  answer: QuestionChoiceCreateOneWithoutAnswersInput
-  answeredBy: UserCreateOneWithoutAnswersInput
+  panel: PanelCreateOneWithoutQuestionsInput
   test: TestCreateOneWithoutQuestionsInput!
   choices: QuestionChoiceCreateManyWithoutQuestionInput
   challenges: ChallengeCreateManyWithoutQuestionInput
+  questionanswers: AnswerCreateManyWithoutQuestionInput
 }
 
 input QuestionCreateWithoutTestInput {
-  answerTime: DateTime
   question: String!
   questionTime: DateTime
   expirationTime: DateTime
-  panelUrl: String
-  answer: QuestionChoiceCreateOneWithoutAnswersInput
-  answeredBy: UserCreateOneWithoutAnswersInput
   questionBy: UserCreateOneWithoutQuestionsInput!
+  panel: PanelCreateOneWithoutQuestionsInput
   choices: QuestionChoiceCreateManyWithoutQuestionInput
   challenges: ChallengeCreateManyWithoutQuestionInput
+  questionanswers: AnswerCreateManyWithoutQuestionInput
 }
 
 """An edge in a connection."""
@@ -2267,16 +2819,12 @@ type QuestionEdge {
 enum QuestionOrderByInput {
   id_ASC
   id_DESC
-  answerTime_ASC
-  answerTime_DESC
   question_ASC
   question_DESC
   questionTime_ASC
   questionTime_DESC
   expirationTime_ASC
   expirationTime_DESC
-  panelUrl_ASC
-  panelUrl_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2285,11 +2833,9 @@ enum QuestionOrderByInput {
 
 type QuestionPreviousValues {
   id: ID!
-  answerTime: DateTime
   question: String!
   questionTime: DateTime
   expirationTime: DateTime
-  panelUrl: String
 }
 
 type QuestionSubscriptionPayload {
@@ -2332,43 +2878,30 @@ input QuestionSubscriptionWhereInput {
 }
 
 input QuestionUpdateInput {
-  answerTime: DateTime
   question: String
   questionTime: DateTime
   expirationTime: DateTime
-  panelUrl: String
-  answer: QuestionChoiceUpdateOneWithoutAnswersInput
-  answeredBy: UserUpdateOneWithoutAnswersInput
   questionBy: UserUpdateOneRequiredWithoutQuestionsInput
+  panel: PanelUpdateOneWithoutQuestionsInput
   test: TestUpdateOneRequiredWithoutQuestionsInput
   choices: QuestionChoiceUpdateManyWithoutQuestionInput
   challenges: ChallengeUpdateManyWithoutQuestionInput
+  questionanswers: AnswerUpdateManyWithoutQuestionInput
 }
 
 input QuestionUpdateManyMutationInput {
-  answerTime: DateTime
   question: String
   questionTime: DateTime
   expirationTime: DateTime
-  panelUrl: String
 }
 
-input QuestionUpdateManyWithoutAnsweredByInput {
-  create: [QuestionCreateWithoutAnsweredByInput!]
+input QuestionUpdateManyWithoutPanelInput {
+  create: [QuestionCreateWithoutPanelInput!]
   connect: [QuestionWhereUniqueInput!]
   disconnect: [QuestionWhereUniqueInput!]
   delete: [QuestionWhereUniqueInput!]
-  update: [QuestionUpdateWithWhereUniqueWithoutAnsweredByInput!]
-  upsert: [QuestionUpsertWithWhereUniqueWithoutAnsweredByInput!]
-}
-
-input QuestionUpdateManyWithoutAnswerInput {
-  create: [QuestionCreateWithoutAnswerInput!]
-  connect: [QuestionWhereUniqueInput!]
-  disconnect: [QuestionWhereUniqueInput!]
-  delete: [QuestionWhereUniqueInput!]
-  update: [QuestionUpdateWithWhereUniqueWithoutAnswerInput!]
-  upsert: [QuestionUpsertWithWhereUniqueWithoutAnswerInput!]
+  update: [QuestionUpdateWithWhereUniqueWithoutPanelInput!]
+  upsert: [QuestionUpsertWithWhereUniqueWithoutPanelInput!]
 }
 
 input QuestionUpdateManyWithoutQuestionByInput {
@@ -2403,92 +2936,82 @@ input QuestionUpdateOneRequiredWithoutChoicesInput {
   upsert: QuestionUpsertWithoutChoicesInput
 }
 
-input QuestionUpdateWithoutAnswerDataInput {
-  answerTime: DateTime
-  question: String
-  questionTime: DateTime
-  expirationTime: DateTime
-  panelUrl: String
-  answeredBy: UserUpdateOneWithoutAnswersInput
-  questionBy: UserUpdateOneRequiredWithoutQuestionsInput
-  test: TestUpdateOneRequiredWithoutQuestionsInput
-  choices: QuestionChoiceUpdateManyWithoutQuestionInput
-  challenges: ChallengeUpdateManyWithoutQuestionInput
-}
-
-input QuestionUpdateWithoutAnsweredByDataInput {
-  answerTime: DateTime
-  question: String
-  questionTime: DateTime
-  expirationTime: DateTime
-  panelUrl: String
-  answer: QuestionChoiceUpdateOneWithoutAnswersInput
-  questionBy: UserUpdateOneRequiredWithoutQuestionsInput
-  test: TestUpdateOneRequiredWithoutQuestionsInput
-  choices: QuestionChoiceUpdateManyWithoutQuestionInput
-  challenges: ChallengeUpdateManyWithoutQuestionInput
+input QuestionUpdateOneRequiredWithoutQuestionanswersInput {
+  create: QuestionCreateWithoutQuestionanswersInput
+  connect: QuestionWhereUniqueInput
+  update: QuestionUpdateWithoutQuestionanswersDataInput
+  upsert: QuestionUpsertWithoutQuestionanswersInput
 }
 
 input QuestionUpdateWithoutChallengesDataInput {
-  answerTime: DateTime
   question: String
   questionTime: DateTime
   expirationTime: DateTime
-  panelUrl: String
-  answer: QuestionChoiceUpdateOneWithoutAnswersInput
-  answeredBy: UserUpdateOneWithoutAnswersInput
   questionBy: UserUpdateOneRequiredWithoutQuestionsInput
+  panel: PanelUpdateOneWithoutQuestionsInput
   test: TestUpdateOneRequiredWithoutQuestionsInput
   choices: QuestionChoiceUpdateManyWithoutQuestionInput
+  questionanswers: AnswerUpdateManyWithoutQuestionInput
 }
 
 input QuestionUpdateWithoutChoicesDataInput {
-  answerTime: DateTime
   question: String
   questionTime: DateTime
   expirationTime: DateTime
-  panelUrl: String
-  answer: QuestionChoiceUpdateOneWithoutAnswersInput
-  answeredBy: UserUpdateOneWithoutAnswersInput
+  questionBy: UserUpdateOneRequiredWithoutQuestionsInput
+  panel: PanelUpdateOneWithoutQuestionsInput
+  test: TestUpdateOneRequiredWithoutQuestionsInput
+  challenges: ChallengeUpdateManyWithoutQuestionInput
+  questionanswers: AnswerUpdateManyWithoutQuestionInput
+}
+
+input QuestionUpdateWithoutPanelDataInput {
+  question: String
+  questionTime: DateTime
+  expirationTime: DateTime
   questionBy: UserUpdateOneRequiredWithoutQuestionsInput
   test: TestUpdateOneRequiredWithoutQuestionsInput
+  choices: QuestionChoiceUpdateManyWithoutQuestionInput
+  challenges: ChallengeUpdateManyWithoutQuestionInput
+  questionanswers: AnswerUpdateManyWithoutQuestionInput
+}
+
+input QuestionUpdateWithoutQuestionanswersDataInput {
+  question: String
+  questionTime: DateTime
+  expirationTime: DateTime
+  questionBy: UserUpdateOneRequiredWithoutQuestionsInput
+  panel: PanelUpdateOneWithoutQuestionsInput
+  test: TestUpdateOneRequiredWithoutQuestionsInput
+  choices: QuestionChoiceUpdateManyWithoutQuestionInput
   challenges: ChallengeUpdateManyWithoutQuestionInput
 }
 
 input QuestionUpdateWithoutQuestionByDataInput {
-  answerTime: DateTime
   question: String
   questionTime: DateTime
   expirationTime: DateTime
-  panelUrl: String
-  answer: QuestionChoiceUpdateOneWithoutAnswersInput
-  answeredBy: UserUpdateOneWithoutAnswersInput
+  panel: PanelUpdateOneWithoutQuestionsInput
   test: TestUpdateOneRequiredWithoutQuestionsInput
   choices: QuestionChoiceUpdateManyWithoutQuestionInput
   challenges: ChallengeUpdateManyWithoutQuestionInput
+  questionanswers: AnswerUpdateManyWithoutQuestionInput
 }
 
 input QuestionUpdateWithoutTestDataInput {
-  answerTime: DateTime
   question: String
   questionTime: DateTime
   expirationTime: DateTime
-  panelUrl: String
-  answer: QuestionChoiceUpdateOneWithoutAnswersInput
-  answeredBy: UserUpdateOneWithoutAnswersInput
   questionBy: UserUpdateOneRequiredWithoutQuestionsInput
+  panel: PanelUpdateOneWithoutQuestionsInput
   choices: QuestionChoiceUpdateManyWithoutQuestionInput
   challenges: ChallengeUpdateManyWithoutQuestionInput
+  questionanswers: AnswerUpdateManyWithoutQuestionInput
 }
 
-input QuestionUpdateWithWhereUniqueWithoutAnsweredByInput {
+input QuestionUpdateWithWhereUniqueWithoutPanelInput {
   where: QuestionWhereUniqueInput!
-  data: QuestionUpdateWithoutAnsweredByDataInput!
-}
-
-input QuestionUpdateWithWhereUniqueWithoutAnswerInput {
-  where: QuestionWhereUniqueInput!
-  data: QuestionUpdateWithoutAnswerDataInput!
+  data: QuestionUpdateWithoutPanelDataInput!
 }
 
 input QuestionUpdateWithWhereUniqueWithoutQuestionByInput {
@@ -2511,16 +3034,15 @@ input QuestionUpsertWithoutChoicesInput {
   create: QuestionCreateWithoutChoicesInput!
 }
 
-input QuestionUpsertWithWhereUniqueWithoutAnsweredByInput {
-  where: QuestionWhereUniqueInput!
-  update: QuestionUpdateWithoutAnsweredByDataInput!
-  create: QuestionCreateWithoutAnsweredByInput!
+input QuestionUpsertWithoutQuestionanswersInput {
+  update: QuestionUpdateWithoutQuestionanswersDataInput!
+  create: QuestionCreateWithoutQuestionanswersInput!
 }
 
-input QuestionUpsertWithWhereUniqueWithoutAnswerInput {
+input QuestionUpsertWithWhereUniqueWithoutPanelInput {
   where: QuestionWhereUniqueInput!
-  update: QuestionUpdateWithoutAnswerDataInput!
-  create: QuestionCreateWithoutAnswerInput!
+  update: QuestionUpdateWithoutPanelDataInput!
+  create: QuestionCreateWithoutPanelInput!
 }
 
 input QuestionUpsertWithWhereUniqueWithoutQuestionByInput {
@@ -2584,28 +3106,6 @@ input QuestionWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  answerTime: DateTime
-
-  """All values that are not equal to given value."""
-  answerTime_not: DateTime
-
-  """All values that are contained in given list."""
-  answerTime_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  answerTime_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  answerTime_lt: DateTime
-
-  """All values less than or equal the given value."""
-  answerTime_lte: DateTime
-
-  """All values greater than the given value."""
-  answerTime_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  answerTime_gte: DateTime
   question: String
 
   """All values that are not equal to given value."""
@@ -2690,49 +3190,8 @@ input QuestionWhereInput {
 
   """All values greater than or equal the given value."""
   expirationTime_gte: DateTime
-  panelUrl: String
-
-  """All values that are not equal to given value."""
-  panelUrl_not: String
-
-  """All values that are contained in given list."""
-  panelUrl_in: [String!]
-
-  """All values that are not contained in given list."""
-  panelUrl_not_in: [String!]
-
-  """All values less than the given value."""
-  panelUrl_lt: String
-
-  """All values less than or equal the given value."""
-  panelUrl_lte: String
-
-  """All values greater than the given value."""
-  panelUrl_gt: String
-
-  """All values greater than or equal the given value."""
-  panelUrl_gte: String
-
-  """All values containing the given string."""
-  panelUrl_contains: String
-
-  """All values not containing the given string."""
-  panelUrl_not_contains: String
-
-  """All values starting with the given string."""
-  panelUrl_starts_with: String
-
-  """All values not starting with the given string."""
-  panelUrl_not_starts_with: String
-
-  """All values ending with the given string."""
-  panelUrl_ends_with: String
-
-  """All values not ending with the given string."""
-  panelUrl_not_ends_with: String
-  answer: QuestionChoiceWhereInput
-  answeredBy: UserWhereInput
   questionBy: UserWhereInput
+  panel: PanelWhereInput
   test: TestWhereInput
   choices_every: QuestionChoiceWhereInput
   choices_some: QuestionChoiceWhereInput
@@ -2740,6 +3199,9 @@ input QuestionWhereInput {
   challenges_every: ChallengeWhereInput
   challenges_some: ChallengeWhereInput
   challenges_none: ChallengeWhereInput
+  questionanswers_every: AnswerWhereInput
+  questionanswers_some: AnswerWhereInput
+  questionanswers_none: AnswerWhereInput
 }
 
 input QuestionWhereUniqueInput {
@@ -2748,6 +3210,7 @@ input QuestionWhereUniqueInput {
 
 type Sequence implements Node {
   id: ID!
+  sequenceAdded: DateTime
   test: Test!
   students(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   usedStudents(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
@@ -2766,6 +3229,7 @@ type SequenceConnection {
 }
 
 input SequenceCreateInput {
+  sequenceAdded: DateTime
   test: TestCreateOneWithoutSequencesInput!
   students: UserCreateManyWithoutTestSequenceInput
   usedStudents: UserCreateManyWithoutUsedTestSequenceInput
@@ -2799,6 +3263,7 @@ input SequenceCreateOneWithoutTestInput {
 }
 
 input SequenceCreateWithoutStudentsInput {
+  sequenceAdded: DateTime
   test: TestCreateOneWithoutSequencesInput!
   usedStudents: UserCreateManyWithoutUsedTestSequenceInput
   panels: PanelCreateManyInput
@@ -2806,6 +3271,7 @@ input SequenceCreateWithoutStudentsInput {
 }
 
 input SequenceCreateWithoutTestInput {
+  sequenceAdded: DateTime
   students: UserCreateManyWithoutTestSequenceInput
   usedStudents: UserCreateManyWithoutUsedTestSequenceInput
   panels: PanelCreateManyInput
@@ -2813,6 +3279,7 @@ input SequenceCreateWithoutTestInput {
 }
 
 input SequenceCreateWithoutUsedPanelsInput {
+  sequenceAdded: DateTime
   test: TestCreateOneWithoutSequencesInput!
   students: UserCreateManyWithoutTestSequenceInput
   usedStudents: UserCreateManyWithoutUsedTestSequenceInput
@@ -2820,6 +3287,7 @@ input SequenceCreateWithoutUsedPanelsInput {
 }
 
 input SequenceCreateWithoutUsedStudentsInput {
+  sequenceAdded: DateTime
   test: TestCreateOneWithoutSequencesInput!
   students: UserCreateManyWithoutTestSequenceInput
   panels: PanelCreateManyInput
@@ -2838,6 +3306,8 @@ type SequenceEdge {
 enum SequenceOrderByInput {
   id_ASC
   id_DESC
+  sequenceAdded_ASC
+  sequenceAdded_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2846,6 +3316,7 @@ enum SequenceOrderByInput {
 
 type SequencePreviousValues {
   id: ID!
+  sequenceAdded: DateTime
 }
 
 type SequenceSubscriptionPayload {
@@ -2888,6 +3359,7 @@ input SequenceSubscriptionWhereInput {
 }
 
 input SequenceUpdateDataInput {
+  sequenceAdded: DateTime
   test: TestUpdateOneRequiredWithoutSequencesInput
   students: UserUpdateManyWithoutTestSequenceInput
   usedStudents: UserUpdateManyWithoutUsedTestSequenceInput
@@ -2896,6 +3368,7 @@ input SequenceUpdateDataInput {
 }
 
 input SequenceUpdateInput {
+  sequenceAdded: DateTime
   test: TestUpdateOneRequiredWithoutSequencesInput
   students: UserUpdateManyWithoutTestSequenceInput
   usedStudents: UserUpdateManyWithoutUsedTestSequenceInput
@@ -2910,6 +3383,10 @@ input SequenceUpdateManyInput {
   delete: [SequenceWhereUniqueInput!]
   update: [SequenceUpdateWithWhereUniqueNestedInput!]
   upsert: [SequenceUpsertWithWhereUniqueNestedInput!]
+}
+
+input SequenceUpdateManyMutationInput {
+  sequenceAdded: DateTime
 }
 
 input SequenceUpdateManyWithoutStudentsInput {
@@ -2949,6 +3426,7 @@ input SequenceUpdateOneWithoutTestInput {
 }
 
 input SequenceUpdateWithoutStudentsDataInput {
+  sequenceAdded: DateTime
   test: TestUpdateOneRequiredWithoutSequencesInput
   usedStudents: UserUpdateManyWithoutUsedTestSequenceInput
   panels: PanelUpdateManyInput
@@ -2956,6 +3434,7 @@ input SequenceUpdateWithoutStudentsDataInput {
 }
 
 input SequenceUpdateWithoutTestDataInput {
+  sequenceAdded: DateTime
   students: UserUpdateManyWithoutTestSequenceInput
   usedStudents: UserUpdateManyWithoutUsedTestSequenceInput
   panels: PanelUpdateManyInput
@@ -2963,6 +3442,7 @@ input SequenceUpdateWithoutTestDataInput {
 }
 
 input SequenceUpdateWithoutUsedPanelsDataInput {
+  sequenceAdded: DateTime
   test: TestUpdateOneRequiredWithoutSequencesInput
   students: UserUpdateManyWithoutTestSequenceInput
   usedStudents: UserUpdateManyWithoutUsedTestSequenceInput
@@ -2970,6 +3450,7 @@ input SequenceUpdateWithoutUsedPanelsDataInput {
 }
 
 input SequenceUpdateWithoutUsedStudentsDataInput {
+  sequenceAdded: DateTime
   test: TestUpdateOneRequiredWithoutSequencesInput
   students: UserUpdateManyWithoutTestSequenceInput
   panels: PanelUpdateManyInput
@@ -3074,6 +3555,28 @@ input SequenceWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  sequenceAdded: DateTime
+
+  """All values that are not equal to given value."""
+  sequenceAdded_not: DateTime
+
+  """All values that are contained in given list."""
+  sequenceAdded_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  sequenceAdded_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  sequenceAdded_lt: DateTime
+
+  """All values less than or equal the given value."""
+  sequenceAdded_lte: DateTime
+
+  """All values greater than the given value."""
+  sequenceAdded_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  sequenceAdded_gte: DateTime
   test: TestWhereInput
   students_every: UserWhereInput
   students_some: UserWhereInput
@@ -3099,6 +3602,7 @@ type Subscription {
   course(where: CourseSubscriptionWhereInput): CourseSubscriptionPayload
   test(where: TestSubscriptionWhereInput): TestSubscriptionPayload
   question(where: QuestionSubscriptionWhereInput): QuestionSubscriptionPayload
+  answer(where: AnswerSubscriptionWhereInput): AnswerSubscriptionPayload
   questionChoice(where: QuestionChoiceSubscriptionWhereInput): QuestionChoiceSubscriptionPayload
   challenge(where: ChallengeSubscriptionWhereInput): ChallengeSubscriptionPayload
   panel(where: PanelSubscriptionWhereInput): PanelSubscriptionPayload
@@ -3767,7 +4271,7 @@ type User implements Node {
   studentInstitution(where: InstitutionWhereInput, orderBy: InstitutionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Institution!]
   teacherCourses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course!]
   studentCourses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course!]
-  answers(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question!]
+  answers(where: AnswerWhereInput, orderBy: AnswerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Answer!]
   questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question!]
   challengers(where: ChallengeWhereInput, orderBy: ChallengeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Challenge!]
   testSequence(where: SequenceWhereInput, orderBy: SequenceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Sequence!]
@@ -3775,6 +4279,8 @@ type User implements Node {
   coursesAdded(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course!]
   testsAdded(where: TestWhereInput, orderBy: TestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Test!]
   panelsAdded(where: PanelWhereInput, orderBy: PanelOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Panel!]
+  institutionUpdates(where: InstitutionWhereInput, orderBy: InstitutionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Institution!]
+  courseUpdates(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course!]
 }
 
 """A connection to a list of items."""
@@ -3802,7 +4308,7 @@ input UserCreateInput {
   studentInstitution: InstitutionCreateManyWithoutStudentsInput
   teacherCourses: CourseCreateManyWithoutTeachersInput
   studentCourses: CourseCreateManyWithoutStudentsInput
-  answers: QuestionCreateManyWithoutAnsweredByInput
+  answers: AnswerCreateManyWithoutAnsweredByInput
   questions: QuestionCreateManyWithoutQuestionByInput
   challengers: ChallengeCreateManyWithoutChallengerInput
   testSequence: SequenceCreateManyWithoutStudentsInput
@@ -3810,6 +4316,8 @@ input UserCreateInput {
   coursesAdded: CourseCreateManyWithoutAddedByInput
   testsAdded: TestCreateManyWithoutAddedByInput
   panelsAdded: PanelCreateManyWithoutAddedByInput
+  institutionUpdates: InstitutionCreateManyWithoutUpdatedByInput
+  courseUpdates: CourseCreateManyWithoutUpdatedByInput
 }
 
 input UserCreateManyWithoutInstitutionContactInput {
@@ -3862,6 +4370,16 @@ input UserCreateOneWithoutCoursesAddedInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateOneWithoutCourseUpdatesInput {
+  create: UserCreateWithoutCourseUpdatesInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutInstitutionUpdatesInput {
+  create: UserCreateWithoutInstitutionUpdatesInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateOneWithoutPanelsAddedInput {
   create: UserCreateWithoutPanelsAddedInput
   connect: UserWhereUniqueInput
@@ -3899,6 +4417,8 @@ input UserCreateWithoutAnswersInput {
   coursesAdded: CourseCreateManyWithoutAddedByInput
   testsAdded: TestCreateManyWithoutAddedByInput
   panelsAdded: PanelCreateManyWithoutAddedByInput
+  institutionUpdates: InstitutionCreateManyWithoutUpdatedByInput
+  courseUpdates: CourseCreateManyWithoutUpdatedByInput
 }
 
 input UserCreateWithoutChallengersInput {
@@ -3916,13 +4436,15 @@ input UserCreateWithoutChallengersInput {
   studentInstitution: InstitutionCreateManyWithoutStudentsInput
   teacherCourses: CourseCreateManyWithoutTeachersInput
   studentCourses: CourseCreateManyWithoutStudentsInput
-  answers: QuestionCreateManyWithoutAnsweredByInput
+  answers: AnswerCreateManyWithoutAnsweredByInput
   questions: QuestionCreateManyWithoutQuestionByInput
   testSequence: SequenceCreateManyWithoutStudentsInput
   usedTestSequence: SequenceCreateManyWithoutUsedStudentsInput
   coursesAdded: CourseCreateManyWithoutAddedByInput
   testsAdded: TestCreateManyWithoutAddedByInput
   panelsAdded: PanelCreateManyWithoutAddedByInput
+  institutionUpdates: InstitutionCreateManyWithoutUpdatedByInput
+  courseUpdates: CourseCreateManyWithoutUpdatedByInput
 }
 
 input UserCreateWithoutCoursesAddedInput {
@@ -3940,13 +4462,41 @@ input UserCreateWithoutCoursesAddedInput {
   studentInstitution: InstitutionCreateManyWithoutStudentsInput
   teacherCourses: CourseCreateManyWithoutTeachersInput
   studentCourses: CourseCreateManyWithoutStudentsInput
-  answers: QuestionCreateManyWithoutAnsweredByInput
+  answers: AnswerCreateManyWithoutAnsweredByInput
   questions: QuestionCreateManyWithoutQuestionByInput
   challengers: ChallengeCreateManyWithoutChallengerInput
   testSequence: SequenceCreateManyWithoutStudentsInput
   usedTestSequence: SequenceCreateManyWithoutUsedStudentsInput
   testsAdded: TestCreateManyWithoutAddedByInput
   panelsAdded: PanelCreateManyWithoutAddedByInput
+  institutionUpdates: InstitutionCreateManyWithoutUpdatedByInput
+  courseUpdates: CourseCreateManyWithoutUpdatedByInput
+}
+
+input UserCreateWithoutCourseUpdatesInput {
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionCreateManyWithoutContactsInput
+  teacherInstitution: InstitutionCreateManyWithoutTeachersInput
+  studentInstitution: InstitutionCreateManyWithoutStudentsInput
+  teacherCourses: CourseCreateManyWithoutTeachersInput
+  studentCourses: CourseCreateManyWithoutStudentsInput
+  answers: AnswerCreateManyWithoutAnsweredByInput
+  questions: QuestionCreateManyWithoutQuestionByInput
+  challengers: ChallengeCreateManyWithoutChallengerInput
+  testSequence: SequenceCreateManyWithoutStudentsInput
+  usedTestSequence: SequenceCreateManyWithoutUsedStudentsInput
+  coursesAdded: CourseCreateManyWithoutAddedByInput
+  testsAdded: TestCreateManyWithoutAddedByInput
+  panelsAdded: PanelCreateManyWithoutAddedByInput
+  institutionUpdates: InstitutionCreateManyWithoutUpdatedByInput
 }
 
 input UserCreateWithoutInstitutionContactInput {
@@ -3963,7 +4513,7 @@ input UserCreateWithoutInstitutionContactInput {
   studentInstitution: InstitutionCreateManyWithoutStudentsInput
   teacherCourses: CourseCreateManyWithoutTeachersInput
   studentCourses: CourseCreateManyWithoutStudentsInput
-  answers: QuestionCreateManyWithoutAnsweredByInput
+  answers: AnswerCreateManyWithoutAnsweredByInput
   questions: QuestionCreateManyWithoutQuestionByInput
   challengers: ChallengeCreateManyWithoutChallengerInput
   testSequence: SequenceCreateManyWithoutStudentsInput
@@ -3971,6 +4521,34 @@ input UserCreateWithoutInstitutionContactInput {
   coursesAdded: CourseCreateManyWithoutAddedByInput
   testsAdded: TestCreateManyWithoutAddedByInput
   panelsAdded: PanelCreateManyWithoutAddedByInput
+  institutionUpdates: InstitutionCreateManyWithoutUpdatedByInput
+  courseUpdates: CourseCreateManyWithoutUpdatedByInput
+}
+
+input UserCreateWithoutInstitutionUpdatesInput {
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionCreateManyWithoutContactsInput
+  teacherInstitution: InstitutionCreateManyWithoutTeachersInput
+  studentInstitution: InstitutionCreateManyWithoutStudentsInput
+  teacherCourses: CourseCreateManyWithoutTeachersInput
+  studentCourses: CourseCreateManyWithoutStudentsInput
+  answers: AnswerCreateManyWithoutAnsweredByInput
+  questions: QuestionCreateManyWithoutQuestionByInput
+  challengers: ChallengeCreateManyWithoutChallengerInput
+  testSequence: SequenceCreateManyWithoutStudentsInput
+  usedTestSequence: SequenceCreateManyWithoutUsedStudentsInput
+  coursesAdded: CourseCreateManyWithoutAddedByInput
+  testsAdded: TestCreateManyWithoutAddedByInput
+  panelsAdded: PanelCreateManyWithoutAddedByInput
+  courseUpdates: CourseCreateManyWithoutUpdatedByInput
 }
 
 input UserCreateWithoutPanelsAddedInput {
@@ -3988,13 +4566,15 @@ input UserCreateWithoutPanelsAddedInput {
   studentInstitution: InstitutionCreateManyWithoutStudentsInput
   teacherCourses: CourseCreateManyWithoutTeachersInput
   studentCourses: CourseCreateManyWithoutStudentsInput
-  answers: QuestionCreateManyWithoutAnsweredByInput
+  answers: AnswerCreateManyWithoutAnsweredByInput
   questions: QuestionCreateManyWithoutQuestionByInput
   challengers: ChallengeCreateManyWithoutChallengerInput
   testSequence: SequenceCreateManyWithoutStudentsInput
   usedTestSequence: SequenceCreateManyWithoutUsedStudentsInput
   coursesAdded: CourseCreateManyWithoutAddedByInput
   testsAdded: TestCreateManyWithoutAddedByInput
+  institutionUpdates: InstitutionCreateManyWithoutUpdatedByInput
+  courseUpdates: CourseCreateManyWithoutUpdatedByInput
 }
 
 input UserCreateWithoutQuestionsInput {
@@ -4012,13 +4592,15 @@ input UserCreateWithoutQuestionsInput {
   studentInstitution: InstitutionCreateManyWithoutStudentsInput
   teacherCourses: CourseCreateManyWithoutTeachersInput
   studentCourses: CourseCreateManyWithoutStudentsInput
-  answers: QuestionCreateManyWithoutAnsweredByInput
+  answers: AnswerCreateManyWithoutAnsweredByInput
   challengers: ChallengeCreateManyWithoutChallengerInput
   testSequence: SequenceCreateManyWithoutStudentsInput
   usedTestSequence: SequenceCreateManyWithoutUsedStudentsInput
   coursesAdded: CourseCreateManyWithoutAddedByInput
   testsAdded: TestCreateManyWithoutAddedByInput
   panelsAdded: PanelCreateManyWithoutAddedByInput
+  institutionUpdates: InstitutionCreateManyWithoutUpdatedByInput
+  courseUpdates: CourseCreateManyWithoutUpdatedByInput
 }
 
 input UserCreateWithoutStudentCoursesInput {
@@ -4035,7 +4617,7 @@ input UserCreateWithoutStudentCoursesInput {
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
   studentInstitution: InstitutionCreateManyWithoutStudentsInput
   teacherCourses: CourseCreateManyWithoutTeachersInput
-  answers: QuestionCreateManyWithoutAnsweredByInput
+  answers: AnswerCreateManyWithoutAnsweredByInput
   questions: QuestionCreateManyWithoutQuestionByInput
   challengers: ChallengeCreateManyWithoutChallengerInput
   testSequence: SequenceCreateManyWithoutStudentsInput
@@ -4043,6 +4625,8 @@ input UserCreateWithoutStudentCoursesInput {
   coursesAdded: CourseCreateManyWithoutAddedByInput
   testsAdded: TestCreateManyWithoutAddedByInput
   panelsAdded: PanelCreateManyWithoutAddedByInput
+  institutionUpdates: InstitutionCreateManyWithoutUpdatedByInput
+  courseUpdates: CourseCreateManyWithoutUpdatedByInput
 }
 
 input UserCreateWithoutStudentInstitutionInput {
@@ -4059,7 +4643,7 @@ input UserCreateWithoutStudentInstitutionInput {
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
   teacherCourses: CourseCreateManyWithoutTeachersInput
   studentCourses: CourseCreateManyWithoutStudentsInput
-  answers: QuestionCreateManyWithoutAnsweredByInput
+  answers: AnswerCreateManyWithoutAnsweredByInput
   questions: QuestionCreateManyWithoutQuestionByInput
   challengers: ChallengeCreateManyWithoutChallengerInput
   testSequence: SequenceCreateManyWithoutStudentsInput
@@ -4067,6 +4651,8 @@ input UserCreateWithoutStudentInstitutionInput {
   coursesAdded: CourseCreateManyWithoutAddedByInput
   testsAdded: TestCreateManyWithoutAddedByInput
   panelsAdded: PanelCreateManyWithoutAddedByInput
+  institutionUpdates: InstitutionCreateManyWithoutUpdatedByInput
+  courseUpdates: CourseCreateManyWithoutUpdatedByInput
 }
 
 input UserCreateWithoutTeacherCoursesInput {
@@ -4083,7 +4669,7 @@ input UserCreateWithoutTeacherCoursesInput {
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
   studentInstitution: InstitutionCreateManyWithoutStudentsInput
   studentCourses: CourseCreateManyWithoutStudentsInput
-  answers: QuestionCreateManyWithoutAnsweredByInput
+  answers: AnswerCreateManyWithoutAnsweredByInput
   questions: QuestionCreateManyWithoutQuestionByInput
   challengers: ChallengeCreateManyWithoutChallengerInput
   testSequence: SequenceCreateManyWithoutStudentsInput
@@ -4091,6 +4677,8 @@ input UserCreateWithoutTeacherCoursesInput {
   coursesAdded: CourseCreateManyWithoutAddedByInput
   testsAdded: TestCreateManyWithoutAddedByInput
   panelsAdded: PanelCreateManyWithoutAddedByInput
+  institutionUpdates: InstitutionCreateManyWithoutUpdatedByInput
+  courseUpdates: CourseCreateManyWithoutUpdatedByInput
 }
 
 input UserCreateWithoutTeacherInstitutionInput {
@@ -4107,7 +4695,7 @@ input UserCreateWithoutTeacherInstitutionInput {
   studentInstitution: InstitutionCreateManyWithoutStudentsInput
   teacherCourses: CourseCreateManyWithoutTeachersInput
   studentCourses: CourseCreateManyWithoutStudentsInput
-  answers: QuestionCreateManyWithoutAnsweredByInput
+  answers: AnswerCreateManyWithoutAnsweredByInput
   questions: QuestionCreateManyWithoutQuestionByInput
   challengers: ChallengeCreateManyWithoutChallengerInput
   testSequence: SequenceCreateManyWithoutStudentsInput
@@ -4115,6 +4703,8 @@ input UserCreateWithoutTeacherInstitutionInput {
   coursesAdded: CourseCreateManyWithoutAddedByInput
   testsAdded: TestCreateManyWithoutAddedByInput
   panelsAdded: PanelCreateManyWithoutAddedByInput
+  institutionUpdates: InstitutionCreateManyWithoutUpdatedByInput
+  courseUpdates: CourseCreateManyWithoutUpdatedByInput
 }
 
 input UserCreateWithoutTestsAddedInput {
@@ -4132,13 +4722,15 @@ input UserCreateWithoutTestsAddedInput {
   studentInstitution: InstitutionCreateManyWithoutStudentsInput
   teacherCourses: CourseCreateManyWithoutTeachersInput
   studentCourses: CourseCreateManyWithoutStudentsInput
-  answers: QuestionCreateManyWithoutAnsweredByInput
+  answers: AnswerCreateManyWithoutAnsweredByInput
   questions: QuestionCreateManyWithoutQuestionByInput
   challengers: ChallengeCreateManyWithoutChallengerInput
   testSequence: SequenceCreateManyWithoutStudentsInput
   usedTestSequence: SequenceCreateManyWithoutUsedStudentsInput
   coursesAdded: CourseCreateManyWithoutAddedByInput
   panelsAdded: PanelCreateManyWithoutAddedByInput
+  institutionUpdates: InstitutionCreateManyWithoutUpdatedByInput
+  courseUpdates: CourseCreateManyWithoutUpdatedByInput
 }
 
 input UserCreateWithoutTestSequenceInput {
@@ -4156,13 +4748,15 @@ input UserCreateWithoutTestSequenceInput {
   studentInstitution: InstitutionCreateManyWithoutStudentsInput
   teacherCourses: CourseCreateManyWithoutTeachersInput
   studentCourses: CourseCreateManyWithoutStudentsInput
-  answers: QuestionCreateManyWithoutAnsweredByInput
+  answers: AnswerCreateManyWithoutAnsweredByInput
   questions: QuestionCreateManyWithoutQuestionByInput
   challengers: ChallengeCreateManyWithoutChallengerInput
   usedTestSequence: SequenceCreateManyWithoutUsedStudentsInput
   coursesAdded: CourseCreateManyWithoutAddedByInput
   testsAdded: TestCreateManyWithoutAddedByInput
   panelsAdded: PanelCreateManyWithoutAddedByInput
+  institutionUpdates: InstitutionCreateManyWithoutUpdatedByInput
+  courseUpdates: CourseCreateManyWithoutUpdatedByInput
 }
 
 input UserCreateWithoutUsedTestSequenceInput {
@@ -4180,13 +4774,15 @@ input UserCreateWithoutUsedTestSequenceInput {
   studentInstitution: InstitutionCreateManyWithoutStudentsInput
   teacherCourses: CourseCreateManyWithoutTeachersInput
   studentCourses: CourseCreateManyWithoutStudentsInput
-  answers: QuestionCreateManyWithoutAnsweredByInput
+  answers: AnswerCreateManyWithoutAnsweredByInput
   questions: QuestionCreateManyWithoutQuestionByInput
   challengers: ChallengeCreateManyWithoutChallengerInput
   testSequence: SequenceCreateManyWithoutStudentsInput
   coursesAdded: CourseCreateManyWithoutAddedByInput
   testsAdded: TestCreateManyWithoutAddedByInput
   panelsAdded: PanelCreateManyWithoutAddedByInput
+  institutionUpdates: InstitutionCreateManyWithoutUpdatedByInput
+  courseUpdates: CourseCreateManyWithoutUpdatedByInput
 }
 
 """An edge in a connection."""
@@ -4298,7 +4894,7 @@ input UserUpdateInput {
   studentInstitution: InstitutionUpdateManyWithoutStudentsInput
   teacherCourses: CourseUpdateManyWithoutTeachersInput
   studentCourses: CourseUpdateManyWithoutStudentsInput
-  answers: QuestionUpdateManyWithoutAnsweredByInput
+  answers: AnswerUpdateManyWithoutAnsweredByInput
   questions: QuestionUpdateManyWithoutQuestionByInput
   challengers: ChallengeUpdateManyWithoutChallengerInput
   testSequence: SequenceUpdateManyWithoutStudentsInput
@@ -4306,6 +4902,8 @@ input UserUpdateInput {
   coursesAdded: CourseUpdateManyWithoutAddedByInput
   testsAdded: TestUpdateManyWithoutAddedByInput
   panelsAdded: PanelUpdateManyWithoutAddedByInput
+  institutionUpdates: InstitutionUpdateManyWithoutUpdatedByInput
+  courseUpdates: CourseUpdateManyWithoutUpdatedByInput
 }
 
 input UserUpdateManyMutationInput {
@@ -4427,6 +5025,24 @@ input UserUpdateOneWithoutAnswersInput {
   upsert: UserUpsertWithoutAnswersInput
 }
 
+input UserUpdateOneWithoutCourseUpdatesInput {
+  create: UserCreateWithoutCourseUpdatesInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutCourseUpdatesDataInput
+  upsert: UserUpsertWithoutCourseUpdatesInput
+}
+
+input UserUpdateOneWithoutInstitutionUpdatesInput {
+  create: UserCreateWithoutInstitutionUpdatesInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutInstitutionUpdatesDataInput
+  upsert: UserUpsertWithoutInstitutionUpdatesInput
+}
+
 input UserUpdateWithoutAnswersDataInput {
   email: String
   password: String
@@ -4449,6 +5065,8 @@ input UserUpdateWithoutAnswersDataInput {
   coursesAdded: CourseUpdateManyWithoutAddedByInput
   testsAdded: TestUpdateManyWithoutAddedByInput
   panelsAdded: PanelUpdateManyWithoutAddedByInput
+  institutionUpdates: InstitutionUpdateManyWithoutUpdatedByInput
+  courseUpdates: CourseUpdateManyWithoutUpdatedByInput
 }
 
 input UserUpdateWithoutChallengersDataInput {
@@ -4466,13 +5084,15 @@ input UserUpdateWithoutChallengersDataInput {
   studentInstitution: InstitutionUpdateManyWithoutStudentsInput
   teacherCourses: CourseUpdateManyWithoutTeachersInput
   studentCourses: CourseUpdateManyWithoutStudentsInput
-  answers: QuestionUpdateManyWithoutAnsweredByInput
+  answers: AnswerUpdateManyWithoutAnsweredByInput
   questions: QuestionUpdateManyWithoutQuestionByInput
   testSequence: SequenceUpdateManyWithoutStudentsInput
   usedTestSequence: SequenceUpdateManyWithoutUsedStudentsInput
   coursesAdded: CourseUpdateManyWithoutAddedByInput
   testsAdded: TestUpdateManyWithoutAddedByInput
   panelsAdded: PanelUpdateManyWithoutAddedByInput
+  institutionUpdates: InstitutionUpdateManyWithoutUpdatedByInput
+  courseUpdates: CourseUpdateManyWithoutUpdatedByInput
 }
 
 input UserUpdateWithoutCoursesAddedDataInput {
@@ -4490,13 +5110,41 @@ input UserUpdateWithoutCoursesAddedDataInput {
   studentInstitution: InstitutionUpdateManyWithoutStudentsInput
   teacherCourses: CourseUpdateManyWithoutTeachersInput
   studentCourses: CourseUpdateManyWithoutStudentsInput
-  answers: QuestionUpdateManyWithoutAnsweredByInput
+  answers: AnswerUpdateManyWithoutAnsweredByInput
   questions: QuestionUpdateManyWithoutQuestionByInput
   challengers: ChallengeUpdateManyWithoutChallengerInput
   testSequence: SequenceUpdateManyWithoutStudentsInput
   usedTestSequence: SequenceUpdateManyWithoutUsedStudentsInput
   testsAdded: TestUpdateManyWithoutAddedByInput
   panelsAdded: PanelUpdateManyWithoutAddedByInput
+  institutionUpdates: InstitutionUpdateManyWithoutUpdatedByInput
+  courseUpdates: CourseUpdateManyWithoutUpdatedByInput
+}
+
+input UserUpdateWithoutCourseUpdatesDataInput {
+  email: String
+  password: String
+  firstName: String
+  lastName: String
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionUpdateManyWithoutContactsInput
+  teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
+  studentInstitution: InstitutionUpdateManyWithoutStudentsInput
+  teacherCourses: CourseUpdateManyWithoutTeachersInput
+  studentCourses: CourseUpdateManyWithoutStudentsInput
+  answers: AnswerUpdateManyWithoutAnsweredByInput
+  questions: QuestionUpdateManyWithoutQuestionByInput
+  challengers: ChallengeUpdateManyWithoutChallengerInput
+  testSequence: SequenceUpdateManyWithoutStudentsInput
+  usedTestSequence: SequenceUpdateManyWithoutUsedStudentsInput
+  coursesAdded: CourseUpdateManyWithoutAddedByInput
+  testsAdded: TestUpdateManyWithoutAddedByInput
+  panelsAdded: PanelUpdateManyWithoutAddedByInput
+  institutionUpdates: InstitutionUpdateManyWithoutUpdatedByInput
 }
 
 input UserUpdateWithoutInstitutionContactDataInput {
@@ -4513,7 +5161,7 @@ input UserUpdateWithoutInstitutionContactDataInput {
   studentInstitution: InstitutionUpdateManyWithoutStudentsInput
   teacherCourses: CourseUpdateManyWithoutTeachersInput
   studentCourses: CourseUpdateManyWithoutStudentsInput
-  answers: QuestionUpdateManyWithoutAnsweredByInput
+  answers: AnswerUpdateManyWithoutAnsweredByInput
   questions: QuestionUpdateManyWithoutQuestionByInput
   challengers: ChallengeUpdateManyWithoutChallengerInput
   testSequence: SequenceUpdateManyWithoutStudentsInput
@@ -4521,6 +5169,34 @@ input UserUpdateWithoutInstitutionContactDataInput {
   coursesAdded: CourseUpdateManyWithoutAddedByInput
   testsAdded: TestUpdateManyWithoutAddedByInput
   panelsAdded: PanelUpdateManyWithoutAddedByInput
+  institutionUpdates: InstitutionUpdateManyWithoutUpdatedByInput
+  courseUpdates: CourseUpdateManyWithoutUpdatedByInput
+}
+
+input UserUpdateWithoutInstitutionUpdatesDataInput {
+  email: String
+  password: String
+  firstName: String
+  lastName: String
+  phone: String
+  lastLogin: DateTime
+  signUpDate: DateTime
+  online: Boolean
+  type: UserType
+  institutionContact: InstitutionUpdateManyWithoutContactsInput
+  teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
+  studentInstitution: InstitutionUpdateManyWithoutStudentsInput
+  teacherCourses: CourseUpdateManyWithoutTeachersInput
+  studentCourses: CourseUpdateManyWithoutStudentsInput
+  answers: AnswerUpdateManyWithoutAnsweredByInput
+  questions: QuestionUpdateManyWithoutQuestionByInput
+  challengers: ChallengeUpdateManyWithoutChallengerInput
+  testSequence: SequenceUpdateManyWithoutStudentsInput
+  usedTestSequence: SequenceUpdateManyWithoutUsedStudentsInput
+  coursesAdded: CourseUpdateManyWithoutAddedByInput
+  testsAdded: TestUpdateManyWithoutAddedByInput
+  panelsAdded: PanelUpdateManyWithoutAddedByInput
+  courseUpdates: CourseUpdateManyWithoutUpdatedByInput
 }
 
 input UserUpdateWithoutPanelsAddedDataInput {
@@ -4538,13 +5214,15 @@ input UserUpdateWithoutPanelsAddedDataInput {
   studentInstitution: InstitutionUpdateManyWithoutStudentsInput
   teacherCourses: CourseUpdateManyWithoutTeachersInput
   studentCourses: CourseUpdateManyWithoutStudentsInput
-  answers: QuestionUpdateManyWithoutAnsweredByInput
+  answers: AnswerUpdateManyWithoutAnsweredByInput
   questions: QuestionUpdateManyWithoutQuestionByInput
   challengers: ChallengeUpdateManyWithoutChallengerInput
   testSequence: SequenceUpdateManyWithoutStudentsInput
   usedTestSequence: SequenceUpdateManyWithoutUsedStudentsInput
   coursesAdded: CourseUpdateManyWithoutAddedByInput
   testsAdded: TestUpdateManyWithoutAddedByInput
+  institutionUpdates: InstitutionUpdateManyWithoutUpdatedByInput
+  courseUpdates: CourseUpdateManyWithoutUpdatedByInput
 }
 
 input UserUpdateWithoutQuestionsDataInput {
@@ -4562,13 +5240,15 @@ input UserUpdateWithoutQuestionsDataInput {
   studentInstitution: InstitutionUpdateManyWithoutStudentsInput
   teacherCourses: CourseUpdateManyWithoutTeachersInput
   studentCourses: CourseUpdateManyWithoutStudentsInput
-  answers: QuestionUpdateManyWithoutAnsweredByInput
+  answers: AnswerUpdateManyWithoutAnsweredByInput
   challengers: ChallengeUpdateManyWithoutChallengerInput
   testSequence: SequenceUpdateManyWithoutStudentsInput
   usedTestSequence: SequenceUpdateManyWithoutUsedStudentsInput
   coursesAdded: CourseUpdateManyWithoutAddedByInput
   testsAdded: TestUpdateManyWithoutAddedByInput
   panelsAdded: PanelUpdateManyWithoutAddedByInput
+  institutionUpdates: InstitutionUpdateManyWithoutUpdatedByInput
+  courseUpdates: CourseUpdateManyWithoutUpdatedByInput
 }
 
 input UserUpdateWithoutStudentCoursesDataInput {
@@ -4585,7 +5265,7 @@ input UserUpdateWithoutStudentCoursesDataInput {
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
   studentInstitution: InstitutionUpdateManyWithoutStudentsInput
   teacherCourses: CourseUpdateManyWithoutTeachersInput
-  answers: QuestionUpdateManyWithoutAnsweredByInput
+  answers: AnswerUpdateManyWithoutAnsweredByInput
   questions: QuestionUpdateManyWithoutQuestionByInput
   challengers: ChallengeUpdateManyWithoutChallengerInput
   testSequence: SequenceUpdateManyWithoutStudentsInput
@@ -4593,6 +5273,8 @@ input UserUpdateWithoutStudentCoursesDataInput {
   coursesAdded: CourseUpdateManyWithoutAddedByInput
   testsAdded: TestUpdateManyWithoutAddedByInput
   panelsAdded: PanelUpdateManyWithoutAddedByInput
+  institutionUpdates: InstitutionUpdateManyWithoutUpdatedByInput
+  courseUpdates: CourseUpdateManyWithoutUpdatedByInput
 }
 
 input UserUpdateWithoutStudentInstitutionDataInput {
@@ -4609,7 +5291,7 @@ input UserUpdateWithoutStudentInstitutionDataInput {
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
   teacherCourses: CourseUpdateManyWithoutTeachersInput
   studentCourses: CourseUpdateManyWithoutStudentsInput
-  answers: QuestionUpdateManyWithoutAnsweredByInput
+  answers: AnswerUpdateManyWithoutAnsweredByInput
   questions: QuestionUpdateManyWithoutQuestionByInput
   challengers: ChallengeUpdateManyWithoutChallengerInput
   testSequence: SequenceUpdateManyWithoutStudentsInput
@@ -4617,6 +5299,8 @@ input UserUpdateWithoutStudentInstitutionDataInput {
   coursesAdded: CourseUpdateManyWithoutAddedByInput
   testsAdded: TestUpdateManyWithoutAddedByInput
   panelsAdded: PanelUpdateManyWithoutAddedByInput
+  institutionUpdates: InstitutionUpdateManyWithoutUpdatedByInput
+  courseUpdates: CourseUpdateManyWithoutUpdatedByInput
 }
 
 input UserUpdateWithoutTeacherCoursesDataInput {
@@ -4633,7 +5317,7 @@ input UserUpdateWithoutTeacherCoursesDataInput {
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
   studentInstitution: InstitutionUpdateManyWithoutStudentsInput
   studentCourses: CourseUpdateManyWithoutStudentsInput
-  answers: QuestionUpdateManyWithoutAnsweredByInput
+  answers: AnswerUpdateManyWithoutAnsweredByInput
   questions: QuestionUpdateManyWithoutQuestionByInput
   challengers: ChallengeUpdateManyWithoutChallengerInput
   testSequence: SequenceUpdateManyWithoutStudentsInput
@@ -4641,6 +5325,8 @@ input UserUpdateWithoutTeacherCoursesDataInput {
   coursesAdded: CourseUpdateManyWithoutAddedByInput
   testsAdded: TestUpdateManyWithoutAddedByInput
   panelsAdded: PanelUpdateManyWithoutAddedByInput
+  institutionUpdates: InstitutionUpdateManyWithoutUpdatedByInput
+  courseUpdates: CourseUpdateManyWithoutUpdatedByInput
 }
 
 input UserUpdateWithoutTeacherInstitutionDataInput {
@@ -4657,7 +5343,7 @@ input UserUpdateWithoutTeacherInstitutionDataInput {
   studentInstitution: InstitutionUpdateManyWithoutStudentsInput
   teacherCourses: CourseUpdateManyWithoutTeachersInput
   studentCourses: CourseUpdateManyWithoutStudentsInput
-  answers: QuestionUpdateManyWithoutAnsweredByInput
+  answers: AnswerUpdateManyWithoutAnsweredByInput
   questions: QuestionUpdateManyWithoutQuestionByInput
   challengers: ChallengeUpdateManyWithoutChallengerInput
   testSequence: SequenceUpdateManyWithoutStudentsInput
@@ -4665,6 +5351,8 @@ input UserUpdateWithoutTeacherInstitutionDataInput {
   coursesAdded: CourseUpdateManyWithoutAddedByInput
   testsAdded: TestUpdateManyWithoutAddedByInput
   panelsAdded: PanelUpdateManyWithoutAddedByInput
+  institutionUpdates: InstitutionUpdateManyWithoutUpdatedByInput
+  courseUpdates: CourseUpdateManyWithoutUpdatedByInput
 }
 
 input UserUpdateWithoutTestsAddedDataInput {
@@ -4682,13 +5370,15 @@ input UserUpdateWithoutTestsAddedDataInput {
   studentInstitution: InstitutionUpdateManyWithoutStudentsInput
   teacherCourses: CourseUpdateManyWithoutTeachersInput
   studentCourses: CourseUpdateManyWithoutStudentsInput
-  answers: QuestionUpdateManyWithoutAnsweredByInput
+  answers: AnswerUpdateManyWithoutAnsweredByInput
   questions: QuestionUpdateManyWithoutQuestionByInput
   challengers: ChallengeUpdateManyWithoutChallengerInput
   testSequence: SequenceUpdateManyWithoutStudentsInput
   usedTestSequence: SequenceUpdateManyWithoutUsedStudentsInput
   coursesAdded: CourseUpdateManyWithoutAddedByInput
   panelsAdded: PanelUpdateManyWithoutAddedByInput
+  institutionUpdates: InstitutionUpdateManyWithoutUpdatedByInput
+  courseUpdates: CourseUpdateManyWithoutUpdatedByInput
 }
 
 input UserUpdateWithoutTestSequenceDataInput {
@@ -4706,13 +5396,15 @@ input UserUpdateWithoutTestSequenceDataInput {
   studentInstitution: InstitutionUpdateManyWithoutStudentsInput
   teacherCourses: CourseUpdateManyWithoutTeachersInput
   studentCourses: CourseUpdateManyWithoutStudentsInput
-  answers: QuestionUpdateManyWithoutAnsweredByInput
+  answers: AnswerUpdateManyWithoutAnsweredByInput
   questions: QuestionUpdateManyWithoutQuestionByInput
   challengers: ChallengeUpdateManyWithoutChallengerInput
   usedTestSequence: SequenceUpdateManyWithoutUsedStudentsInput
   coursesAdded: CourseUpdateManyWithoutAddedByInput
   testsAdded: TestUpdateManyWithoutAddedByInput
   panelsAdded: PanelUpdateManyWithoutAddedByInput
+  institutionUpdates: InstitutionUpdateManyWithoutUpdatedByInput
+  courseUpdates: CourseUpdateManyWithoutUpdatedByInput
 }
 
 input UserUpdateWithoutUsedTestSequenceDataInput {
@@ -4730,13 +5422,15 @@ input UserUpdateWithoutUsedTestSequenceDataInput {
   studentInstitution: InstitutionUpdateManyWithoutStudentsInput
   teacherCourses: CourseUpdateManyWithoutTeachersInput
   studentCourses: CourseUpdateManyWithoutStudentsInput
-  answers: QuestionUpdateManyWithoutAnsweredByInput
+  answers: AnswerUpdateManyWithoutAnsweredByInput
   questions: QuestionUpdateManyWithoutQuestionByInput
   challengers: ChallengeUpdateManyWithoutChallengerInput
   testSequence: SequenceUpdateManyWithoutStudentsInput
   coursesAdded: CourseUpdateManyWithoutAddedByInput
   testsAdded: TestUpdateManyWithoutAddedByInput
   panelsAdded: PanelUpdateManyWithoutAddedByInput
+  institutionUpdates: InstitutionUpdateManyWithoutUpdatedByInput
+  courseUpdates: CourseUpdateManyWithoutUpdatedByInput
 }
 
 input UserUpdateWithWhereUniqueWithoutInstitutionContactInput {
@@ -4787,6 +5481,16 @@ input UserUpsertWithoutChallengersInput {
 input UserUpsertWithoutCoursesAddedInput {
   update: UserUpdateWithoutCoursesAddedDataInput!
   create: UserCreateWithoutCoursesAddedInput!
+}
+
+input UserUpsertWithoutCourseUpdatesInput {
+  update: UserUpdateWithoutCourseUpdatesDataInput!
+  create: UserCreateWithoutCourseUpdatesInput!
+}
+
+input UserUpsertWithoutInstitutionUpdatesInput {
+  update: UserUpdateWithoutInstitutionUpdatesDataInput!
+  create: UserCreateWithoutInstitutionUpdatesInput!
 }
 
 input UserUpsertWithoutPanelsAddedInput {
@@ -5168,9 +5872,9 @@ input UserWhereInput {
   studentCourses_every: CourseWhereInput
   studentCourses_some: CourseWhereInput
   studentCourses_none: CourseWhereInput
-  answers_every: QuestionWhereInput
-  answers_some: QuestionWhereInput
-  answers_none: QuestionWhereInput
+  answers_every: AnswerWhereInput
+  answers_some: AnswerWhereInput
+  answers_none: AnswerWhereInput
   questions_every: QuestionWhereInput
   questions_some: QuestionWhereInput
   questions_none: QuestionWhereInput
@@ -5192,6 +5896,12 @@ input UserWhereInput {
   panelsAdded_every: PanelWhereInput
   panelsAdded_some: PanelWhereInput
   panelsAdded_none: PanelWhereInput
+  institutionUpdates_every: InstitutionWhereInput
+  institutionUpdates_some: InstitutionWhereInput
+  institutionUpdates_none: InstitutionWhereInput
+  courseUpdates_every: CourseWhereInput
+  courseUpdates_some: CourseWhereInput
+  courseUpdates_none: CourseWhereInput
 }
 
 input UserWhereUniqueInput {

@@ -3,6 +3,22 @@ const jwt = require('jsonwebtoken')
 const { APP_SECRET, getUserId } = require('../utils')
 var moment = require('moment');
 
+function checkField(itemIds) {
+    if (itemIds) {
+      if (Array.isArray(itemIds)) {
+        return items = { connect: itemIds.map(x => ({id: x})) }
+    } else {
+      return items = []
+    }
+
+    if (typeof itemIds === 'string') {
+        return items = { connect: itemIds }
+    } else {
+        return items = ''
+    }
+  }
+}
+
 async function signup(parent, args, ctx, info) {
   const password = await bcrypt.hash(args.password, 10)
   const user = await ctx.db.mutation.createUser({
@@ -49,26 +65,50 @@ function addInstitution(parent, { name, type }, ctx, info) {
   )
 }
 
-function updateInstitution(parent, { id, name, type, contacts, teachers, students, courses }, ctx, info) {
+function updateInstitution(parent, { id, name, type }, ctx, info) {
   const userId = getUserId(ctx)
   const updateDate = new Date()
+
   return ctx.db.mutation.updateInstitution(
     {
       data: {
         name,
         type,
-        contacts: {
-          connect: [{ id: contactId  }]
+        updateDate,
+        updatedBy: {
+          connect: { id: userId  }
+        }
+      },
+      where: {
+        id: id
+      },
+    },
+    info
+  )
+}
+
+function updateInstitution(parent, { id, name, type, contactIds, teacherIds, studentIds, courseIds }, ctx, info) {
+  const userId = getUserId(ctx)
+  const updateDate = new Date()
+
+  const contacts = checkField(contactIds)
+  const teachers = checkField(teacherIds)
+  const courses = checkField(courseIds)
+  const students = checkField(studentIds)
+
+  return ctx.db.mutation.updateInstitution(
+    {
+      data: {
+        name,
+        type,
+        updateDate,
+        updatedBy: {
+          connect: { id: userId  }
         },
-        teachers: {
-          connect: [{ id: teacherId  }]
-        },
-        students: {
-          connect: [{ id: studentId  }]
-        },
-        courses: {
-          connect: [{ id: studentId  }]
-        },
+        contacts,
+        teachers,
+        students,
+        courses,
       },
       where: {
         id: id
@@ -98,6 +138,36 @@ function addCourse(parent, { name, courseNumber, time, institutionId }, ctx, inf
         teachers: {
           connect: [{ id: userId }],
         },
+      },
+    },
+    info
+  )
+}
+
+function updateCourse(parent, { id, name, courseNumber, time, teacherIds, studentIds }, ctx, info) {
+  const userId = getUserId(ctx)
+  const updateDate = new Date()
+
+  const teachers = checkField(teacherIds)
+  const students = checkField(studentIds)
+
+  return ctx.db.mutation.updateCourse(
+    {
+      data: {
+        name,
+        courseNumber,
+        time,
+        updateDate,
+        updatedBy: {
+          connect: {
+            id: userId
+          },
+        },
+        teachers,
+        students,
+      },
+      where: {
+        id: id
       },
     },
     info
@@ -150,12 +220,131 @@ function addPanel(parent, { link, testId }, ctx, info) {
   )
 }
 
+function addQuestion(parent, { question, testId, panelId }, ctx, info) {
+  const userId = getUserId(ctx)
+  const questionTime = new Date()
+  const expirationTime = new Date()
+  expirationTime.setHours(expirationTime.getHours() + 1);
+
+  return ctx.db.mutation.createQuestion(
+    {
+      data: {
+        questionTime,
+        question,
+        expirationTime,
+        test: {
+          connect: { id: testId  }
+        },
+        panel: {
+          connect: { id: panelId  }
+        },
+        questionBy: {
+          connect: { id: userId },
+        }
+      },
+    },
+    info
+  )
+}
+
+function addQuestionChoice(parent, { choice, correct, questionId }, ctx, info) {
+
+  return ctx.db.mutation.createQuestionChoice(
+    {
+      data: {
+        choice,
+        correct,
+        question: {
+          connect: { id: questionId },
+        }
+      },
+    },
+    info
+  )
+}
+
+function addChallenge(parent, { challenge, questionId }, ctx, info) {
+  const userId = getUserId(ctx)
+  const challengeTime = new Date()
+
+  return ctx.db.mutation.createChallenge(
+    {
+      data: {
+        challenge,
+        challengeTime,
+        question: {
+          connect: { id: questionId  }
+        },
+        challenger: {
+          connect: { id: userId },
+        }
+      },
+    },
+    info
+  )
+}
+
+function addAnswer(parent, { answerChoiceId, questionId }, ctx, info) {
+  const userId = getUserId(ctx)
+  const answerTime = new Date()
+
+  return ctx.db.mutation.createAnswer(
+    {
+      data: {
+        answerTime,
+        answer: {
+          connect: { id: answerChoiceId  }
+        },
+        answeredBy: {
+          connect: { id: userId },
+        },
+        question: {
+          connect: { id: questionId  }
+        },
+      },
+    },
+    info
+  )
+}
+
+function addSequence(parent, { testId, studentIds, panelIds }, ctx, info) {
+  const userId = getUserId(ctx)
+  const sequenceAdded = new Date()
+
+  const studentObjs = studentIds.map(x => ({id: x}));
+  const panelIds = panelIds.map(x => ({id: x}));
+
+  return ctx.db.mutation.createSequence(
+    {
+      data: {
+        sequenceAdded,
+        test: {
+          connect: { id: testId  }
+        },
+        students: {
+          connect: studentObjs,
+        },
+        panels: {
+          connect: panelIds
+        },
+      },
+    },
+    info
+  )
+}
+
 module.exports = {
+  signup,
+  login,
   addInstitution,
   updateInstitution,
   addCourse,
+  updateCourse,
   addTest,
   addPanel,
-  signup,
-  login,
+  addQuestion,
+  addQuestionChoice,
+  addChallenge,
+  addAnswer,
+  addSequence
 }

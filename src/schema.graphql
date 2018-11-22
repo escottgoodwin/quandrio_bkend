@@ -1,4 +1,4 @@
-# import User,Institution,Course,Test,Question,QuestionChoice,Challenge from "./generated/prisma.graphql"
+# import User,Institution,Course,Test,Question,QuestionChoice,Challenge,Answer,Sequence from "./generated/prisma.graphql"
 
 type Query {
 
@@ -10,6 +10,8 @@ type Query {
   questions(filter: String): [Question!]!
   questionchoices(filter: String): [QuestionChoice!]!
   challenges(filter: String): [Challenge!]!
+  answers(filter: String): [Answer!]!
+  sequences(filter: String): [Sequence!]!
 
   me: User
 }
@@ -20,15 +22,27 @@ type Mutation {
 
   login(email: String!, password: String!): AuthPayload
 
-  addInstitution(name: String!, type: String): Institution!
+  addInstitution(name: String!, type: String, contactIds: ID, teacherIds: ID, studentIds: ID, courseIds: ID): Institution !
 
-  updateInstitution(name: String!, type: String, contacts: ID, teachers: ID, students: ID, courses: ID): Institution!
+  updateInstitution(id: ID!, name: String, type: String, contactIds: [ID], teacherIds: [ID], studentIds: [ID], courseIds: [ID]): Institution!
 
-  addCourse(name: String!, courseNumber: String, time: String, institutionId: ID): Course!
+  addCourse(name: String!, courseNumber: String, time: String, institutionId: ID!): Course!
 
-  addTest(subject: String!, testNumber: String, testDate: DateTime, courseId: ID): Test!
+  updateCourse(id: ID!, name: String, courseNumber: String, time: String, teacherIds: [ID], studentIds: [ID]): Course!
 
-  addPanel(link: String!, testId: ID): Panel!
+  addTest(subject: String!, testNumber: String, testDate: DateTime, courseId: ID!): Test!
+
+  addPanel(link: String!, testId: ID!): Panel!
+
+  addQuestion(question: String!, testId: ID!, panelId: ID!): Question!
+
+  addQuestionChoice(choice: String!, correct: Boolean, questionId: ID!): QuestionChoice!
+
+  addChallenge(challenge: String!, questionId: ID!): Challenge!
+
+  addAnswer(questionId: ID!, answerChoiceId: ID!): Answer!
+
+  addSequence(testId: ID!, studentIds: [ID!]!, panelIds: [ID!]!): Sequence!
 
 }
 
