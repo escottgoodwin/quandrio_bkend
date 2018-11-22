@@ -32,6 +32,8 @@ type Mutation {
 
   updateCourse(id: ID!, name: String, courseNumber: String, time: String, teacherIds: [ID], studentIds: [ID]): Course!
 
+  deleteCourse(id: ID!): Course!
+
   addTest(subject: String!, testNumber: String, testDate: DateTime, courseId: ID!): Test!
 
   updateTest(id: ID!, subject: String!, testNumber: String, testDate: DateTime, published: Boolean, publishDate: DateTime, release: Boolean, releaseDate: DateTime): Test!

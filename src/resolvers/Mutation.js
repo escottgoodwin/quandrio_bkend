@@ -87,18 +87,6 @@ async function updateInstitution(parent, { id, name, type }, ctx, info) {
   )
 }
 
-async function deleteInstitution(parent, { id }, ctx, info) {
-
-  return await ctx.db.mutation.deleteInstitution(
-    {
-      where: {
-        id: id
-      }
-    },
-    info
-  )
-}
-
 async function updateInstitution(parent, { id, name, type, contactIds, teacherIds, studentIds, courseIds }, ctx, info) {
   const userId = await getUserId(ctx)
   const updateDate = new Date()
@@ -125,6 +113,18 @@ async function updateInstitution(parent, { id, name, type, contactIds, teacherId
       where: {
         id: id
       },
+    },
+    info
+  )
+}
+
+async function deleteInstitution(parent, { id }, ctx, info) {
+
+  return await ctx.db.mutation.deleteInstitution(
+    {
+      where: {
+        id: id
+      }
     },
     info
   )
@@ -181,6 +181,18 @@ async function updateCourse(parent, { id, name, courseNumber, time, teacherIds, 
       where: {
         id: id
       },
+    },
+    info
+  )
+}
+
+async function deleteCourse(parent, { id }, ctx, info) {
+
+  return await ctx.db.mutation.deleteCourse(
+    {
+      where: {
+        id: id
+      }
     },
     info
   )
@@ -511,6 +523,7 @@ module.exports = {
   deleteInstitution,
   addCourse,
   updateCourse,
+  deleteCourse,
   addTest,
   updateTest,
   addPanel,
