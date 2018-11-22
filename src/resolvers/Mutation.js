@@ -285,6 +285,18 @@ async function addPanel(parent, { link, testId }, ctx, info) {
   )
 }
 
+async function deletePanel(parent, { id }, ctx, info) {
+
+  return await ctx.db.mutation.deletePanel(
+    {
+      where: {
+        id: id
+      }
+    },
+    info
+  )
+}
+
 async function addQuestion(parent, { question, testId, panelId }, ctx, info) {
   const userId = await getUserId(ctx)
   const questionTime = new Date()
@@ -540,6 +552,7 @@ module.exports = {
   updateTest,
   deleteTest,
   addPanel,
+  deletePanel,
   addQuestion,
   updateQuestion,
   addQuestionChoice,

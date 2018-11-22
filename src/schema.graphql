@@ -42,6 +42,8 @@ type Mutation {
 
   addPanel(link: String!, testId: ID!): Panel!
 
+  deletePanel(id: ID!): Panel!
+
   addQuestion(question: String!, testId: ID!, panelId: ID!): Question!
 
   updateQuestion(id: ID!, question: String!): Question!
