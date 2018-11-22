@@ -38,6 +38,8 @@ type Mutation {
 
   updateTest(id: ID!, subject: String!, testNumber: String, testDate: DateTime, published: Boolean, publishDate: DateTime, release: Boolean, releaseDate: DateTime): Test!
 
+  deleteTest(id: ID!): Test!
+
   addPanel(link: String!, testId: ID!): Panel!
 
   addQuestion(question: String!, testId: ID!, panelId: ID!): Question!

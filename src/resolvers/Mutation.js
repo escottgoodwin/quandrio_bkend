@@ -252,6 +252,18 @@ async function updateTest(parent, { id, subject, testNumber, testDate, published
   )
 }
 
+async function deleteTest(parent, { id }, ctx, info) {
+
+  return await ctx.db.mutation.deleteTest(
+    {
+      where: {
+        id: id
+      }
+    },
+    info
+  )
+}
+
 async function addPanel(parent, { link, testId }, ctx, info) {
   const userId = await getUserId(ctx)
   const addedDate = new Date()
@@ -526,6 +538,7 @@ module.exports = {
   deleteCourse,
   addTest,
   updateTest,
+  deleteTest,
   addPanel,
   addQuestion,
   updateQuestion,
