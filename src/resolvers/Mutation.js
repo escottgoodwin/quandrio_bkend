@@ -347,6 +347,18 @@ async function updateQuestion(parent, { id, question }, ctx, info) {
   )
 }
 
+async function deleteQuestion(parent, { id }, ctx, info) {
+
+  return await ctx.db.mutation.deleteQuestion(
+    {
+      where: {
+        id: id
+      }
+    },
+    info
+  )
+}
+
 async function addQuestionChoice(parent, { choice, correct, questionId }, ctx, info) {
 
   return await ctx.db.mutation.createQuestionChoice(
@@ -555,6 +567,7 @@ module.exports = {
   deletePanel,
   addQuestion,
   updateQuestion,
+  deleteQuestion,
   addQuestionChoice,
   updateQuestionChoice,
   addChallenge,

@@ -48,6 +48,8 @@ type Mutation {
 
   updateQuestion(id: ID!, question: String!): Question!
 
+  deleteQuestion(id: ID!): Question!
+
   addQuestionChoice(choice: String!, correct: Boolean, questionId: ID!): QuestionChoice!
 
   updateQuestionChoice(id: ID!, choice: String!, correct: Boolean): QuestionChoice!
