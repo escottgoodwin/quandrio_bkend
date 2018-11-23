@@ -54,18 +54,27 @@ type Mutation {
 
   updateQuestionChoice(id: ID!, choice: String!, correct: Boolean): QuestionChoice!
 
+  deleteQuestionChoice(id: ID!): QuestionChoice!
+
   addChallenge(challenge: String!, questionId: ID!): Challenge!
 
   updateChallenge(id: ID!, challenge: String!): Challenge!
 
+  deleteChallenge(id: ID!): Challenge!
+
   addAnswer(questionId: ID!, answerChoiceId: ID!): Answer!
+
+  deleteAnswer(id: ID!): Answer!
 
   addSequence(testId: ID!, studentIds: [ID!]!, panelIds: [ID!]!): Sequence!
 
   updateSequence(id: ID!, studentIds: [ID], usedStudentIds: [ID], panelIds: [ID], usedPanelIds: [ID]): Sequence!
 
+  deleteSequence(id: ID!): Sequence!
+
   updateUser(id: ID!, email: String, newPassword: String, firstName: String, lastName: String, phone: String, online: Boolean): User!
 
+  deleteUser(id: ID!): User!
 }
 
 type AuthPayload {

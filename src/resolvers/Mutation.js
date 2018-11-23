@@ -169,14 +169,14 @@ async function updateCourse(parent, { id, name, courseNumber, time, teacherIds, 
         name,
         courseNumber,
         time,
+        teachers,
+        students,
         updateDate,
         updatedBy: {
           connect: {
             id: userId
           },
         },
-        teachers,
-        students,
       },
       where: {
         id: id
@@ -400,6 +400,18 @@ async function updateQuestionChoice(parent, { id, choice, correct }, ctx, info) 
   )
 }
 
+async function deleteQuestionChoice(parent, { id }, ctx, info) {
+
+  return await ctx.db.mutation.deleteQuestionChoice(
+    {
+      where: {
+        id: id
+      }
+    },
+    info
+  )
+}
+
 async function addChallenge(parent, { challenge, questionId }, ctx, info) {
   const userId = await getUserId(ctx)
   const challengeTime = new Date()
@@ -444,6 +456,18 @@ async function updateChallenge(parent, { id, challenge }, ctx, info) {
   )
 }
 
+async function deleteChallenge(parent, { id }, ctx, info) {
+
+  return await ctx.db.mutation.deleteChallenge(
+    {
+      where: {
+        id: id
+      }
+    },
+    info
+  )
+}
+
 async function addAnswer(parent, { answerChoiceId, questionId }, ctx, info) {
   const userId = await getUserId(ctx)
   const answerTime = new Date()
@@ -462,6 +486,18 @@ async function addAnswer(parent, { answerChoiceId, questionId }, ctx, info) {
           connect: { id: questionId  }
         },
       },
+    },
+    info
+  )
+}
+
+async function deleteAnswer(parent, { id }, ctx, info) {
+
+  return await ctx.db.mutation.deleteAnswer(
+    {
+      where: {
+        id: id
+      }
     },
     info
   )
@@ -518,6 +554,18 @@ async function updateSequence(parent, { id, studentIds,  panelIds, usedStudentId
   )
 }
 
+async function deleteSequence(parent, { id }, ctx, info) {
+
+  return await ctx.db.mutation.deleteSequence(
+    {
+      where: {
+        id: id
+      }
+    },
+    info
+  )
+}
+
 async function updateUser(parent, { id, email, newPassword, firstName, lastName, phone, online }, ctx, info) {
   const userId = await getUserId(ctx)
   const updateDate = new Date()
@@ -551,6 +599,18 @@ async function updateUser(parent, { id, email, newPassword, firstName, lastName,
   )
 }
 
+async function deleteUser(parent, { id }, ctx, info) {
+
+  return await ctx.db.mutation.deleteUser(
+    {
+      where: {
+        id: id
+      }
+    },
+    info
+  )
+}
+
 module.exports = {
   signup,
   login,
@@ -570,10 +630,15 @@ module.exports = {
   deleteQuestion,
   addQuestionChoice,
   updateQuestionChoice,
+  deleteQuestionChoice,
   addChallenge,
   updateChallenge,
+  deleteChallenge,
   addAnswer,
+  deleteAnswer,
   addSequence,
   updateSequence,
-  updateUser
+  deleteSequence,
+  updateUser,
+  deleteUser
 }
