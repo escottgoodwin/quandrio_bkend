@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken')
-const APP_SECRET = 'GraphQL-is-aw3some'
 
 function getUserId(context) {
   const Authorization = context.request.get('Authorization')
