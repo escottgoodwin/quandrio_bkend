@@ -20,7 +20,7 @@ const server = new GraphQLServer({
     ...req,
     db: new Prisma({
       typeDefs: 'src/generated/prisma.graphql',
-      endpoint: 'https://quandria-86dfa876be.herokuapp.com/quandria/dev',
+      endpoint: process.env.PRISMA_SERVER,
       secret: 'mysecret123',
       debug: true
     }),
