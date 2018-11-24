@@ -1,4 +1,6 @@
+require('dotenv').config();
 const jwt = require('jsonwebtoken')
+
 APP_SECRET = process.env.APP_SECRET
 
 function getUserId(context) {
