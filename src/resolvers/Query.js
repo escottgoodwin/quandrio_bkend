@@ -8,7 +8,6 @@ async function users(parent, args, ctx, info) {
             { firstName: args.filter },
             { lastName: args.filter },
             { phone: args.filter },
-            { online: args.filter },
             { type: args.filter },
             { email: args.filter }
           ],
@@ -40,8 +39,7 @@ async function courses(parent, args, ctx, info) {
           OR: [
             { id: args.filter },
             { name: args.filter },
-            { courseNumber: args.filter },
-            { time: args.filter },
+            { courseNumber: args.filter }
           ],
         }
       : {}
@@ -57,7 +55,6 @@ async function tests(parent, args, ctx, info) {
             { id: args.filter },
             { subject: args.filter },
             { testNumber: args.filter },
-            { time: args.filter },
           ],
         }
       : {}
@@ -99,6 +96,7 @@ async function questionchoices(parent, args, ctx, info) {
       ? {
           OR: [
             { id: args.filter },
+            { choice: args.filter },
           ],
         }
       : {}
