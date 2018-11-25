@@ -1,5 +1,5 @@
 # source: https://quandria-86dfa876be.herokuapp.com/quandria/dev
-# timestamp: Thu Nov 22 2018 11:39:17 GMT-0800 (Pacific Standard Time)
+# timestamp: Sun Nov 25 2018 10:45:00 GMT-0800 (Pacific Standard Time)
 
 type AggregateAnswer {
   count: Int!
@@ -4737,6 +4737,7 @@ type User implements Node {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   updatedBy: User
   type: UserType
@@ -4782,6 +4783,7 @@ input UserCreateInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
@@ -4927,6 +4929,7 @@ input UserCreateWithoutAnswersInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
@@ -4961,6 +4964,7 @@ input UserCreateWithoutAnswerUpdatesInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
@@ -4995,6 +4999,7 @@ input UserCreateWithoutChallengesInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
@@ -5029,6 +5034,7 @@ input UserCreateWithoutChallengeUpdatesInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
@@ -5063,6 +5069,7 @@ input UserCreateWithoutCoursesAddedInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
@@ -5097,6 +5104,7 @@ input UserCreateWithoutCourseUpdatesInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
@@ -5131,6 +5139,7 @@ input UserCreateWithoutInstitutionContactInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
@@ -5165,6 +5174,7 @@ input UserCreateWithoutInstitutionUpdatesInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
@@ -5199,6 +5209,7 @@ input UserCreateWithoutPanelsAddedInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
@@ -5233,6 +5244,7 @@ input UserCreateWithoutQuestionChoiceUpdatesInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
@@ -5267,6 +5279,7 @@ input UserCreateWithoutQuestionsInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
@@ -5301,6 +5314,7 @@ input UserCreateWithoutQuestionUpdatesInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
@@ -5335,6 +5349,7 @@ input UserCreateWithoutStudentCoursesInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
@@ -5369,6 +5384,7 @@ input UserCreateWithoutStudentInstitutionInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
@@ -5403,6 +5419,7 @@ input UserCreateWithoutTeacherCoursesInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
@@ -5437,6 +5454,7 @@ input UserCreateWithoutTeacherInstitutionInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
@@ -5471,6 +5489,7 @@ input UserCreateWithoutTestsAddedInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
@@ -5505,6 +5524,7 @@ input UserCreateWithoutTestSequenceInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
@@ -5539,6 +5559,7 @@ input UserCreateWithoutTestUpdatesInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
@@ -5573,6 +5594,7 @@ input UserCreateWithoutUpdatedByInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   institutionContact: InstitutionCreateManyWithoutContactsInput
@@ -5607,6 +5629,7 @@ input UserCreateWithoutUsedTestSequenceInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
@@ -5641,6 +5664,7 @@ input UserCreateWithoutUserUpdatesInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
@@ -5694,6 +5718,8 @@ enum UserOrderByInput {
   signUpDate_DESC
   online_ASC
   online_DESC
+  pushToken_ASC
+  pushToken_DESC
   updateDate_ASC
   updateDate_DESC
   type_ASC
@@ -5714,6 +5740,7 @@ type UserPreviousValues {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
 }
@@ -5772,6 +5799,7 @@ input UserUpdateInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
@@ -5807,6 +5835,7 @@ input UserUpdateManyMutationInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
 }
@@ -6008,6 +6037,7 @@ input UserUpdateWithoutAnswersDataInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
@@ -6042,6 +6072,7 @@ input UserUpdateWithoutAnswerUpdatesDataInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
@@ -6076,6 +6107,7 @@ input UserUpdateWithoutChallengesDataInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
@@ -6110,6 +6142,7 @@ input UserUpdateWithoutChallengeUpdatesDataInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
@@ -6144,6 +6177,7 @@ input UserUpdateWithoutCoursesAddedDataInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
@@ -6178,6 +6212,7 @@ input UserUpdateWithoutCourseUpdatesDataInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
@@ -6212,6 +6247,7 @@ input UserUpdateWithoutInstitutionContactDataInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
@@ -6246,6 +6282,7 @@ input UserUpdateWithoutInstitutionUpdatesDataInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
@@ -6280,6 +6317,7 @@ input UserUpdateWithoutPanelsAddedDataInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
@@ -6314,6 +6352,7 @@ input UserUpdateWithoutQuestionChoiceUpdatesDataInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
@@ -6348,6 +6387,7 @@ input UserUpdateWithoutQuestionsDataInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
@@ -6382,6 +6422,7 @@ input UserUpdateWithoutQuestionUpdatesDataInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
@@ -6416,6 +6457,7 @@ input UserUpdateWithoutStudentCoursesDataInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
@@ -6450,6 +6492,7 @@ input UserUpdateWithoutStudentInstitutionDataInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
@@ -6484,6 +6527,7 @@ input UserUpdateWithoutTeacherCoursesDataInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
@@ -6518,6 +6562,7 @@ input UserUpdateWithoutTeacherInstitutionDataInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
@@ -6552,6 +6597,7 @@ input UserUpdateWithoutTestsAddedDataInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
@@ -6586,6 +6632,7 @@ input UserUpdateWithoutTestSequenceDataInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
@@ -6620,6 +6667,7 @@ input UserUpdateWithoutTestUpdatesDataInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
@@ -6654,6 +6702,7 @@ input UserUpdateWithoutUpdatedByDataInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   institutionContact: InstitutionUpdateManyWithoutContactsInput
@@ -6688,6 +6737,7 @@ input UserUpdateWithoutUsedTestSequenceDataInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
@@ -6722,6 +6772,7 @@ input UserUpdateWithoutUserUpdatesDataInput {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   type: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
@@ -7202,6 +7253,46 @@ input UserWhereInput {
 
   """All values that are not equal to given value."""
   online_not: Boolean
+  pushToken: String
+
+  """All values that are not equal to given value."""
+  pushToken_not: String
+
+  """All values that are contained in given list."""
+  pushToken_in: [String!]
+
+  """All values that are not contained in given list."""
+  pushToken_not_in: [String!]
+
+  """All values less than the given value."""
+  pushToken_lt: String
+
+  """All values less than or equal the given value."""
+  pushToken_lte: String
+
+  """All values greater than the given value."""
+  pushToken_gt: String
+
+  """All values greater than or equal the given value."""
+  pushToken_gte: String
+
+  """All values containing the given string."""
+  pushToken_contains: String
+
+  """All values not containing the given string."""
+  pushToken_not_contains: String
+
+  """All values starting with the given string."""
+  pushToken_starts_with: String
+
+  """All values not starting with the given string."""
+  pushToken_not_starts_with: String
+
+  """All values ending with the given string."""
+  pushToken_ends_with: String
+
+  """All values not ending with the given string."""
+  pushToken_not_ends_with: String
   updateDate: DateTime
 
   """All values that are not equal to given value."""

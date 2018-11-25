@@ -14,6 +14,7 @@ type User {
   lastLogin: DateTime
   signUpDate: DateTime
   online: Boolean
+  pushToken: String
   updateDate: DateTime
   updatedBy: User @relation(name: "UserUpdatesByUser" onDelete: CASCADE)
   type: UserType @default(value: "STUDENT")
