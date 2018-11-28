@@ -1,3 +1,5 @@
+const { getUserId, getUser, getUserRole } = require('../utils')
+
 
 async function users(parent, args, ctx, info) {
 
@@ -34,17 +36,17 @@ async function institutions(parent, args, ctx, info) {
 
 async function courses(parent, args, ctx, info) {
 
-  const where = args.filter
-      ? {
-          OR: [
-            { id: args.filter },
-            { name: args.filter },
-            { courseNumber: args.filter }
-          ],
-        }
-      : {}
+    const where = args.filter
+        ? {
+            OR: [
+              { id: args.filter },
+              { name: args.filter },
+              { courseNumber: args.filter }
+            ],
+          }
+        : {}
 
-    return await ctx.db.query.courses({ where }, info)
+      return await ctx.db.query.courses({ where }, info)
 }
 
 async function tests(parent, args, ctx, info) {

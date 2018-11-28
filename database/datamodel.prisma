@@ -2,6 +2,7 @@ enum UserType {
   STUDENT
   TEACHER
   ADMIN
+  QUANDRIA
 }
 
 type User {
@@ -17,7 +18,7 @@ type User {
   pushToken: String
   updateDate: DateTime
   updatedBy: User @relation(name: "UserUpdatesByUser" onDelete: CASCADE)
-  type: UserType @default(value: "STUDENT")
+  role: UserType @default(value: "STUDENT")
   institutionContact: [Institution!]! @relation(name: "ContactsByInstitution")
   teacherInstitution: [Institution!]! @relation(name: "TeachersByInstitution" )
   studentInstitution: [Institution!]! @relation(name: "StudentsByInstitution")

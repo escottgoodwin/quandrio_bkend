@@ -1,5 +1,5 @@
 # source: https://quandria-86dfa876be.herokuapp.com/quandria/dev
-# timestamp: Sun Nov 25 2018 10:45:00 GMT-0800 (Pacific Standard Time)
+# timestamp: Tue Nov 27 2018 11:22:40 GMT-0800 (Pacific Standard Time)
 
 type AggregateAnswer {
   count: Int!
@@ -4740,7 +4740,7 @@ type User implements Node {
   pushToken: String
   updateDate: DateTime
   updatedBy: User
-  type: UserType
+  role: UserType
   institutionContact(where: InstitutionWhereInput, orderBy: InstitutionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Institution!]
   teacherInstitution(where: InstitutionWhereInput, orderBy: InstitutionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Institution!]
   studentInstitution(where: InstitutionWhereInput, orderBy: InstitutionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Institution!]
@@ -4785,7 +4785,7 @@ input UserCreateInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
   institutionContact: InstitutionCreateManyWithoutContactsInput
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
@@ -4931,7 +4931,7 @@ input UserCreateWithoutAnswersInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
   institutionContact: InstitutionCreateManyWithoutContactsInput
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
@@ -4966,7 +4966,7 @@ input UserCreateWithoutAnswerUpdatesInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
   institutionContact: InstitutionCreateManyWithoutContactsInput
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
@@ -5001,7 +5001,7 @@ input UserCreateWithoutChallengesInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
   institutionContact: InstitutionCreateManyWithoutContactsInput
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
@@ -5036,7 +5036,7 @@ input UserCreateWithoutChallengeUpdatesInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
   institutionContact: InstitutionCreateManyWithoutContactsInput
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
@@ -5071,7 +5071,7 @@ input UserCreateWithoutCoursesAddedInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
   institutionContact: InstitutionCreateManyWithoutContactsInput
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
@@ -5106,7 +5106,7 @@ input UserCreateWithoutCourseUpdatesInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
   institutionContact: InstitutionCreateManyWithoutContactsInput
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
@@ -5141,7 +5141,7 @@ input UserCreateWithoutInstitutionContactInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
   studentInstitution: InstitutionCreateManyWithoutStudentsInput
@@ -5176,7 +5176,7 @@ input UserCreateWithoutInstitutionUpdatesInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
   institutionContact: InstitutionCreateManyWithoutContactsInput
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
@@ -5211,7 +5211,7 @@ input UserCreateWithoutPanelsAddedInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
   institutionContact: InstitutionCreateManyWithoutContactsInput
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
@@ -5246,7 +5246,7 @@ input UserCreateWithoutQuestionChoiceUpdatesInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
   institutionContact: InstitutionCreateManyWithoutContactsInput
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
@@ -5281,7 +5281,7 @@ input UserCreateWithoutQuestionsInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
   institutionContact: InstitutionCreateManyWithoutContactsInput
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
@@ -5316,7 +5316,7 @@ input UserCreateWithoutQuestionUpdatesInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
   institutionContact: InstitutionCreateManyWithoutContactsInput
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
@@ -5351,7 +5351,7 @@ input UserCreateWithoutStudentCoursesInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
   institutionContact: InstitutionCreateManyWithoutContactsInput
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
@@ -5386,7 +5386,7 @@ input UserCreateWithoutStudentInstitutionInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
   institutionContact: InstitutionCreateManyWithoutContactsInput
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
@@ -5421,7 +5421,7 @@ input UserCreateWithoutTeacherCoursesInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
   institutionContact: InstitutionCreateManyWithoutContactsInput
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
@@ -5456,7 +5456,7 @@ input UserCreateWithoutTeacherInstitutionInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
   institutionContact: InstitutionCreateManyWithoutContactsInput
   studentInstitution: InstitutionCreateManyWithoutStudentsInput
@@ -5491,7 +5491,7 @@ input UserCreateWithoutTestsAddedInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
   institutionContact: InstitutionCreateManyWithoutContactsInput
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
@@ -5526,7 +5526,7 @@ input UserCreateWithoutTestSequenceInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
   institutionContact: InstitutionCreateManyWithoutContactsInput
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
@@ -5561,7 +5561,7 @@ input UserCreateWithoutTestUpdatesInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
   institutionContact: InstitutionCreateManyWithoutContactsInput
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
@@ -5596,7 +5596,7 @@ input UserCreateWithoutUpdatedByInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   institutionContact: InstitutionCreateManyWithoutContactsInput
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
   studentInstitution: InstitutionCreateManyWithoutStudentsInput
@@ -5631,7 +5631,7 @@ input UserCreateWithoutUsedTestSequenceInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
   institutionContact: InstitutionCreateManyWithoutContactsInput
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
@@ -5666,7 +5666,7 @@ input UserCreateWithoutUserUpdatesInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserCreateOneWithoutUserUpdatesInput
   institutionContact: InstitutionCreateManyWithoutContactsInput
   teacherInstitution: InstitutionCreateManyWithoutTeachersInput
@@ -5722,8 +5722,8 @@ enum UserOrderByInput {
   pushToken_DESC
   updateDate_ASC
   updateDate_DESC
-  type_ASC
-  type_DESC
+  role_ASC
+  role_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -5742,7 +5742,7 @@ type UserPreviousValues {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
 }
 
 type UserSubscriptionPayload {
@@ -5788,6 +5788,7 @@ enum UserType {
   STUDENT
   TEACHER
   ADMIN
+  QUANDRIA
 }
 
 input UserUpdateInput {
@@ -5801,7 +5802,7 @@ input UserUpdateInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
   institutionContact: InstitutionUpdateManyWithoutContactsInput
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
@@ -5837,7 +5838,7 @@ input UserUpdateManyMutationInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
 }
 
 input UserUpdateManyWithoutInstitutionContactInput {
@@ -6039,7 +6040,7 @@ input UserUpdateWithoutAnswersDataInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
   institutionContact: InstitutionUpdateManyWithoutContactsInput
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
@@ -6074,7 +6075,7 @@ input UserUpdateWithoutAnswerUpdatesDataInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
   institutionContact: InstitutionUpdateManyWithoutContactsInput
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
@@ -6109,7 +6110,7 @@ input UserUpdateWithoutChallengesDataInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
   institutionContact: InstitutionUpdateManyWithoutContactsInput
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
@@ -6144,7 +6145,7 @@ input UserUpdateWithoutChallengeUpdatesDataInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
   institutionContact: InstitutionUpdateManyWithoutContactsInput
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
@@ -6179,7 +6180,7 @@ input UserUpdateWithoutCoursesAddedDataInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
   institutionContact: InstitutionUpdateManyWithoutContactsInput
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
@@ -6214,7 +6215,7 @@ input UserUpdateWithoutCourseUpdatesDataInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
   institutionContact: InstitutionUpdateManyWithoutContactsInput
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
@@ -6249,7 +6250,7 @@ input UserUpdateWithoutInstitutionContactDataInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
   studentInstitution: InstitutionUpdateManyWithoutStudentsInput
@@ -6284,7 +6285,7 @@ input UserUpdateWithoutInstitutionUpdatesDataInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
   institutionContact: InstitutionUpdateManyWithoutContactsInput
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
@@ -6319,7 +6320,7 @@ input UserUpdateWithoutPanelsAddedDataInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
   institutionContact: InstitutionUpdateManyWithoutContactsInput
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
@@ -6354,7 +6355,7 @@ input UserUpdateWithoutQuestionChoiceUpdatesDataInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
   institutionContact: InstitutionUpdateManyWithoutContactsInput
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
@@ -6389,7 +6390,7 @@ input UserUpdateWithoutQuestionsDataInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
   institutionContact: InstitutionUpdateManyWithoutContactsInput
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
@@ -6424,7 +6425,7 @@ input UserUpdateWithoutQuestionUpdatesDataInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
   institutionContact: InstitutionUpdateManyWithoutContactsInput
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
@@ -6459,7 +6460,7 @@ input UserUpdateWithoutStudentCoursesDataInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
   institutionContact: InstitutionUpdateManyWithoutContactsInput
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
@@ -6494,7 +6495,7 @@ input UserUpdateWithoutStudentInstitutionDataInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
   institutionContact: InstitutionUpdateManyWithoutContactsInput
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
@@ -6529,7 +6530,7 @@ input UserUpdateWithoutTeacherCoursesDataInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
   institutionContact: InstitutionUpdateManyWithoutContactsInput
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
@@ -6564,7 +6565,7 @@ input UserUpdateWithoutTeacherInstitutionDataInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
   institutionContact: InstitutionUpdateManyWithoutContactsInput
   studentInstitution: InstitutionUpdateManyWithoutStudentsInput
@@ -6599,7 +6600,7 @@ input UserUpdateWithoutTestsAddedDataInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
   institutionContact: InstitutionUpdateManyWithoutContactsInput
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
@@ -6634,7 +6635,7 @@ input UserUpdateWithoutTestSequenceDataInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
   institutionContact: InstitutionUpdateManyWithoutContactsInput
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
@@ -6669,7 +6670,7 @@ input UserUpdateWithoutTestUpdatesDataInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
   institutionContact: InstitutionUpdateManyWithoutContactsInput
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
@@ -6704,7 +6705,7 @@ input UserUpdateWithoutUpdatedByDataInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   institutionContact: InstitutionUpdateManyWithoutContactsInput
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
   studentInstitution: InstitutionUpdateManyWithoutStudentsInput
@@ -6739,7 +6740,7 @@ input UserUpdateWithoutUsedTestSequenceDataInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
   institutionContact: InstitutionUpdateManyWithoutContactsInput
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
@@ -6774,7 +6775,7 @@ input UserUpdateWithoutUserUpdatesDataInput {
   online: Boolean
   pushToken: String
   updateDate: DateTime
-  type: UserType
+  role: UserType
   updatedBy: UserUpdateOneWithoutUserUpdatesInput
   institutionContact: InstitutionUpdateManyWithoutContactsInput
   teacherInstitution: InstitutionUpdateManyWithoutTeachersInput
@@ -7315,16 +7316,16 @@ input UserWhereInput {
 
   """All values greater than or equal the given value."""
   updateDate_gte: DateTime
-  type: UserType
+  role: UserType
 
   """All values that are not equal to given value."""
-  type_not: UserType
+  role_not: UserType
 
   """All values that are contained in given list."""
-  type_in: [UserType!]
+  role_in: [UserType!]
 
   """All values that are not contained in given list."""
-  type_not_in: [UserType!]
+  role_not_in: [UserType!]
   updatedBy: UserWhereInput
   institutionContact_every: InstitutionWhereInput
   institutionContact_some: InstitutionWhereInput

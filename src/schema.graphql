@@ -1,70 +1,73 @@
 # import User,Institution,Course,Test,Question,QuestionChoice,Challenge,Answer,Sequence from "./generated/prisma.graphql"
 
+directive @isAuthenticated on QUERY | FIELD_DEFINITION  | MUTATION
+directive @hasRole(roles: [String]) on QUERY | FIELD_DEFINITION  | MUTATION
+
 type Query {
 
-  users(filter: String): [User!]!
-  institutions(filter: String): [Institution!]!
-  courses(filter: String): [Course!]!
-  tests(filter: String): [Test!]!
-  panels(filter: String): [Panel!]!
-  questions(filter: String): [Question!]!
-  questionchoices(filter: String): [QuestionChoice!]!
-  challenges(filter: String): [Challenge!]!
-  answers(filter: String): [Answer!]!
-  sequences(filter: String): [Sequence!]!
+  users(filter: String): [User!]! @isAuthenticated
+  institutions(filter: String): [Institution!]! @isAuthenticated
+  courses(filter: String): [Course!]! @isAuthenticated
+  tests(filter: String): [Test!]! @isAuthenticated
+  panels(filter: String): [Panel!]! @isAuthenticated
+  questions(filter: String): [Question!]! @isAuthenticated
+  questionchoices(filter: String): [QuestionChoice!]! @isAuthenticated
+  challenges(filter: String): [Challenge!]! @isAuthenticated
+  answers(filter: String): [Answer!]! @isAuthenticated
+  sequences(filter: String): [Sequence!]! @isAuthenticated
 
   me: User
 }
 
 type Mutation {
 
-  signup(email: String!, password: String!, firstName: String!,lastName: String!, type: String): AuthPayload
+  signup(email: String!, password: String!, firstName: String!,lastName: String!, role: String): AuthPayload
 
   login(email: String!, password: String!): AuthPayload
 
-  addInstitution(name: String!, type: String, contactIds: ID, teacherIds: ID, studentIds: ID, courseIds: ID): Institution !
+  addInstitution(name: String!, type: String, contactIds: ID, teacherIds: ID, studentIds: ID, courseIds: ID): Institution ! @hasRole(roles: ["QUANDRIA"])
 
-  updateInstitution(id: ID!, name: String, type: String, contactIds: [ID], teacherIds: [ID], studentIds: [ID], courseIds: [ID]): Institution!
+  updateInstitution(id: ID!, name: String, type: String, contactIds: [ID], teacherIds: [ID], studentIds: [ID], courseIds: [ID]): Institution! @hasRole(roles: ["QUANDRIA"])
 
-  deleteInstitution(id: ID!): Institution!
+  deleteInstitution(id: ID!): Institution! @hasRole(roles: ["QUANDRIA"])
 
-  addCourse(name: String!, courseNumber: String, time: String, institutionId: ID!): Course!
+  addCourse(name: String!, courseNumber: String, time: String, institutionId: ID!): Course! @hasRole(roles: ["TEACHER"])
 
-  updateCourse(id: ID!, name: String, courseNumber: String, time: String, teacherIds: [ID], studentIds: [ID]): Course!
+  updateCourse(id: ID!, name: String, courseNumber: String, time: String, teacherIds: [ID], studentIds: [ID]): Course! @hasRole(roles: ["TEACHER"])
 
-  deleteCourse(id: ID!): Course!
+  deleteCourse(id: ID!): Course! @hasRole(roles: ["TEACHER"])
 
-  addTest(subject: String!, testNumber: String, testDate: DateTime, courseId: ID!): Test!
+  addTest(subject: String!, testNumber: String, testDate: DateTime, courseId: ID!): Test! @hasRole(roles: ["TEACHER"])
 
-  updateTest(id: ID!, subject: String!, testNumber: String, testDate: DateTime, published: Boolean, publishDate: DateTime, release: Boolean, releaseDate: DateTime): Test!
+  updateTest(id: ID!, subject: String!, testNumber: String, testDate: DateTime, published: Boolean, publishDate: DateTime, release: Boolean, releaseDate: DateTime): Test! @hasRole(roles: ["TEACHER"])
 
-  deleteTest(id: ID!): Test!
+  deleteTest(id: ID!): Test! @hasRole(roles: ["TEACHER"])
 
-  addPanel(link: String!, testId: ID!): Panel!
+  addPanel(link: String!, testId: ID!): Panel! @hasRole(roles: ["TEACHER"])
 
-  deletePanel(id: ID!): Panel!
+  deletePanel(id: ID!): Panel! @hasRole(roles: ["TEACHER"])
 
-  addQuestion(question: String!, testId: ID!, panelId: ID!): Question!
+  addQuestion(question: String!, testId: ID!, panelId: ID!): Question! @hasRole(roles: ["TEACHER","STUDENT"])
 
-  updateQuestion(id: ID!, question: String!): Question!
+  updateQuestion(id: ID!, question: String!): Question! @hasRole(roles: ["TEACHER","STUDENT"])
 
-  deleteQuestion(id: ID!): Question!
+  deleteQuestion(id: ID!): Question! @hasRole(roles: ["TEACHER","STUDENT"])
 
-  addQuestionChoice(choice: String!, correct: Boolean, questionId: ID!): QuestionChoice!
+  addQuestionChoice(choice: String!, correct: Boolean, questionId: ID!): QuestionChoice! @hasRole(roles: ["TEACHER","STUDENT"])
 
-  updateQuestionChoice(id: ID!, choice: String!, correct: Boolean): QuestionChoice!
+  updateQuestionChoice(id: ID!, choice: String!, correct: Boolean): QuestionChoice! @hasRole(roles: ["TEACHER","STUDENT"])
 
-  deleteQuestionChoice(id: ID!): QuestionChoice!
+  deleteQuestionChoice(id: ID!): QuestionChoice! @hasRole(roles: ["TEACHER","STUDENT"])
 
-  addChallenge(challenge: String!, questionId: ID!): Challenge!
+  addChallenge(challenge: String!, questionId: ID!): Challenge! @hasRole(roles: ["TEACHER","STUDENT"])
 
-  updateChallenge(id: ID!, challenge: String!): Challenge!
+  updateChallenge(id: ID!, challenge: String!): Challenge! @hasRole(roles: ["TEACHER","STUDENT"])
 
-  deleteChallenge(id: ID!): Challenge!
+  deleteChallenge(id: ID!): Challenge! @hasRole(roles: ["TEACHER","STUDENT"])
 
-  addAnswer(questionId: ID!, answerChoiceId: ID!): Answer!
+  addAnswer(questionId: ID!, answerChoiceId: ID!): Answer! @hasRole(roles: ["STUDENT"])
 
-  deleteAnswer(id: ID!): Answer!
+  deleteAnswer(id: ID!): Answer! @hasRole(roles: ["STUDENT"])
 
   addSequence(testId: ID!, studentIds: [ID!]!, panelIds: [ID!]!): Sequence!
 
@@ -72,9 +75,9 @@ type Mutation {
 
   deleteSequence(id: ID!): Sequence!
 
-  updateUser(id: ID!, email: String, newPassword: String, firstName: String, lastName: String, phone: String, online: Boolean): User!
+  updateUser(id: ID!, email: String, newPassword: String, firstName: String, lastName: String, phone: String, online: Boolean): User! @isAuthenticated
 
-  deleteUser(id: ID!): User!
+  deleteUser(id: ID!): User! @isAuthenticated
 }
 
 type AuthPayload {

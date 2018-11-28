@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { APP_SECRET, getUserId } = require('../utils')
 var moment = require('moment');
+const util = require('util');
 
 function checkField(itemIds) {
     if (itemIds) {
@@ -59,28 +60,6 @@ async function addInstitution(parent, { name, type }, ctx, info) {
       data: {
         name,
         type
-      },
-    },
-    info
-  )
-}
-
-async function updateInstitution(parent, { id, name, type }, ctx, info) {
-  const userId = await getUserId(ctx)
-  const updateDate = new Date()
-
-  return await ctx.db.mutation.updateInstitution(
-    {
-      data: {
-        name,
-        type,
-        updateDate,
-        updatedBy: {
-          connect: { id: userId  }
-        }
-      },
-      where: {
-        id: id
       },
     },
     info
@@ -163,39 +142,55 @@ async function updateCourse(parent, { id, name, courseNumber, time, teacherIds, 
   const teachers = await checkField(teacherIds)
   const students = await checkField(studentIds)
 
-  return await ctx.db.mutation.updateCourse(
-    {
-      data: {
-        name,
-        courseNumber,
-        time,
-        teachers,
-        students,
-        updateDate,
-        updatedBy: {
-          connect: {
-            id: userId
+  //const course = await ctx.db.query.course({where: { id: id } },`{ teachers { id } }`)
+  const course = await ctx.db.query.course({where: { id: id } },info)
+  const courseteachers = JSON.stringify(course.teachers)
+
+  if (courseteachers.includes(userId)){
+
+      return await ctx.db.mutation.updateCourse(
+        {
+          data: {
+            name,
+            courseNumber,
+            time,
+            teachers,
+            students,
+            updateDate,
+            updatedBy: {
+              connect: {
+                id: userId
+              },
+            },
+          },
+          where: {
+            id: id
           },
         },
-      },
-      where: {
-        id: id
-      },
-    },
-    info
-  )
+        info
+      )
+  }
+  throw new Error(`Unauthorized, must be a teacher for this course`)
 }
 
 async function deleteCourse(parent, { id }, ctx, info) {
 
-  return await ctx.db.mutation.deleteCourse(
-    {
-      where: {
-        id: id
-      }
-    },
-    info
-  )
+  const userId = await getUserId(ctx)
+  const course = await ctx.db.query.course({where: { id: id } },`{ teachers { id } }`)
+  const courseteachers = JSON.stringify(course.teachers)
+
+  if (courseteachers.includes(userId)) {
+
+    return await ctx.db.mutation.deleteCourse(
+      {
+        where: {
+          id: id
+        }
+      },
+      info
+    )
+  }
+  throw new Error(`Unauthorized, must be a teacher for this course`)
 }
 
 async function addTest(parent, { subject, testNumber, testDate, courseId }, ctx, info) {
@@ -227,44 +222,60 @@ async function updateTest(parent, { id, subject, testNumber, testDate, published
   const userId = await getUserId(ctx)
   const updateDate = new Date()
 
-  return await ctx.db.mutation.updateTest(
-    {
-      data: {
-        subject,
-        testNumber,
-        testDate,
-        published,
-        publishDate,
-        release,
-        releaseDate,
-        updateDate,
-        updatedBy: {
-          connect: {
-            id: userId
+  const test = await ctx.db.query.test({where: { id: id } },`{ course { teachers { id } } }`)
+  const testTeachers = JSON.stringify(test.course)
+
+  if (testTeachers.includes(userId)){
+
+    return await ctx.db.mutation.updateTest(
+      {
+        data: {
+          subject,
+          testNumber,
+          testDate,
+          published,
+          publishDate,
+          release,
+          releaseDate,
+          updateDate,
+          updatedBy: {
+            connect: {
+              id: userId
+            },
           },
         },
+        where: {
+          id: id
       },
-      where: {
-        id: id
     },
-  },
-    info
-  )
+      info
+    )
+  }
+  throw new Error(`Unauthorized, must be a teacher for this test`)
 }
 
 async function deleteTest(parent, { id }, ctx, info) {
 
-  return await ctx.db.mutation.deleteTest(
-    {
-      where: {
-        id: id
-      }
-    },
-    info
-  )
+  const userId = await getUserId(ctx)
+  const test = await ctx.db.query.test({where: { id: id } },`{ course { teachers { id } } }`)
+  const testTeachers = JSON.stringify(test.course)
+
+  if (testTeachers.includes(userId)){
+
+    return await ctx.db.mutation.deleteTest(
+      {
+        where: {
+          id: id
+        }
+      },
+      info
+    )
+  }
+  throw new Error(`Unauthorized, must be a teacher for this test`)
 }
 
 async function addPanel(parent, { link, testId }, ctx, info) {
+
   const userId = await getUserId(ctx)
   const addedDate = new Date()
 
@@ -298,30 +309,38 @@ async function deletePanel(parent, { id }, ctx, info) {
 }
 
 async function addQuestion(parent, { question, testId, panelId }, ctx, info) {
+
   const userId = await getUserId(ctx)
   const questionTime = new Date()
   const expirationTime = new Date()
   expirationTime.setHours(expirationTime.getHours() + 1);
 
-  return await ctx.db.mutation.createQuestion(
-    {
-      data: {
-        questionTime,
-        question,
-        expirationTime,
-        test: {
-          connect: { id: testId  }
+  const test = await ctx.db.query.test({where: { id: testId } },`{ course { students { id } } }`)
+  const testStudents = JSON.stringify(test.course)
+
+  if (testStudents.includes(userId)){
+
+    return await ctx.db.mutation.createQuestion(
+      {
+        data: {
+          questionTime,
+          question,
+          expirationTime,
+          test: {
+            connect: { id: testId  }
+          },
+          panel: {
+            connect: { id: panelId  }
+          },
+          questionBy: {
+            connect: { id: userId },
+          }
         },
-        panel: {
-          connect: { id: panelId  }
-        },
-        questionBy: {
-          connect: { id: userId },
-        }
       },
-    },
-    info
-  )
+      info
+    )
+  }
+  throw new Error(`Unauthorized, must be a teacher for this test`)
 }
 
 async function updateQuestion(parent, { id, question }, ctx, info) {

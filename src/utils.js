@@ -14,7 +14,19 @@ function getUserId(context) {
   throw new Error('Not authenticated')
 }
 
+async function getUser(context) {
+  const userId = getUserId(context)
+  const user = context.db.query.user({ where: { id: userId } })
+
+  if (user) {
+    return user
+  }
+  throw new Error('No user')
+}
+
+
 module.exports = {
   APP_SECRET,
   getUserId,
+  getUser,
 }
