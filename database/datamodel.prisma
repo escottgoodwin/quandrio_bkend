@@ -40,6 +40,7 @@ type User {
   questionChoiceUpdates: [QuestionChoice!]! @relation(name: "QuestionChoiceUpdatesByUser")
   challengeUpdates: [Challenge!]! @relation(name: "ChallengeUpdatesByUser" )
   userUpdates: [User!]! @relation(name: "UserUpdatesByUser" )
+  questionsSentTo: [Question!]! @relation(name: "QuestionSentTotByUser")
 }
 
 type Institution {
@@ -108,6 +109,7 @@ type Question {
   updateDate: DateTime
   updatedBy: User @relation(name: "QuestionUpdatesByUser")
   panel: Panel @relation(name: "PanelByQuestion")
+  sentTo: User @relation(name: "QuestionSentTotByUser")
   test: Test! @relation(name: "QuestionsByTest")
   choices: [QuestionChoice!]! @relation(name: "QuestionChoicesByQuestion" onDelete: CASCADE)
   challenges: [Challenge!]! @relation(name: "ChallengesByQuestion" onDelete: CASCADE)

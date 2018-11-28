@@ -275,37 +275,51 @@ async function deleteTest(parent, { id }, ctx, info) {
 }
 
 async function addPanel(parent, { link, testId }, ctx, info) {
-
   const userId = await getUserId(ctx)
   const addedDate = new Date()
 
-  return await ctx.db.mutation.createPanel(
-    {
-      data: {
-        link,
-        addedDate,
-        test: {
-          connect: { id: testId  }
-        },
-        addedBy: {
-          connect: { id: userId },
+  const test = await ctx.db.query.test({where: { id: testId } },`{ course { teachers { id } } }`)
+  const testTeachers = JSON.stringify(test.course)
+
+  if (testTeachers.includes(userId)){
+
+    return await ctx.db.mutation.createPanel(
+      {
+        data: {
+          link,
+          addedDate,
+          test: {
+            connect: { id: testId  }
+          },
+          addedBy: {
+            connect: { id: userId },
+          },
         },
       },
-    },
-    info
-  )
+      info
+    )
+  }
+  throw new Error(`Unauthorized, must be a teacher for this test`)
 }
 
 async function deletePanel(parent, { id }, ctx, info) {
 
-  return await ctx.db.mutation.deletePanel(
-    {
-      where: {
-        id: id
-      }
-    },
-    info
-  )
+  const userId = await getUserId(ctx)
+  const test = await ctx.db.query.panel({where: { id: id } },`{ test { course { teachers { id } } } }`)
+  const testTeachers = JSON.stringify(test.course)
+
+  if (testTeachers.includes(userId)){
+
+    return await ctx.db.mutation.deletePanel(
+      {
+        where: {
+          id: id
+        }
+      },
+      info
+    )
+  }
+  throw new Error(`Unauthorized, must be a teacher for this panel`)
 }
 
 async function addQuestion(parent, { question, testId, panelId }, ctx, info) {
@@ -316,7 +330,7 @@ async function addQuestion(parent, { question, testId, panelId }, ctx, info) {
   expirationTime.setHours(expirationTime.getHours() + 1);
 
   const test = await ctx.db.query.test({where: { id: testId } },`{ course { students { id } } }`)
-  const testStudents = JSON.stringify(test.course)
+  const testStudents = JSON.stringify(test.course.students)
 
   if (testStudents.includes(userId)){
 
@@ -340,100 +354,137 @@ async function addQuestion(parent, { question, testId, panelId }, ctx, info) {
       info
     )
   }
-  throw new Error(`Unauthorized, must be a teacher for this test`)
+  throw new Error(`Unauthorized, must be a student for this test`)
 }
 
 async function updateQuestion(parent, { id, question }, ctx, info) {
   const userId = await getUserId(ctx)
   const updateDate = new Date()
 
-  return await ctx.db.mutation.updateQuestion(
-    {
-      data: {
-        question,
-        updateDate,
-        updatedBy: {
-          connect: {
-            id: userId
+  const test = ctx.db.exists.Question({ id: id, questionBy: userId })
+
+  if (test){
+
+    return await ctx.db.mutation.updateQuestion(
+      {
+        data: {
+          question,
+          updateDate,
+          updatedBy: {
+            connect: {
+              id: userId
+            },
           },
         },
+        where: {
+          id: id
       },
-      where: {
-        id: id
-    },
-    },
-    info
-  )
+      },
+      info
+    )
+  }
+  throw new Error(`Unauthorized, must be your question`)
 }
 
 async function deleteQuestion(parent, { id }, ctx, info) {
 
-  return await ctx.db.mutation.deleteQuestion(
-    {
-      where: {
-        id: id
-      }
-    },
-    info
-  )
+  const userId = await getUserId(ctx)
+
+  const test = ctx.db.exists.Question({ id: id, questionBy: userId })
+
+  if (test){
+
+    return await ctx.db.mutation.deleteQuestion(
+      {
+        where: {
+          id: id
+        }
+      },
+      info
+    )
+  }
+  throw new Error(`Unauthorized, must be your question`)
 }
 
 async function addQuestionChoice(parent, { choice, correct, questionId }, ctx, info) {
+  const userId = await getUserId(ctx)
+  // query question(questionId) if userId === addedBy
+  const question = ctx.db.exists.Question({ id: questionId, questionBy: userId })
 
-  return await ctx.db.mutation.createQuestionChoice(
-    {
-      data: {
-        choice,
-        correct,
-        question: {
-          connect: { id: questionId },
-        }
+  if (question){
+
+    return await ctx.db.mutation.createQuestionChoice(
+      {
+        data: {
+          choice,
+          correct,
+          question: {
+            connect: { id: questionId },
+          }
+        },
       },
-    },
-    info
-  )
+      info
+    )
+  }
+  throw new Error(`Unauthorized, must be your question`)
 }
 
 async function updateQuestionChoice(parent, { id, choice, correct }, ctx, info) {
-
   const userId = await getUserId(ctx)
   const updateDate = new Date()
+  // query question(id) if userId === addedBy
+  const question = ctx.db.exists.Question({ id: id, questionBy: userId })
 
-  return await ctx.db.mutation.updateQuestionChoice(
-    {
-      data: {
-        choice,
-        correct,
-        updateDate,
-        updatedBy: {
-          connect: {
-            id: userId
+  if (question){
+
+    return await ctx.db.mutation.updateQuestionChoice(
+      {
+        data: {
+          choice,
+          correct,
+          updateDate,
+          updatedBy: {
+            connect: {
+              id: userId
+            },
           },
         },
+        where: {
+          id: id
+        },
       },
-      where: {
-        id: id
-      },
-    },
-    info
-  )
+      info
+    )
+  }
+  throw new Error(`Unauthorized, must be your question`)
 }
 
 async function deleteQuestionChoice(parent, { id }, ctx, info) {
+  const userId = await getUserId(ctx)
+  // query question(id) if userId === addedBy
+  const test = ctx.db.exists.Question({ id: id, questionBy: userId })
 
-  return await ctx.db.mutation.deleteQuestionChoice(
-    {
-      where: {
-        id: id
-      }
-    },
-    info
-  )
+  if (test){
+
+    return await ctx.db.mutation.deleteQuestionChoice(
+      {
+        where: {
+          id: id
+        }
+      },
+      info
+    )
+  }
+  throw new Error(`Unauthorized, must be your question`)
 }
 
 async function addChallenge(parent, { challenge, questionId }, ctx, info) {
   const userId = await getUserId(ctx)
   const challengeTime = new Date()
+
+  // query challenge(id) question creator, answerer or test teacher
+  const test = await ctx.db.query.question({where: { id: tquestionId } },`{ questionBy { id } sentTo { id } test { course { teacherss { id }  } } }`)
+  const testStudents = JSON.stringify(test.course)
 
   return await ctx.db.mutation.createChallenge(
     {
@@ -456,6 +507,8 @@ async function updateChallenge(parent, { id, challenge }, ctx, info) {
   const userId = await getUserId(ctx)
   const updateDate = new Date()
 
+  // query challenge(id) question creator, answerer or test teacher
+
   return await  ctx.db.mutation.updateChallenge(
     {
       data: {
@@ -477,6 +530,8 @@ async function updateChallenge(parent, { id, challenge }, ctx, info) {
 
 async function deleteChallenge(parent, { id }, ctx, info) {
 
+  // query question(id) if userId === addedBy
+
   return await ctx.db.mutation.deleteChallenge(
     {
       where: {
@@ -491,35 +546,49 @@ async function addAnswer(parent, { answerChoiceId, questionId }, ctx, info) {
   const userId = await getUserId(ctx)
   const answerTime = new Date()
 
-  return ctx.db.mutation.createAnswer(
-    {
-      data: {
-        answerTime,
-        answer: {
-        connect: { id: answerChoiceId  }
-        },
-        answeredBy: {
-          connect: { id: userId },
-        },
-        question: {
-          connect: { id: questionId  }
+  // only person who was sent question can answer
+  const test = ctx.db.exists.Question({ id: questionId, sentTo: userId })
+
+  if (test){
+
+    return ctx.db.mutation.createAnswer(
+      {
+        data: {
+          answerTime,
+          answer: {
+          connect: { id: answerChoiceId  }
+          },
+          answeredBy: {
+            connect: { id: userId },
+          },
+          question: {
+            connect: { id: questionId  }
+          },
         },
       },
-    },
-    info
-  )
+      info
+    )
+  }
+  throw new Error(`Unauthorized, must be your question`)
 }
 
 async function deleteAnswer(parent, { id }, ctx, info) {
+  const userId = await getUserId(ctx)
 
-  return await ctx.db.mutation.deleteAnswer(
-    {
-      where: {
-        id: id
-      }
-    },
-    info
-  )
+  const test = ctx.db.exists.Answer({ id: id, sentTo: userId })
+
+  if (test){
+
+    return await ctx.db.mutation.deleteAnswer(
+      {
+        where: {
+          id: id
+        }
+      },
+      info
+    )
+  }
+  throw new Error(`Unauthorized, must be your question`)
 }
 
 async function addSequence(parent, { testId, studentIds, panelIds }, ctx, info) {
@@ -588,46 +657,65 @@ async function deleteSequence(parent, { id }, ctx, info) {
 async function updateUser(parent, { id, email, newPassword, firstName, lastName, phone, online }, ctx, info) {
   const userId = await getUserId(ctx)
   const updateDate = new Date()
-  let password = ''
-  if (newPassword) {
-    let password = await bcrypt.hash(newPassword, 10)
-  }
 
+  const test = ctx.db.exists.User({ id: userId })
+  const user = await getUser(ctx)
+  const role = user.role
 
-  return await ctx.db.mutation.updateUser(
-    {
-      data: {
-        email,
-        password,
-        firstName,
-        lastName,
-        phone,
-        online,
-        updateDate,
-        updatedBy: {
-          connect: {
-            id: userId
+  if(test || role === 'ADMIN' || role === 'QUANDRIA') {
+
+    let password = ''
+    if (newPassword) {
+      let password = await bcrypt.hash(newPassword, 10)
+    }
+
+    // query user(id) if userId === id
+
+    return await ctx.db.mutation.updateUser(
+      {
+        data: {
+          email,
+          password,
+          firstName,
+          lastName,
+          phone,
+          online,
+          updateDate,
+          updatedBy: {
+            connect: {
+              id: userId
+            },
           },
         },
+        where: {
+          id: id
       },
-      where: {
-        id: id
     },
-  },
-    info
-  )
+      info
+    )
+  }
+  throw new Error(`Unauthorized, must be your profile`)
 }
 
 async function deleteUser(parent, { id }, ctx, info) {
+  const userId = await getUserId(ctx)
+  // query user(id) if userId === id
+  const test = ctx.db.exists.User({ id: userId })
+  const admin = await getUser(ctx)
+  const role = user.role
 
-  return await ctx.db.mutation.deleteUser(
-    {
-      where: {
-        id: id
-      }
-    },
-    info
-  )
+  if(test || role === 'ADMIN' || role === 'QUANDRIA') {
+
+    return await ctx.db.mutation.deleteUser(
+      {
+        where: {
+          id: id
+        }
+      },
+      info
+    )
+  }
+  throw new Error(`Unauthorized, must be your profile`)
 }
 
 module.exports = {
